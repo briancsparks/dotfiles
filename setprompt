@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+RESET="\[\017\]"
+NORMAL="\[\033[0m\]"
+RED="\[\033[31;1m\]"
+GREEN="\[\033[32;1m\]"
+YELLOW="\[\033[33;1m\]"
+BLUE="\[\033[34;1m\]"
+WHITE="\[\033[37;1m\]"
+
+SMILEY="${WHITE}:)${NORMAL}"
+FROWNY="${RED}:(${NORMAL}"
+SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
+
+# Throw it all together
+if [ "$USER" = "sparksb" ]
+then
+  #PS1="${RESET}${BLUE}\h:\w${NORMAL} ($(__gs)) \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
+  PS1="${RESET}${BLUE}\h:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
+  #    ^^ host:dir ^^^^^^^^^^^^^^^^^ ^^ smiley ^^^ ^^ $ ^^^^^^^^^^^^^^^^^
+elif [ "$USER" = "scotty" ]
+then
+  PS1="${RESET}${YELLOW}\h:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
+elif [ "$USER" = "ubuntu" ]
+then
+  PS1="${RESET}${RED}-${YELLOW}\u:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
+fi
+

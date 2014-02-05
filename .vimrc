@@ -1,0 +1,76 @@
+execute pathogen#infect()
+
+:let mapleader = ","
+
+:set nocompatible
+:set showcmd
+:set nu
+:syntax on
+:set ruler
+":set autoread
+highlight StatusLine ctermfg=blue ctermbg=yellow
+
+filetype plugin indent on
+
+":set background=dark
+"let g:solarized_termcolors=256
+"colorscheme solarized
+
+" Whitespace
+:set nowrap
+:set tabstop=2
+:set shiftwidth=2
+:set expandtab
+:set smartindent
+:set backspace=indent,eol,start
+
+" Searching
+:set hlsearch
+:set incsearch
+:set ignorecase
+:set smartcase
+
+:set noswapfile
+
+:set path=./**
+
+"
+" --------------- key mappings ----------------
+"
+
+" Next / Previous tab
+:map <F7> :tabp<CR>
+:map <F8> :tabn<CR>
+
+" Open new tab
+:map <C-t> <esc>:tabe<CR>,t
+
+" Next and previous error (quickfix)
+:map <C-n> :cn<CR>
+:map <C-p> :cp<CR>
+
+" Open file from the same dir
+:map <Leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
+
+" Clear search
+nmap <silent> ,. :nohlsearch<CR>
+
+:color desert
+
+:source ~/zz_packages/vim/runtime/macros/matchit.vim
+
+let g:ackprg="/usr/local/bin/ack -H --nocolor --column"
+" Lets see if we like these
+
+let g:syntastic_mode_map = { 'mode' : 'active',
+                           \ 'passive_filetypes' : ['java'] }
+
+" Set up some useful Rails.vim bindings for working with Backbone.js
+autocmd User Rails Rnavcommand template    app/assets/templates                 -glob=**/*  -suffix=.jst.ejs
+autocmd User Rails Rnavcommand jmodel      app/assets/javascripts/models        -glob=**/*  -suffix=.js
+autocmd User Rails Rnavcommand jview       app/assets/javascripts/views         -glob=**/*  -suffix=.js
+autocmd User Rails Rnavcommand jcollection app/assets/javascripts/collections   -glob=**/*  -suffix=.js
+autocmd User Rails Rnavcommand jrouter     app/assets/javascripts/routers       -glob=**/*  -suffix=.js
+autocmd User Rails Rnavcommand jspec       spec/javascripts                     -glob=**/*  -suffix=.js
+
+
