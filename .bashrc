@@ -53,5 +53,3 @@ modified()
   git ls-files -mo --exclude-standard
 }
 
-. ~/setprompt
-
