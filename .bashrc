@@ -43,8 +43,6 @@ alias sed='sed -r'
 alias vim='vim -p'
 alias tree='tree -I node_modules'
 
-export EDITOR="vim"
-
 # A real clear-screen
 alias cls='printf "\ec"'
 

@@ -3,6 +3,8 @@
 export PATH=$HOME/local/bin:$PATH
 test -f ${HOME}/local/bin/node && export NODE_PATH=${HOME}/local/bin
 
+export EDITOR="vim"
+
 export NETWORK_TYPE="home"
 (ifconfig | egrep 'inet (addr:)?1[56]\.' > /dev/null) && export NETWORK_TYPE="net15"
 
