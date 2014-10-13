@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+for f in $(ls dot); do
+  ln -s "dotfiles/dot/$f" "../.$f"
+done
+
+

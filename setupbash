@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+cp .profile ../
+cp .bashrc ../
+cp .bash_profile ../
+
