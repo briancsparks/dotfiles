@@ -55,6 +55,7 @@ export PYTHONPATH="/usr/local/lib/python2.7/site-packages/"
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
 [ -d "$HOME/local/bin" ] && PATH="$HOME/local/bin:$PATH"
 
-. ~/dotfiles/setprompt
 
+source ${HOME}/dotfiles/profile-plus
 
+DEVICE_URI=x
