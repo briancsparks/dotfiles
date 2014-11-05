@@ -21,8 +21,8 @@ shopt -s checkwinsize
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # enable color support of ls and also add handy aliases
-if which dircolors > /dev/null && test -x $(which dircolors)
-then
+#if which dircolors > /dev/null && test -x $(which dircolors)
+#then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
   alias ls='ls --color=auto'
   alias dir='dir --color=auto'
@@ -31,7 +31,7 @@ then
   alias grep='grep --color=auto'
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
-fi
+#fi
 
 source ${HOME}/dotfiles/bashrc-plus
 
