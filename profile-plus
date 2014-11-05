@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
 sudo chmod 777 /tmp
-sudo chown mongodb:mongodb /data || true
+
+if cut -d: -f1 /etc/passwd | egrep '^mongodb$'; then
+  sudo chown mongodb:mongodb /data
+fi
 
 # some more ls aliases
 alias ll='ls -alF'
