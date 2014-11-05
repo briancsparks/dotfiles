@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+sudo chmod 777 /tmp
+sudo chown mongodb:mongodb /data
+
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
