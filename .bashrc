@@ -36,5 +36,4 @@ shopt -s checkwinsize
 source ${HOME}/dotfiles/bashrc-plus
 
 sudo chmod 777 /tmp
-sudo chown mongodb:mongodb /data
 
