@@ -33,6 +33,8 @@ shopt -s checkwinsize
   alias egrep='egrep --color=auto'
 #fi
 
+export PATH=$HOME/local/bin:$PATH
+
 source ${HOME}/dotfiles/bashrc-plus
 
 sudo chmod 777 /tmp

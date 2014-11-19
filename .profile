@@ -1,6 +1,5 @@
 
 
-export PATH=$HOME/local/bin:$PATH
 test -f ${HOME}/local/bin/node && export NODE_PATH="${HOME}/local/bin:$(npm config get prefix)/lib/node_modules"
 
 export EDITOR="vim"
