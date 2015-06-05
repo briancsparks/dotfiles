@@ -1,29 +1,9 @@
 #!/usr/bin/env bash
 
-sudo chmod 777 /tmp
+test -d /tmp && sudo chmod 777 /tmp
 
 if cut -d: -f1 /etc/passwd | egrep '^mongodb$'; then
   sudo chown mongodb:mongodb /data
 fi
-
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-alias sed='sed -r'
-
-alias vim='vim -p'
-alias tree='tree -I node_modules'
-
-# A real clear-screen
-alias cls='printf "\ec"'
-
-modified()
-{
-  git ls-files -mo --exclude-standard
-}
-
-. ${HOME}/dotfiles/setprompt
 
 

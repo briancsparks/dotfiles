@@ -1,2 +1,59 @@
 #!/usr/bin/env bash
 
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+alias sed='sed -r'
+
+alias vim='vim -p'
+alias tree='tree -I node_modules -I ppds'
+
+# A real clear-screen
+alias cls='printf "\ec"'
+
+modified()
+{
+  git ls-files -mo --exclude-standard
+}
+
+alias fn='find . -type f | egrep -i '
+alias fd='find . -type d | egrep -i '
+alias vim='vim -p'
+alias tree='tree -I node_modules -I ppds'
+alias wip='git commit -am "WIP"'
+
+
+__git_changes() {
+  if [[ $# == 1 ]]; then
+    git diff --name-only HEAD HEAD~${1}
+  elif [[ $# == 0 ]]; then
+    git diff --name-only HEAD HEAD~1
+  elif [[ $# == 2 ]]; then
+    git diff --name-only HEAD~${1} HEAD~${2}
+  fi
+}
+
+__git_modified() {
+  git ls-files -m -o --exclude-standard
+}
+
+alias gch="__git_changes $@"      # -- what files changed in the last N commits?
+alias gw='__git_modified $@'
+alias vimw='vim `__git_modified $@`'   # -- vim files that are changed from git's POV
+alias brs='git branch | grep -v origin'     # -- Show branches on the local machine
+
+__difftool() {
+  git difftool -t meld -y "$@" &> /dev/null
+}
+alias difftool="__difftool $@"
+
+modified()
+{
+  git ls-files -mo --exclude-standard
+}
+
+. ${HOME}/dotfiles/setprompt
+
+
