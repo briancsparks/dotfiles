@@ -21,7 +21,7 @@ modified()
 alias fn='find . -type f | egrep -i '
 alias fd='find . -type d | egrep -i '
 alias vim='vim -p'
-alias tree='tree -I node_modules -I ppds'
+alias tree="tree -I 'node_modules|ppds'"
 alias wip='git commit -am "WIP"'
 
 
@@ -54,6 +54,7 @@ modified()
   git ls-files -mo --exclude-standard
 }
 
-. ${HOME}/dotfiles/setprompt
+test -f ${HOME}/dotfiles/setprompt && . ${HOME}/dotfiles/setprompt
+test -f ${HOME}/dev/dotfiles/setprompt && . ${HOME}/dev/dotfiles/setprompt
 
 

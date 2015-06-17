@@ -2,27 +2,63 @@
 
 RESET="\[\017\]"
 NORMAL="\[\033[0m\]"
-RED="\[\033[31;1m\]"
-GREEN="\[\033[32;1m\]"
-YELLOW="\[\033[33;1m\]"
-BLUE="\[\033[34;1m\]"
-WHITE="\[\033[37;1m\]"
+BOLD="\[\033[1m\]"
+RED="\[\033[31m\]"
+REDBOLD="\[\033[31;1m\]"
+GREEN="\[\033[32m\]"
+GREENBOLD="\[\033[32;1m\]"
+YELLOW="\[\033[33m\]"
+BLUE="\[\033[34m\]"
+BLUEBOLD="\[\033[35;1m\]"
+WHITE="\[\033[37m\]"
+WHITEBOLD="\[\033[37;1m\]"
+BLACK="\[\033[30m\]"
+BLACKBOLD="\[\033[30;1m\]"
 
-SMILEY="${WHITE}:)${NORMAL}"
-FROWNY="${RED}:(${NORMAL}"
+# No such colors:
+#YELLOWBOLD="\[\033[33;1m\]"
+
+# git status
+__gs() {
+  if local b=$(git branch | grep '^\*' | grep -o '[^ ]*$' 2> /dev/null)
+  then
+    local mod=$(git ls-files -m | wc -l)
+    local new=$(git ls-files -o --exclude-standard | wc -l)
+
+    if [[ $mod > 0 || $new > 0 ]]
+    then
+      if [[ $new > 0 ]]
+      then
+        b="${YELLOW}+$b"
+      else
+        b="${YELLOW}$b"
+      fi
+    else
+      b="${BLUEBOLD}$b"
+    fi
+
+    echo "$b${NORMAL}"
+  fi
+}
+
+SMILEY="${BLACK}:)${NORMAL}"
+FROWNY="${REDBOLD}:(${NORMAL}"
 SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
 
 # Throw it all together
 if [ "$USER" = "sparksb" ]
 then
-  #PS1="${RESET}${BLUE}\h:\w${NORMAL} ($(__gs)) \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
-  PS1="${RESET}${BLUE}\h:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
+  #PS1="${RESET}${BLUEBOLD}\h:\w${NORMAL} ($(__gs)) \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
+  PS1="${RESET}${BLUEBOLD}\h:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
   #    ^^ host:dir ^^^^^^^^^^^^^^^^^ ^^ smiley ^^^ ^^ $ ^^^^^^^^^^^^^^^^^
 elif [ "$USER" = "scotty" ]
 then
   PS1="${RESET}${YELLOW}\h:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
+elif [ "$USER" = "dagwood" ]
+then
+  PS1="${RESET}${RED}${SG_PROMPT_PREFIX}-${YELLOW}\u:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
 elif [ "$USER" = "ubuntu" ]
 then
-  PS1="${RESET}${RED}-${YELLOW}\u:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
+  PS1="${RESET}${RED}${SG_PROMPT_PREFIX}-${YELLOW}\u:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
 fi
 
