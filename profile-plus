@@ -55,7 +55,7 @@ then
   test -f ${HOME}/.bowerrc-proxy && cp ${HOME}/.bowerrc-proxy ${HOME}/.bowerrc
 
   # npm behind a proxy
-  if hash npm > /dev/null; then
+  if which npm > /dev/null; then
     npm config set proxy ${http_proxy}
     npm config set https-proxy ${httpsx_proxy}
   fi
@@ -80,7 +80,7 @@ else
   rm -f ${HOME}/.bowerrc
 
   # npm behind a proxy
-  if hash npm > /dev/null; then
+  if which npm > /dev/null; then
     npm config delete proxy
     npm config delete https-proxy
   fi
