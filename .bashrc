@@ -33,5 +33,6 @@ shopt -s checkwinsize
   alias egrep='egrep --color=auto'
 #fi
 
-source ${HOME}/dotfiles/bashrc-plus
+test -f ${HOME}/dotfiles/bashrc-plus         && source ${HOME}/dotfiles/bashrc-plus
+test -f ${HOME}/dev/dotfiles/bashrc-plus     && source ${HOME}/dev/dotfiles/bashrc-plus
 
