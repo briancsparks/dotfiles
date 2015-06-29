@@ -44,6 +44,7 @@ __gs() {
 SMILEY="${BLACK}:)${NORMAL}"
 FROWNY="${REDBOLD}:(${NORMAL}"
 SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
+WARNING="test -n ${PROMPT_WARNING} && echo \"${REDBOLD}${PROMPT_WARNING}\""
 
 # Throw it all together
 if [ "$USER" = "sparksb" ]
