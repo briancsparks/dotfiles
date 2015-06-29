@@ -41,6 +41,8 @@ __gs() {
   fi
 }
 
+[ "$MARIO_STACK_NAME" == "pub" ] && export PROMPT_WARNING="this-is-a-prod-server-"
+
 SMILEY="${BLACK}:)${NORMAL}"
 FROWNY="${REDBOLD}:(${NORMAL}"
 SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
