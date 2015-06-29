@@ -41,6 +41,7 @@ __gs() {
   fi
 }
 
+test -f $HOME/mario_env && source $HOME/mario_env
 [ "$MARIO_STACK_NAME" == "pub" ] && export PROMPT_WARNING="this-is-a-prod-server-"
 
 SMILEY="${BLACK}:)${NORMAL}"
