@@ -54,7 +54,8 @@ then
   #    ^^ host:dir ^^^^^^^^^^^^^^^^^ ^^ smiley ^^^ ^^ $ ^^^^^^^^^^^^^^^^^
 elif [ "$USER" = "scotty" ]
 then
-  PS1="${RESET}${YELLOW}\h:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
+  PS1="${RESET}${YELLOW}\h:\w${NORMAL} \`${SELECT}\`\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
+  #PS1="${RESET}${YELLOW}\h:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
 elif [ "$USER" = "dagwood" ]
 then
   PS1="${RESET}${RED}${SG_PROMPT_PREFIX}-${YELLOW}\u:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
