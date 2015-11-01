@@ -20,9 +20,35 @@ modified()
 
 alias fn='find . -type f | egrep -i '
 alias fd='find . -type d | egrep -i '
+
+# We can do better?
+test -f $HOME/local/bin/fnn && alias fn='fnn'
+test -f $HOME/local/bin/fdd && alias fd='fdd'
+
 alias vim='vim -p'
 alias tree="tree -I 'node_modules|ppds'"
 alias wip='git commit -am "WIP"'
+
+alias _run='underscore run '
+alias _extract='underscore extract '
+alias _map='underscore map '
+alias _reduce='underscore reduce '
+alias _reduceRigh='underscore reduceRigh '
+alias _reduceRight='underscore reduceRight '
+alias _select='underscore select '
+alias _find='underscore find '
+alias _filter='underscore filter '
+alias _reject='underscore reject '
+alias _flatten='underscore flatten '
+alias _pluck='underscore pluck '
+alias _keys='underscore keys '
+alias _values='underscore values '
+alias _extend='underscore extend '
+alias _defaults='underscore defaults '
+alias _any='underscore any '
+alias _all='underscore all '
+alias _template='underscore template '
+alias _print='underscore print '
 
 
 __git_changes() {

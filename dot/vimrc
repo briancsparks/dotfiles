@@ -12,6 +12,15 @@ highlight StatusLine ctermfg=blue ctermbg=yellow
 
 filetype plugin indent on
 
+" Show error whitespace
+highlight ErrorWhitespace ctermbg=red guibg=red
+match ErrorWhitespace /\s\+$/
+autocmd BufWinEnter * match ErrorWhitespace /\s\+$/
+autocmd InsertEnter * match ErrorWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ErrorWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+autocmd ColorScheme * highlight ErrorWhitespace ctermbg=red guibg=red
+
 ":set background=dark
 "let g:solarized_termcolors=256
 "colorscheme solarized
@@ -73,4 +82,5 @@ autocmd User Rails Rnavcommand jcollection app/assets/javascripts/collections   
 autocmd User Rails Rnavcommand jrouter     app/assets/javascripts/routers       -glob=**/*  -suffix=.js
 autocmd User Rails Rnavcommand jspec       spec/javascripts                     -glob=**/*  -suffix=.js
 
+vnoremap // y/<C-R>"<CR>
 

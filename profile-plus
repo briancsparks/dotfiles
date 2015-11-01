@@ -20,7 +20,8 @@ export NETWORK_TYPE="home"
 if [ $NETWORK_TYPE == "net15" ]
 then
   #echo 'Assuming net15, and using proxy'
-  export the_proxy_server_host=proxy.houston.hp.com
+  export the_proxy_server_host=proxy.austin.hp.com
+  #export the_proxy_server_host=proxy.houston.hp.com
   #export the_proxy_server_host=proxy.atlanta.hp.com
   export the_proxy_server_port=8080
   export the_proxy_server="${the_proxy_server_host}:${the_proxy_server_port}"
