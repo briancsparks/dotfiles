@@ -19,7 +19,7 @@ export NETWORK_TYPE="home"
 
 if [ $NETWORK_TYPE == "net15" ]
 then
-  #echo 'Assuming net15, and using proxy'
+  test -f $HOME/.hushlogin || echo 'Assuming net15, and using proxy'
   export the_proxy_server_host=proxy.austin.hp.com
   #export the_proxy_server_host=proxy.houston.hp.com
   #export the_proxy_server_host=proxy.atlanta.hp.com
@@ -64,11 +64,11 @@ else
   (ifconfig | egrep 'inet (addr:)?10\.' > /dev/null) && export NETWORK_TYPE="net10"
   if [ $NETWORK_TYPE == "net10" ]
   then
-    echo 'Assuming cloud net, NOT using proxy'
+    test -f $HOME/.hushlogin || echo 'Assuming cloud net, NOT using proxy'
     export no_proxy=localhost,127.0.0.0/8,10.0.0.0/8
     export NO_PROXY=localhost,127.0.0.0/8,10.0.0.0/8
   else
-    echo 'Assuming home net, NOT using proxy'
+    test -f $HOME/.hushlogin || echo 'Assuming home net, NOT using proxy'
     export no_proxy=localhost,127.0.0.0/8,192.168.0.0/16
     export NO_PROXY=localhost,127.0.0.0/8,192.168.0.0/16
   fi
