@@ -36,3 +36,5 @@ shopt -s checkwinsize
 test -f ${HOME}/dotfiles/bashrc-plus         && source ${HOME}/dotfiles/bashrc-plus
 test -f ${HOME}/dev/dotfiles/bashrc-plus     && source ${HOME}/dev/dotfiles/bashrc-plus
 
+true
+

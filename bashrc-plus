@@ -83,4 +83,5 @@ modified()
 test -f ${HOME}/dotfiles/setprompt && . ${HOME}/dotfiles/setprompt
 test -f ${HOME}/dev/dotfiles/setprompt && . ${HOME}/dev/dotfiles/setprompt
 
+true
 
