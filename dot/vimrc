@@ -72,7 +72,9 @@ let g:ackprg="/usr/local/bin/ack -H --nocolor --column"
 " Lets see if we like these
 
 let g:syntastic_mode_map = { 'mode' : 'active',
-                           \ 'passive_filetypes' : ['java'] }
+                           \ 'passive_filetypes' : ['java', 'cpp', 'objc'] }
+
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ,"trimming empty <", "unescaped &" , "lacks \"action", "is not recognized!", "discarding unexpected"]
 
 " Set up some useful Rails.vim bindings for working with Backbone.js
 autocmd User Rails Rnavcommand template    app/assets/templates                 -glob=**/*  -suffix=.jst.ejs
@@ -81,6 +83,22 @@ autocmd User Rails Rnavcommand jview       app/assets/javascripts/views         
 autocmd User Rails Rnavcommand jcollection app/assets/javascripts/collections   -glob=**/*  -suffix=.js
 autocmd User Rails Rnavcommand jrouter     app/assets/javascripts/routers       -glob=**/*  -suffix=.js
 autocmd User Rails Rnavcommand jspec       spec/javascripts                     -glob=**/*  -suffix=.js
+
+"
+" vim-ctrlspace
+"
+hi CtrlSpaceSelected term=reverse ctermfg=187  ctermbg=23  cterm=bold
+hi CtrlSpaceNormal   term=NONE    ctermfg=244  ctermbg=232 cterm=NONE
+hi CtrlSpaceSearch   ctermfg=220  ctermbg=NONE cterm=bold
+hi CtrlSpaceStatus   ctermfg=230  ctermbg=234  cterm=NONE
+
+let g:ctrlspace_load_last_workspace_on_start=1
+let g:ctrlspace_save_workspace_on_exit=1
+
+let g:ctrlspace_glob_command = 'git ls-files -o --exclude-standard -c "" | egrep -v "^archive/loki"'
+let g:ctrlspace_max_files=0
+let g:ctrlspace_max_search_results=0
+
 
 vnoremap // y/<C-R>"<CR>
 
