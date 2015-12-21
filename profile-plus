@@ -14,8 +14,10 @@ DEVICE_URI=x
 
 test -f ${HOME}/local/bin/node && export NODE_PATH="${HOME}/local/bin:$(npm config get prefix)/lib/node_modules"
 
-export NETWORK_TYPE="home"
-(ifconfig | egrep 'inet (addr:)?1[56]\.' > /dev/null) && export NETWORK_TYPE="net15"
+if [ -z $NETWORK_TYPE ]; then
+  export NETWORK_TYPE="home"
+  (ifconfig | egrep 'inet (addr:)?1[56]\.' > /dev/null) && export NETWORK_TYPE="net15"
+fi
 
 if [ $NETWORK_TYPE == "net15" ]
 then

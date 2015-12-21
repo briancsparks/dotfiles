@@ -11,7 +11,14 @@ alias vim='vim -p'
 alias tree='tree -I node_modules -I ppds'
 
 # A real clear-screen
-alias cls='printf "\ec"'
+
+maccls() { osascript -e 'tell application "System Events" to keystroke "k" using command down'; }
+
+if [ "$TERM_PROGRAM" == "Apple_Terminal" ]; then
+  alias cls='maccls'
+else
+  alias cls='printf "\ec"'
+fi
 
 modified()
 {
@@ -48,7 +55,7 @@ alias _defaults='underscore defaults '
 alias _any='underscore any '
 alias _all='underscore all '
 alias _template='underscore template '
-alias _print='underscore print '
+alias _print='underscore print --color '
 
 
 __git_changes() {
