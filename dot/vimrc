@@ -3,6 +3,7 @@ execute pathogen#infect()
 :let mapleader = ","
 
 :set nocompatible
+:set hidden
 :set showcmd
 :set nu
 :syntax on
