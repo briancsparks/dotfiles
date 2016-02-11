@@ -86,7 +86,7 @@ autocmd User Rails Rnavcommand jrouter     app/assets/javascripts/routers       
 autocmd User Rails Rnavcommand jspec       spec/javascripts                     -glob=**/*  -suffix=.js
 
 "
-" vim-ctrlspace
+" ------------------------------------- vim-ctrlspace  --------------------------------------------------
 "
 hi CtrlSpaceSelected term=reverse ctermfg=187  ctermbg=23  cterm=bold
 hi CtrlSpaceNormal   term=NONE    ctermfg=244  ctermbg=232 cterm=NONE
@@ -100,6 +100,13 @@ let g:ctrlspace_glob_command = 'git ls-files -o --exclude-standard -c "" | egrep
 let g:ctrlspace_max_files=0
 let g:ctrlspace_max_search_results=0
 
+" vim-ctrlspace v5
+let g:CtrlSpaceSaveWorkspaceOnSwitch = 1
+let g:CtrlSpaceSaveWorkspaceOnExit = 1
+
+if executable("ag")
+  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
+endif
 
 vnoremap // y/<C-R>"<CR>
 
