@@ -7,8 +7,8 @@ alias l='ls -CF'
 
 alias sed='sed -r'
 
-alias vim='vim -p'
-alias tree='tree -I node_modules -I ppds'
+#alias vim='vim -p'
+#alias tree='tree -I node_modules -I ppds'
 
 # A real clear-screen
 
@@ -33,7 +33,7 @@ test -f $HOME/local/bin/fnn && alias fn='fnn'
 test -f $HOME/local/bin/fdd && alias fd='fdd'
 
 alias vim='vim -p'
-alias tree="tree -I 'node_modules|ppds'"
+alias tree="tree -I 'node_modules|ppds|_tmp'"
 alias wip='git commit -am "WIP"'
 
 alias _run='underscore run '
