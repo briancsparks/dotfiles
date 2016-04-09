@@ -57,6 +57,10 @@ alias _all='underscore all '
 alias _template='underscore template '
 alias _print='underscore print --color '
 
+alias sshx='ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
+alias sshix='ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
+alias sshxi='ssh -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
+
 
 __git_changes() {
   if [[ $# == 1 ]]; then

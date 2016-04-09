@@ -2,9 +2,9 @@
 
 test -d /tmp && sudo chmod 777 /tmp
 
-if cut -d: -f1 /etc/passwd | egrep '^mongodb$'; then
-  sudo chown mongodb:mongodb /data
-fi
+#if cut -d: -f1 /etc/passwd | egrep '^mongodb$'; then
+#  sudo chown mongodb:mongodb /data
+#fi
 
 DEVICE_URI=x
 
