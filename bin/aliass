@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+
+File.open("#{ENV['HOME']}/.bashrc").each do |line|
+  name = ''
+  help = ''
+
+  if line =~ /^\s*alias/
+
+    m = /alias\s+([^=]*)=([^#]*)(#(.*))?/.match(line)
+    if m[4].nil?
+      name, help = m[1], m[2]
+    else
+      name, help = m[1], "#{m[4]}\n"
+    end
+
+    printf "%20s   %s", name, help
+  end
+end
+
+

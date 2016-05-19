@@ -9,8 +9,12 @@ test -d /tmp && sudo chmod 777 /tmp
 DEVICE_URI=x
 
 # set PATH so it includes user's private bin if it exists
-[ -d "$HOME/bin" ]       && PATH="$HOME/bin:$PATH"
-[ -d "$HOME/local/bin" ] && PATH="$HOME/local/bin:$PATH"
+[ -d "$HOME/bin" ]            && PATH="$HOME/bin:$PATH"
+[ -d "$HOME/local/bin" ]      && PATH="$HOME/local/bin:$PATH"
+
+# Include dotfileses binaries
+[ -d "$HOME/dotfiles" ]       && PATH="$PATH:${HOME}/dotfiles/bin"
+[ -d "$HOME/dev/dotfiles" ]   && PATH="$PATH:${HOME}/dev/dotfiles/bin"
 
 test -f ${HOME}/local/bin/node && export NODE_PATH="${HOME}/local/bin:$(npm config get prefix)/lib/node_modules"
 

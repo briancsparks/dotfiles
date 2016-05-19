@@ -16,6 +16,8 @@ maccls() { osascript -e 'tell application "System Events" to keystroke "k" using
 
 if [ "$TERM_PROGRAM" == "Apple_Terminal" ]; then
   alias cls='maccls'
+elif [ "$TERM_PROGRAM" == "iTerm.app" ]; then
+  alias cls='maccls'
 else
   alias cls='printf "\ec"'
 fi
@@ -29,12 +31,13 @@ alias fn='find . -type f | egrep -i '
 alias fd='find . -type d | egrep -i '
 
 # We can do better?
-test -f $HOME/local/bin/fnn && alias fn='fnn'
-test -f $HOME/local/bin/fdd && alias fd='fdd'
+hash fnn  && alias fn='fnn'
+hash fdd  && alias fd='fdd'
 
 alias vim='vim -p'
 alias tree="tree -I 'node_modules|ppds|_tmp'"
 alias wip='git commit -am "WIP"'
+alias gpff='git pull --ff-only'
 
 alias _run='underscore run '
 alias _extract='underscore extract '
@@ -92,8 +95,8 @@ modified()
   git ls-files -mo --exclude-standard
 }
 
-test -f ${HOME}/dotfiles/setprompt && . ${HOME}/dotfiles/setprompt
-test -f ${HOME}/dev/dotfiles/setprompt && . ${HOME}/dev/dotfiles/setprompt
+test -f ${HOME}/dotfiles/setprompt      && . ${HOME}/dotfiles/setprompt
+test -f ${HOME}/dev/dotfiles/setprompt  && . ${HOME}/dev/dotfiles/setprompt
 
 true
 

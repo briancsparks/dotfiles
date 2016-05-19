@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+DIR="."
+if [[ "$#" > 1 ]]; then
+  DIR="$1"
+  shift
+fi
+
+find $DIR -type d | egrep -v node_module | egrep --color=auto -i "$@"
+
