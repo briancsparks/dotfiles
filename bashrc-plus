@@ -74,27 +74,27 @@ mgru()
 
   if git branch -a | egrep --quiet dev$; then
     printf "%s\n   %s\n%s\n" "------------" "dev" "------------"
-    git checkout dev && git merge --ff-only
+    git checkout dev && git pull --ff-only
   fi
 
   if git branch -a | egrep --quiet qa$; then
     printf "%s\n   %s\n%s\n" "------------" "qa" "------------"
-    git checkout qa && git merge --ff-only
+    git checkout qa && git pull --ff-only
   fi
 
   if git branch -a | egrep --quiet stg$; then
     printf "%s\n   %s\n%s\n" "------------" "stg" "------------"
-    git checkout stg && git merge --ff-only
+    git checkout stg && git pull --ff-only
   fi
 
   if git branch -a | egrep --quiet prod$; then
     printf "%s\n   %s\n%s\n" "------------" "prod" "------------"
-    git checkout prod && git merge --ff-only
+    git checkout prod && git pull --ff-only
   fi
 
   if git branch -a | egrep --quiet develop$; then
     printf "%s\n   %s\n%s\n" "------------" "develop" "------------"
-    git checkout develop && git merge --ff-only
+    git checkout develop && git pull --ff-only
   fi
 
 }
