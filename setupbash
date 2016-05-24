@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 test -f ../.profile         && cp ../.profile       ../profile-before-dotfiles-setup
 test -f ../.bashrc          && cp ../.bashrc        ../bashrc-before-dotfiles-setup

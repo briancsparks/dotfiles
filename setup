@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 for f in $(ls dot); do
   test -f ../.${f} || ln -s "dotfiles/dot/$f" "../.$f"
@@ -7,7 +7,11 @@ done
 # VIM setup
 mkdir -p ~/.vim/autoload ~/.vim/bundle
 curl -SLso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
-cd ~/.vim/bundle
-git clone https://github.com/vim-ctrlspace/vim-ctrlspace.git
+
+if ! [[ -d ~/.vim/bundle/vim-ctrlspace ]]; then
+  cd ~/.vim/bundle
+  git clone https://github.com/vim-ctrlspace/vim-ctrlspace.git
+fi
+
 cd
 
