@@ -18,6 +18,7 @@ BLACKBOLD="\[\033[30;1m\]"
 # No such colors:
 #YELLOWBOLD="\[\033[33;1m\]"
 
+# What is the git status?
 __gs() {
   if git branch 2> /dev/null; then
     local b=$(git branch | grep '^\*' | grep -o '[^ ]*$')
@@ -40,6 +41,13 @@ __gs() {
 
 GS="__gs | tail -1"
 
+# Get the proxy
+__gproxy() {
+  echo $http_proxy | sed 's/http:\/\///g; s/:[0-9]*//g; s/\/$//g; s/proxy//g; s/hp\.com//g; s/\.//g'
+}
+
+GPROXY="__gproxy | tail -1"
+
 test -f $HOME/mario_env && source $HOME/mario_env
 [ "$MARIO_STACK_NAME" == "pub" ] && export PROMPT_WARNING="this-is-a-prod-server-"
 
@@ -53,7 +61,7 @@ if [ "$USER" = "sparksb" ]
 then
   #PS1="${RESET}${BLUEBOLD}\h:\w${NORMAL} (\$(__gs)) \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
   #PS1="${RESET}${BLUE}[\t] ${BLUEBOLD}\h\$(__gs | tail -1):\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
-  PS1="${RESET}${BLUE}[\t] ${BLUEBOLD}\h\`${GS}\`:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
+  PS1="${RESET}${BLUE}[\t] \`${SELECT}\` ${BLUEBOLD}\h\`${GS}\`[\`${GPROXY}\`]:\w${NORMAL} ${YELLOW}\n\$${NORMAL} "
   #    ^^ host:dir ^^^^^^^^^^^^^^^^^ ^^ smiley ^^^ ^^ $ ^^^^^^^^^^^^^^^^^
 elif [ "$USER" = "scotty" ]
 then
