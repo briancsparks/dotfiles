@@ -64,6 +64,13 @@ then
     npm config set proxy ${http_proxy}
     npm config set https-proxy ${httpsx_proxy}
   fi
+
+  # apm (Atom editor) behind a proxy
+  if which apm > /dev/null; then
+    apm config set proxy ${http_proxy}
+    apm config set https-proxy ${httpsx_proxy}
+  fi
+
 else
   (ifconfig | egrep 'inet (addr:)?10\.' > /dev/null) && export NETWORK_TYPE="net10"
   if [ $NETWORK_TYPE == "net10" ]
@@ -88,6 +95,12 @@ else
   if which npm > /dev/null; then
     npm config delete proxy
     npm config delete https-proxy
+  fi
+
+  # apm (Atom editor) behind a proxy
+  if which apm > /dev/null; then
+    apm config delete proxy
+    apm config delete https-proxy
   fi
 fi
 

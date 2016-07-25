@@ -133,6 +133,7 @@ mnet()    { cd "$HOME/dev/mario_netapp_server/$1"; }
 mdev()    { cd "$HOME/dev/mario-develop/$1"; }
 mario()   { cd "$HOME/dev/mario/$1"; }
 mprint()  { cd "$HOME/dev/mario-print-server/$1"; }
+mclient() { cd "$HOME/dev/mario-client/$1"; }
 
 bcs()     { cd "$HOME/dev/briancsparks/$1"; }
 
