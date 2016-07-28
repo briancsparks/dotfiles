@@ -64,6 +64,9 @@ alias ssh='ssh -A'
 alias sshx='ssh -A -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
 alias sshix='ssh -A -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
 alias sshxi='ssh -A -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
+alias scpx='scp -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
+alias scpix='scp -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
+alias scpxi='scp -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
 
 alias gru="git remote update"
 alias gpff="git pull --ff-only"
