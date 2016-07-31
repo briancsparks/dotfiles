@@ -1,17 +1,32 @@
 #!/bin/bash
 
+pathogen()
+{
+  git_user="$1"
+  module="$2"
+
+  if ! [[ -d ~/.vim/bundle/${module} ]]; then
+    (cd ~/.vim/bundle && git clone --depth=1 https://github.com/${git_user}/${module}.git)
+  fi
+}
+
 for f in $(ls dot); do
   test -f ../.${f} || ln -s "dotfiles/dot/$f" "../.$f"
 done
 
+# Development
+sudo npm install -g jshint eslint babel-eslint eslint-plugin-react
+
 # VIM setup
 mkdir -p ~/.vim/autoload ~/.vim/bundle
-curl -SLso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+test -f ~/.vim/autoload/pathogen.vim || curl -SLso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 
-if ! [[ -d ~/.vim/bundle/vim-ctrlspace ]]; then
-  cd ~/.vim/bundle
-  git clone https://github.com/vim-ctrlspace/vim-ctrlspace.git
-fi
+pathogen vim-ctrlspace vim-ctrlspace
+pathogen scrooloose syntastic
+pathogen mxw vim-jsx
+pathogen pangloss vim-javascript
+pathogen rust-lang rust.vim
+pathogen kballard vim-swift
 
 cd
 

@@ -8,7 +8,6 @@ alias l='ls -CF'
 alias sed='sed -r'
 
 #alias vim='vim -p'
-#alias tree='tree -I node_modules -I ppds'
 
 # A real clear-screen
 
@@ -35,7 +34,7 @@ hash fnn  && alias fn='fnn'
 hash fdd  && alias fd='fdd'
 
 alias vim='vim -p'
-alias tree="tree -I 'node_modules|ppds|_tmp'"
+alias tree="tree -I 'node_modules|bower_components|ppds|_tmp'"
 alias wip='git commit -am "WIP"'
 alias gpff='git pull --ff-only'
 
