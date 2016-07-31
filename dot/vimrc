@@ -73,6 +73,17 @@ let g:ackprg="/usr/local/bin/ack -H --nocolor --column"
 " Lets see if we like these
 
 "
+" ------------------------------------- vim-javascript  --------------------------------------------------
+"
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_flow = 1
+
+"
+" ------------------------------------- vim-jsx  --------------------------------------------------
+"
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+
+"
 " ------------------------------------- Syntastic  --------------------------------------------------
 "
 set statusline+=%#warningmsg#
@@ -84,18 +95,7 @@ let g:syntastic_mode_map = { 'mode' : 'active',
                            \ 'passive_filetypes' : ['java', 'cpp', 'objc'] }
 
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ,"trimming empty <", "unescaped &" , "lacks \"action", "is not recognized!", "discarding unexpected"]
-
-
-"
-" ------------------------------------- vim-javascript  --------------------------------------------------
-"
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_flow = 1
-
-"
-" ------------------------------------- vim-jsx  --------------------------------------------------
-"
-let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+let g:syntaxtic_javascript_checkers=['eslint']
 
 " ------------------------------------- rails.vim  --------------------------------------------------
 "
