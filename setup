@@ -24,17 +24,13 @@ test -f ~/.vim/autoload/pathogen.vim || curl -SLso ~/.vim/autoload/pathogen.vim 
 pathogen vim-ctrlspace vim-ctrlspace
 pathogen scrooloose syntastic
 pathogen mxw vim-jsx
-pathogen pangloss vim-javascript
+#pathogen pangloss vim-javascript
 pathogen rust-lang rust.vim
 pathogen kballard vim-swift
 
 if ! [[ -d ~/.vim/bundle/mxw ]]; then
   cd ~/.vim/bundle
   git clone https://github.com/mxw/vim-jsx.git
-fi
-
-if ! [[ -d ~/.vim/bundle/vim-javascript ]]; then
-  git clone https://github.com/pangloss/vim-javascript.git ~/.vim/bundle/vim-javascript
 fi
 
 cd

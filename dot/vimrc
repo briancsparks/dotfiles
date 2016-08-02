@@ -72,11 +72,11 @@ nmap <silent> ,. :nohlsearch<CR>
 let g:ackprg="/usr/local/bin/ack -H --nocolor --column"
 " Lets see if we like these
 
-"
-" ------------------------------------- vim-javascript  --------------------------------------------------
-"
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_flow = 1
+""
+"" ------------------------------------- vim-javascript  --------------------------------------------------
+""
+"let g:javascript_plugin_jsdoc = 1
+"let g:javascript_plugin_flow = 1
 
 "
 " ------------------------------------- vim-jsx  --------------------------------------------------
