@@ -14,7 +14,10 @@ test -d /tmp && sudo chmod 777 /tmp
 [ -d "$HOME/dotfiles" ]       && PATH="$PATH:${HOME}/dotfiles/bin"
 [ -d "$HOME/dev/dotfiles" ]   && PATH="$PATH:${HOME}/dev/dotfiles/bin"
 
-test -f ${HOME}/local/bin/node && export NODE_PATH="${HOME}/local/bin:$(npm config get prefix)/lib/node_modules"
+if [[ -z $NODE_PATH ]]; then
+  export NODE_PATH="$(npm root -g)"
+  test -f ${HOME}/local/bin/node && export NODE_PATH="${HOME}/local/bin:$NODE_PATH"
+fi
 
 if [ -z $NETWORK_TYPE ]; then
   export NETWORK_TYPE="home"
