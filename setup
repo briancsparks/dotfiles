@@ -28,11 +28,6 @@ pathogen pangloss vim-javascript
 pathogen rust-lang rust.vim
 pathogen kballard vim-swift
 
-if ! [[ -d ~/.vim/bundle/mxw ]]; then
-  cd ~/.vim/bundle
-  git clone https://github.com/mxw/vim-jsx.git
-fi
-
 # vim-javascript does horrible indentation
 if [[ -d ~/.vim/bundle/vim-javascript/indent ]]; then
   rm -rf ~/.vim/bundle/vim-javascript/indent
