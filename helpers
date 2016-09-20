@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+verbose() {
+  if [[ -n ${SHELL_VERBOSITY} ]]; then
+    echo "$@"
+  fi
+}
+

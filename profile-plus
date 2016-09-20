@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+test -f ${HOME}/dotfiles/helpers        && source ${HOME}/dotfiles/helpers
+test -f ${HOME}/dev/dotfiles/helpers    && source ${HOME}/dev/dotfiles/helpers
+
+verbose "---------- profile-plus start"
+
 test -d /tmp && sudo chmod 777 /tmp
 
 #if cut -d: -f1 /etc/passwd | egrep '^mongodb$'; then
@@ -14,101 +19,10 @@ test -d /tmp && sudo chmod 777 /tmp
 [ -d "$HOME/dotfiles" ]       && PATH="$PATH:${HOME}/dotfiles/bin"
 [ -d "$HOME/dev/dotfiles" ]   && PATH="$PATH:${HOME}/dev/dotfiles/bin"
 
-if [[ -z $NODE_PATH ]]; then
-  export NODE_PATH="$(npm root -g)"
-  test -f ${HOME}/local/bin/node && export NODE_PATH="${HOME}/local/bin:$NODE_PATH"
-fi
+[[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
 
-if [ -z $NETWORK_TYPE ]; then
-  export NETWORK_TYPE="home"
-  (ifconfig | egrep 'inet (addr:)?1[56]\.' > /dev/null) && export NETWORK_TYPE="net15"
-fi
+test -f ${HOME}/dotfiles/proxy-setup        && source ${HOME}/dotfiles/proxy-setup
+test -f ${HOME}/dev/dotfiles/proxy-setup    && source ${HOME}/dev/dotfiles/proxy-setup
 
-if [ $NETWORK_TYPE == "net15" ]
-then
-  test -f $HOME/.hushlogin || echo 'Assuming net15, and using proxy'
-  export the_proxy_server_host=proxy.austin.hp.com
-  #export the_proxy_server_host=proxy.houston.hp.com
-  #export the_proxy_server_host=proxy.atlanta.hp.com
-  export the_proxy_server_port=8080
-  export the_proxy_server="${the_proxy_server_host}:${the_proxy_server_port}"
-
-  export http_proxy="http://${the_proxy_server}/"
-  export HTTP_PROXY="http://${the_proxy_server}/"
-
-  export https_proxy="https://${the_proxy_server}/"
-  export httpsx_proxy="http://${the_proxy_server}/"
-  export HTTPS_PROXY="https://${the_proxy_server}/"
-  export HTTPSX_PROXY="http://${the_proxy_server}/"
-
-  export socks_proxy="socks://${the_proxy_server}/"
-  export all_proxy="socks://${the_proxy_server}/"
-  export ALL_PROXY="socks://${the_proxy_server}/"
-
-  export EC2_JVM_ARGS="-Dhttps.proxyHost=${the_proxy_server_host} -Dhttps.proxyPort=${the_proxy_server_port}"
-
-  #export HTTP_PROXY="http://proxy.atlanta.hp.com:8080"
-  #export http_proxy="$HTTP_PROXY"
-  #export HTTPS_PROXY="https://proxy.atlanta.hp.com:8080"
-  #export https_proxy="$HTTPS_PROXY"
-
-  export no_proxy=localhost,127.0.0.0/8,15.80.0.0/16,192.168.0.0/16
-  export NO_PROXY=localhost,127.0.0.0/8,15.80.0.0/16,192.168.0.0/16
-
-  if hash git > /dev/null; then
-    git config --global http.proxy "${http_proxy}"
-  fi
-
-  # Bower behind a proxy
-  test -f ${HOME}/.bowerrc-proxy && cp ${HOME}/.bowerrc-proxy ${HOME}/.bowerrc
-
-  # npm behind a proxy
-  if which npm > /dev/null; then
-    npm config set proxy ${http_proxy}
-    npm config set https-proxy ${httpsx_proxy}
-  fi
-
-  # apm (Atom editor) behind a proxy
-  if which apm > /dev/null; then
-    apm config set proxy ${http_proxy}
-    apm config set https-proxy ${httpsx_proxy}
-  fi
-
-else
-  (ifconfig | egrep 'inet (addr:)?10\.' > /dev/null) && export NETWORK_TYPE="net10"
-  if [ $NETWORK_TYPE == "net10" ]
-  then
-    test -f $HOME/.hushlogin || echo 'Assuming cloud net, NOT using proxy'
-    export no_proxy=localhost,127.0.0.0/8,10.0.0.0/8
-    export NO_PROXY=localhost,127.0.0.0/8,10.0.0.0/8
-  else
-    test -f $HOME/.hushlogin || echo 'Assuming home net, NOT using proxy'
-    export no_proxy=localhost,127.0.0.0/8,192.168.0.0/16
-    export NO_PROXY=localhost,127.0.0.0/8,192.168.0.0/16
-  fi
-
-  if hash git > /dev/null; then
-    git config --global --unset http.proxy
-  fi
-
-  # Bower not behind a proxy
-  rm -f ${HOME}/.bowerrc
-
-  # npm behind a proxy
-  if which npm > /dev/null; then
-    npm config delete proxy
-    npm config delete https-proxy
-  fi
-
-  # apm (Atom editor) behind a proxy
-  if which apm > /dev/null; then
-    apm config delete proxy
-    apm config delete https-proxy
-  fi
-fi
-
-export no_proxy=localhost,127.0.0.0/8,15.80.0.0/16,192.168.0.0/16
-export NO_PROXY=localhost,127.0.0.0/8,15.80.0.0/16,192.168.0.0/16
-
-
+verbose "---------- profile-plus end"
 

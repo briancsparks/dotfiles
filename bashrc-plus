@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+test -f ${HOME}/dotfiles/helpers        && source ${HOME}/dotfiles/helpers
+test -f ${HOME}/dev/dotfiles/helpers    && source ${HOME}/dev/dotfiles/helpers
+
+verbose "---------- bashrc-plus start"
+
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
@@ -25,6 +30,10 @@ modified()
 {
   git ls-files -mo --exclude-standard
 }
+
+if [[ -z $NODE_PATH ]]; then
+  export NODE_PATH="$(npm root -g)"
+fi
 
 alias fn='find . -type f | egrep -i '
 alias fd='find . -type d | egrep -i '
@@ -141,6 +150,8 @@ bcs()     { cd "$HOME/dev/briancsparks/$1"; }
 
 test -f ${HOME}/dotfiles/setprompt      && . ${HOME}/dotfiles/setprompt
 test -f ${HOME}/dev/dotfiles/setprompt  && . ${HOME}/dev/dotfiles/setprompt
+
+verbose "---------- bashrc-plus end"
 
 true
 
