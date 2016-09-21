@@ -3,19 +3,22 @@
 test -f ${HOME}/dotfiles/helpers        && source ${HOME}/dotfiles/helpers
 test -f ${HOME}/dev/dotfiles/helpers    && source ${HOME}/dev/dotfiles/helpers
 
-verbose "---------- proxy-setup start"
+verbose "---------- proxy-setup start; starting with |$NETWORK_TYPE|"
 
 if [ -z $NETWORK_TYPE ]; then
-  export NETWORK_TYPE="home"
-  (ifconfig | egrep 'inet (addr:)?1[56]\.' > /dev/null) && export NETWORK_TYPE="net15"
+  if ifconfig | egrep -q 'inet (addr:)?1[56]\.' ; then export NETWORK_TYPE="net15"
+  elif ifconfig | egrep -q 'inet (addr:)?192\.' ; then export NETWORK_TYPE="home"
+  fi
 fi
 
 if [[ $NETWORK_TYPE == net15 ]]; then
   (ifconfig | egrep 'inet (addr:)?10\.' > /dev/null) && export NETWORK_WITH_WIFI="net10"
 fi
 
-if [[ $NETWORK_TYPE == "net15" && -z $NETWORK_WITH_WIFI ]]
-then
+verbose "proxy-setup NETWORK_TYPE: |$NETWORK_TYPE|, NETWORK_WITH_WIFI: |$NETWORK_WITH_WIFI|"
+
+if [[ $NETWORK_TYPE == "net15" && -z $NETWORK_WITH_WIFI ]]; then
+
   test -f $HOME/.hushlogin || echo 'Assuming net15, and using proxy'
 
   export the_proxy_server_host=proxy.austin.hp.com
@@ -66,9 +69,12 @@ then
   fi
 
 else
-  (ifconfig | egrep 'inet (addr:)?10\.' > /dev/null) && export NETWORK_TYPE="net10"
-  if [ $NETWORK_TYPE == "net10" ]
-  then
+
+  if [[ $NETWORK_TYPE == "net15" && -n $NETWORK_WITH_WIFI ]]; then
+    test -f $HOME/.hushlogin || echo 'Assuming net15 with wifi, NOT using proxy'
+    export no_proxy=localhost,127.0.0.0/8,10.0.0.0/8
+    export NO_PROXY=localhost,127.0.0.0/8,10.0.0.0/8
+  elif [[ $NETWORK_TYPE == "net10" ]]; then
     test -f $HOME/.hushlogin || echo 'Assuming cloud net, NOT using proxy'
     export no_proxy=localhost,127.0.0.0/8,10.0.0.0/8
     export NO_PROXY=localhost,127.0.0.0/8,10.0.0.0/8

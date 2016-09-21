@@ -2,7 +2,7 @@
 
 verbose() {
   if [[ -n ${SHELL_VERBOSITY} ]]; then
-    echo "$@"
+    echo "---------- " "$@"
   fi
 }
 
