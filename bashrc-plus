@@ -31,9 +31,7 @@ modified()
   git ls-files -mo --exclude-standard
 }
 
-if [[ -z $NODE_PATH ]]; then
-  export NODE_PATH="$(npm root -g)"
-fi
+export NODE_PATH="$(npm root -g)"
 
 alias fn='find . -type f | egrep -i '
 alias fd='find . -type d | egrep -i '
