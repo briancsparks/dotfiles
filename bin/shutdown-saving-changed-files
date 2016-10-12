@@ -1,0 +1,64 @@
+#!/bin/bash -e
+
+if [[ $1 == "--dry-run" ]]; then
+  dry_run="1"
+  shift
+fi
+
+do_changed() {
+  pushd . > /dev/null
+
+  DIR="$1"
+
+  cd $DIR
+  local mod=$(git ls-files -m | wc -l)
+  local new=$(git ls-files -o --exclude-standard | wc -l)
+
+  if [[ $new != 0 || $mod != 0 ]]; then
+    echo ""
+    echo ""
+    echo "mod: $mod, new: $new"
+    echo "------------------------------------- $DIR -----"
+
+    ip="$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)"
+    if ! [[ $ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+      ip="0.0.0.0"
+    fi
+
+    dashed_ip="$(echo $ip | tr '.' '-')"
+    branch="files-changed-$(date +%Y-%m-%d-%H-%M-%S)-on-${dashed_ip}-before-shutdown"
+
+    git stash
+    git checkout -b $branch
+    [[ $mod != 0 ]] && git stash pop
+
+    if [[ $new != 0 ]]; then
+      git add .
+    fi
+
+    git commit -am "Files changed on ${ip} before shutdown"
+    git push -u origin $branch
+  fi
+
+  popd > /dev/null
+}
+
+#mario  mario_client  mario_netapp_server  mario_print_server  mario_util
+#aws-json  js-aws  nginx-json  run-anywhere  sg
+
+target_dir="${HOME}/dev"
+repositories="$(find $target_dir -type d | egrep '\.git$' | egrep -v 'X/\.git$' | egrep -v '/dev/[^/]+X/')"
+
+# Save changed repos
+for d in $repositories; do
+  dir="$(dirname $(dirname $d/..))"
+
+  do_changed $dir
+done
+
+do_changed "${HOME}/dotfiles"
+
+[[ -n $dry_run ]] && exit 0
+
+sudo shutdown -h now
+
