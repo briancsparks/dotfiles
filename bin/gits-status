@@ -11,7 +11,7 @@ do_clean() {
 
   if [[ $new == 0 && $mod == 0 ]]; then
     echo "------------------------- clean ----- $DIR -----"
-    git status | sed -n '/up-to-date/d;/^Your branch is/p'
+    git status | sed -n '/up-to-date/d;/Your branch is/p'
   fi
 
   popd > /dev/null
