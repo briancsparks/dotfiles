@@ -1,0 +1,33 @@
+#!/bin/bash -e
+
+# Mario IPs
+
+o2="23"
+if [[ $# > 0 ]]; then
+  o2="$1"
+  shift
+fi
+
+color=green
+if [[ $# > 0 ]]; then
+  color="$1"
+  shift
+fi
+
+o3a="0"
+o3b="22"
+
+case $color in
+  yellow) o3a="1"; o3b="24"     ;;
+  blue)   o3a="2"; o3b="21"     ;;
+  teal)   o3a="3"; o3b="23"     ;;
+esac
+
+for o4 in 10; do
+  echo -n "10.${o2}.${o3a}.${o4} "
+done
+
+for o4 in 4 16 100 200 220; do
+  echo -n "10.${o2}.${o3b}.${o4} "
+done
+
