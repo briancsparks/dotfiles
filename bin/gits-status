@@ -11,6 +11,7 @@ do_clean() {
 
   if [[ $new == 0 && $mod == 0 ]]; then
     echo "------------------------- clean ----- $DIR -----"
+    git status | sed -n '/up-to-date/d;/^Your branch is/p'
   fi
 
   popd > /dev/null
@@ -41,17 +42,17 @@ do_changed() {
 target_dir="${HOME}/dev"
 repositories="$(find $target_dir -type d | egrep '\.git$' | egrep -v 'X/\.git$' | egrep -v '/dev/[^/]+X/')"
 
-# Display clean dirs
-for d in $repositories; do
-  dir="$(dirname $(dirname $d/..))"
-
-  do_clean $dir
-done
-
 # Display changed
 for d in $repositories; do
   dir="$(dirname $(dirname $d/..))"
 
   do_changed $dir
+done
+
+# Display clean dirs
+for d in $repositories; do
+  dir="$(dirname $(dirname $d/..))"
+
+  do_clean $dir
 done
 
