@@ -15,12 +15,12 @@ if [[ $# > 0 ]]; then
 fi
 
 o3a="0"
-o3b="22"
+o3b="21"
 
 case $color in
-  yellow) o3a="1"; o3b="24"     ;;
-  blue)   o3a="2"; o3b="21"     ;;
-  teal)   o3a="3"; o3b="23"     ;;
+  blue)   o3a="1"; o3b="22"     ;;
+  teal)   o3a="2"; o3b="23"     ;;
+  yellow) o3a="3"; o3b="24"     ;;
 esac
 
 for o4 in 10; do
