@@ -49,7 +49,7 @@ __gproxy() {
 GPROXY="__gproxy | tail -1"
 
 test -f $HOME/mario_env && source $HOME/mario_env
-[ "$MARIO_STACK_NAME" == "pub" ] && export PROMPT_WARNING="this-is-a-prod-server-"
+[[ "$MARIO_STACK_NAME" =~ "pub" ]] && export PROMPT_WARNING="this-is-a-prod-server-"
 
 SMILEY="${WHITE}:)${NORMAL}"
 FROWNY="${REDBOLD}:(${NORMAL}"
