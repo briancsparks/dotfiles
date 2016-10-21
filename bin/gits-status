@@ -29,7 +29,7 @@ do_changed() {
   if [[ $new != 0 || $mod != 0 ]]; then
     echo ""
     echo ""
-    echo "------------------------------------- $DIR -----"
+    echo "------------------------------------ $(hostname) $DIR -----"
     git status
   fi
 
