@@ -10,7 +10,7 @@ do_clean() {
   local new=$(git ls-files -o --exclude-standard | wc -l)
 
   if [[ $new == 0 && $mod == 0 ]]; then
-    echo "------------------------- clean ----- $DIR -----"
+    echo "------------------------- clean ---- $(hostname) $DIR -----"
     git status | sed -n '/up-to-date/d;/Your branch is/p'
   fi
 
