@@ -1,0 +1,24 @@
+#!/bin/bash -e
+
+sshix() {
+  ssh -A -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" "$@"
+}
+
+classb="19"
+
+if [[ $# > 0 ]]; then
+  classb="${1}"
+  shift
+fi
+
+color=green
+if [[ $# > 0 ]]; then
+  color="$1"
+  shift
+fi
+
+for ip in `mips $classb $color`; do
+  echo "------------------------------------------- $ip ---------"
+  sshix $ip 'dotfiles/bin/gits-status'
+done
+
