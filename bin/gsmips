@@ -17,8 +17,10 @@ if [[ $# > 0 ]]; then
   shift
 fi
 
+set +e
 for ip in `mips $classb $color`; do
   echo "------------------------------------------- $ip ---------"
   sshix $ip 'dotfiles/bin/gits-status'
 done
+set -e
 
