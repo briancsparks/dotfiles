@@ -27,6 +27,7 @@ pathogen mxw vim-jsx
 pathogen pangloss vim-javascript
 pathogen rust-lang rust.vim
 pathogen kballard vim-swift
+pathogen tpope vim-markdown
 
 # vim-javascript and vim-jsx do horrible indentation
 if [[ -d ~/.vim/bundle/vim-javascript/indent ]]; then
