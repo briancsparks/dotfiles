@@ -68,12 +68,12 @@ alias _template='underscore template '
 alias _print='underscore print --color '
 
 alias ssh='ssh   -A'
-alias sshx='ssh  -A -o "LogLevel=quiet" -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
-alias sshix='ssh -A -o "LogLevel=quiet" -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
-alias sshxi='ssh -A -o "LogLevel=quiet" -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
-alias scpx='scp     -o "LogLevel=quiet" -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
-alias scpix='scp    -o "LogLevel=quiet" -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
-alias scpxi='scp    -o "LogLevel=quiet" -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
+alias sshx='ssh  -A -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
+alias sshix='ssh -A -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" -o "LogLevel=quiet"'
+alias sshxi='ssh -A -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" -o "LogLevel=quiet"'
+alias scpx='scp     -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
+alias scpix='scp    -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" -o "LogLevel=quiet"'
+alias scpxi='scp    -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" -o "LogLevel=quiet"'
 
 alias gru="git remote update"
 alias gpff="git pull --ff-only"
