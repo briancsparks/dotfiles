@@ -74,3 +74,7 @@ then
   PS1="${RESET}${BLUE}[\t] ${RED}${SG_PROMPT_PREFIX}-${YELLOW}\u\`${GS}\`:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
 fi
 
+if [[ -n $MARIO_STACK && -n $MARIO_COLOR && -n $MARIO_SERVICE ]]; then
+  PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${YELLOW}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
+fi
+
