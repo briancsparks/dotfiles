@@ -6,7 +6,7 @@ do_clean() {
   DIR="$1"
 
   cd $DIR
-  local mod=$(git ls-files -m | wc -l)
+  local mod=$(git status --short | wc -l)
   local new=$(git ls-files -o --exclude-standard | wc -l)
 
   if [[ $new == 0 && $mod == 0 ]]; then
@@ -23,14 +23,12 @@ do_changed() {
   DIR="$1"
 
   cd $DIR
-  local mod=$(git ls-files -m | wc -l)
+  local mod=$(git status --short | wc -l)
   local new=$(git ls-files -o --exclude-standard | wc -l)
 
   if [[ $new != 0 || $mod != 0 ]]; then
-    echo ""
-    echo ""
     echo "------------------------------------ $(hostname) $DIR -----"
-    git status
+    git status --short
   fi
 
   popd > /dev/null
