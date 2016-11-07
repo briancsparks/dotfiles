@@ -145,6 +145,8 @@ mario()   { cd "$HOME/dev/mario/$1"; }
 mprint()  { cd "$HOME/dev/mario-print-server/$1"; }
 mclient() { cd "$HOME/dev/mario-client/$1"; }
 
+jsaws()   { cd "$HOME/dev/js-aws/$1"; }
+
 bcs()     { cd "$HOME/dev/briancsparks/$1"; }
 
 test -f ${HOME}/dotfiles/setprompt      && . ${HOME}/dotfiles/setprompt
