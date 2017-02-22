@@ -8,6 +8,7 @@ execute pathogen#infect()
 :set nu
 :syntax on
 :set ruler
+:set clipboard=unnamed
 ":set autoread
 highlight StatusLine ctermfg=blue ctermbg=yellow
 
