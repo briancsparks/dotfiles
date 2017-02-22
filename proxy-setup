@@ -107,5 +107,9 @@ fi
 export no_proxy=localhost,127.0.0.0/8,15.80.0.0/16,192.168.0.0/16
 export NO_PROXY=localhost,127.0.0.0/8,15.80.0.0/16,192.168.0.0/16
 
+# Apparently, this is the right way to do it  -- https://github.com/curl/curl/issues/1015
+export https_proxy="$httpsx_proxy"
+export HTTPS_PROXY="$HTTPSX_PROXY"
+
 verbose "---------- proxy-setup end"
 

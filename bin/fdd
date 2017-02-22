@@ -6,5 +6,10 @@ if [[ "$#" > 1 ]]; then
   shift
 fi
 
+if [[ "$@" == node_mod* ]]; then
+  find $DIR -type d | egrep --color=auto -i "$@"
+  exit "$?"
+fi
+
 find $DIR -type d | egrep -v node_module | egrep --color=auto -i "$@"
 

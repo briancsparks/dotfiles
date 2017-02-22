@@ -22,8 +22,8 @@ BLACKBOLD="\[\033[30;1m\]"
 __gs() {
   if git branch 2> /dev/null; then
     local b=$(git branch | grep '^\*' | grep -o '[^ ]*$')
-    local mod=$(git status --short | wc -l)
-    local new=$(git ls-files -o --exclude-standard | wc -l)
+    local mod=$(git status --short | wc -l | tr -d ' ')
+    local new=$(git ls-files -o --exclude-standard | wc -l | tr -d ' ')
 
     if [[ $new > 0 ]]; then
       b="$b+"

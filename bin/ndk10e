@@ -1,0 +1,9 @@
+#!/bin/bash -e
+
+## Remove old android sdk/ndk paths
+#NEW_PATH="$(echo $PATH | sed 's;:[^:]*/Android/sdk/tools:;:;g; s;:[^:]*/Android/sdk/platform-tools:;:;g')"
+#NEW_PATH="$NEW_PATH:"
+
+export ANDROID_NDK=/Users/sparksb/android-ndk-r10e
+
+
