@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+# Actual Mario IPS
+
+die () {
+  echo "$@"
+  exit 1
+}
+
+[[ $# > 1 ]] || die "Usage: amips color stackname"
+
+ra invoke ~/dev/js-aws/lib/ec2/ec2.js current --trimmed --size=1 | underscore select ".hr > .${2} > .${1} .ip" --outfmt=text
+
