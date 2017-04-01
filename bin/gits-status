@@ -34,8 +34,19 @@ do_changed() {
   popd > /dev/null
 }
 
-#mario  mario_client  mario_netapp_server  mario_print_server  mario_util
-#aws-json  js-aws  nginx-json  run-anywhere  sg
+
+if [[ $# > 0 ]]; then
+  . <(cli-shezargs)
+
+  color="$1"
+  stack="$2"
+  for ip in `amips $color $stack`; do
+    echo $ip
+    sshix $ip 'gits-status' || true
+  done
+
+  exit 0
+fi
 
 target_dir="${HOME}/dev"
 repositories="$(find $target_dir -type d | egrep '\.git$' | egrep -v 'X/\.git$' | egrep -v '/dev/[^/]+X/')"
