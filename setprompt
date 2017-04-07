@@ -12,6 +12,7 @@ BLUE="\[\033[34m\]"
 BLUEBOLD="\[\033[35;1m\]"
 WHITE="\[\033[37m\]"
 WHITEBOLD="\[\033[37;1m\]"
+WHITEBG="\[\033[47m\]"
 BLACK="\[\033[30m\]"
 BLACKBOLD="\[\033[30;1m\]"
 
@@ -52,12 +53,13 @@ __gproxy() {
 GPROXY="__gproxy | tail -1"
 
 test -f $HOME/mario_env && source $HOME/mario_env
-[[ "$MARIO_STACK_NAME" =~ "pub" ]] && export PROMPT_WARNING="this-is-a-prod-server-"
+[[ "$MARIO_STACK_NAME" =~ "pub" ]]  && export PROMPT_WARNING="this-is-a-prod-server-"
+[[ $MARIO_SERVICE == admin ]]       && export PROMPT_WARNING="admin--------"
 
 SMILEY="${WHITE}:)${NORMAL}"
 FROWNY="${REDBOLD}:(${NORMAL}"
 SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
-WARNING="test -n ${PROMPT_WARNING} && echo \"${REDBOLD}${PROMPT_WARNING}\""
+WARNING="test -n ${PROMPT_WARNING} && echo \"${WHITEBG}${REDBOLD}${PROMPT_WARNING}${NORMAL}\""
 
 # Throw it all together
 if [ "$USER" = "sparksb" ]
@@ -78,6 +80,8 @@ then
 fi
 
 if [[ $MARIO_SERVICE == admin ]]; then
+  #PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${WHITEBG}${BLUE}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
+  #PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${WHITE}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE}${YELLOW} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
   PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${WHITE}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE}${YELLOW} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
 elif [[ -n $MARIO_STACK && -n $MARIO_COLOR && -n $MARIO_SERVICE ]]; then
   PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${YELLOW}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
