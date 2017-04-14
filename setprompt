@@ -59,7 +59,7 @@ test -f $HOME/mario_env && source $HOME/mario_env
 SMILEY="${WHITE}:)${NORMAL}"
 FROWNY="${REDBOLD}:(${NORMAL}"
 SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
-WARNING="test -n ${PROMPT_WARNING} && echo \"${WHITEBG}${REDBOLD}${PROMPT_WARNING}${NORMAL}\""
+WARNING="test -n ${PROMPT_WARNING} && echo \"${WHITEBG}${REDBOLD}${PROMPT_WARNING}${NORMAL} \""
 
 # Throw it all together
 if [ "$USER" = "sparksb" ]
