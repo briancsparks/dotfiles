@@ -2,6 +2,7 @@
 
 cd ~/dev
 for d in `ls`; do
+  echo "$d ------------------------------------------------------"
   (cd $d && git pull --ff-only)
 done
 
