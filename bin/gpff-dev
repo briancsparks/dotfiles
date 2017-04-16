@@ -1,8 +1,12 @@
-#!/bin/bash -e
+#!/bin/bash
 
 cd ~/dev
 for d in `ls`; do
   echo "$d ------------------------------------------------------"
-  (cd $d && git pull --ff-only)
+
+  cd $d
+  [[ -d .git ]] && git pull --ff-only
+  cd ..
+
 done
 

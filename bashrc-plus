@@ -44,6 +44,7 @@ alias vim='vim -p'
 alias tree="tree -I 'node_modules|bower_components|ppds|_tmp'"
 alias wip='git commit -am "WIP"'
 alias refactoring='git commit -am "Refactoring"'
+alias fixed='git commit -am "Fixed"'
 alias gpff='git pull --ff-only'
 
 alias _run='underscore run '
