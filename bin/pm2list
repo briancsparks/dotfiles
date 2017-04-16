@@ -1,0 +1,12 @@
+#!/bin/bash -e
+
+. <(cli-shezargs)
+
+color="$1"
+stack="$2"
+for ip in `amips $color $stack`; do
+  echo $ip
+  sshix $ip 'pm2 list' || true
+done
+
+
