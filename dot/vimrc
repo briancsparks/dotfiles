@@ -131,5 +131,31 @@ if executable("ag")
   let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
 endif
 
+""
+"" ------------------------------------- UltiSnips / vim-snippets -------- -------------------------------
+""
+"
+""" Track the engine.
+""Plugin 'SirVer/ultisnips'
+""
+""" Snippets are separated from the engine. Add this if you want them:
+""Plugin 'honza/vim-snippets'
+"
+"" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+""let g:UltiSnipsExpandTrigger="<tab>"
+"let g:UltiSnipsExpandTrigger=",,"
+"let g:UltiSnipsJumpForwardTrigger="<c-j>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+"
+"" If you want :UltiSnipsEdit to split your window.
+""let g:UltiSnipsEditSplit="vertical"
+"
+"let g:UltiSnipsSnippetsDir="~/.vim/bundle/brians_stuff/UltiSnips"
+"let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+
+
+"
+" ------------------------------------- // to search while in visual mode -------------------------------
+"
 vnoremap // y/<C-R>"<CR>
 

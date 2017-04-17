@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+sshx() {
+  ssh  -A -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" "$@"
+}
+
+sshx mariodevadmin3
+
