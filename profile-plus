@@ -19,6 +19,9 @@ test -d /tmp && sudo chmod 777 /tmp
 [ -d "$HOME/dotfiles" ]       && PATH="$PATH:${HOME}/dotfiles/bin"
 [ -d "$HOME/dev/dotfiles" ]   && PATH="$PATH:${HOME}/dev/dotfiles/bin"
 
+#Mario
+[ -d "$HOME/dev/mario_util/admin" ] && PATH="$PATH:$HOME/dev/mario_util/admin"
+
 [[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
 
 test -f ${HOME}/dotfiles/proxy-setup        && source ${HOME}/dotfiles/proxy-setup
