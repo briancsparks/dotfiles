@@ -153,12 +153,12 @@ gosrc() {
   cd $2
 }
 
-mutil()   { cd "$HOME/dev/mario_util/$1"; }
-mnet()    { cd "$HOME/dev/mario_netapp_server/$1"; }
-mdev()    { cd "$HOME/dev/mario-develop/$1"; }
-mario()   { cd "$HOME/dev/mario/$1"; }
-mprint()  { cd "$HOME/dev/mario-print-server/$1"; }
-mclient() { cd "$HOME/dev/mario_client/$1" || cd "$HOME/dev/mario-client/$1"; }
+mutil()   { cd "$HOME/dev/mario-util/$1"          || cd "$HOME/dev/mario_util/$1"; }
+mnet()    { cd "$HOME/dev/mario-netapp-server/$1" || cd "$HOME/dev/mario_netapp_server/$1"; }
+mdev()    { cd "$HOME/dev/mario-develop/$1"       || cd "$HOME/dev/mario_develop/$1"; }
+mario()   { cd "$HOME/dev/mario/$1"               || cd "$HOME/dev/mario/$1"; }
+mprint()  { cd "$HOME/dev/mario-print-server/$1"  || cd "$HOME/dev/mario_print_server/$1"; }
+mclient() { cd "$HOME/dev/mario-client/$1"        || cd "$HOME/dev/mario_client/$1"; }
 
 jsaws()   { cd "$HOME/dev/js-aws/$1"; }
 
