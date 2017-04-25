@@ -1,0 +1,23 @@
+#!/bin/bash -e
+
+eval "$(cli-shezargs $@)"
+
+[[ -z $server       ]] && die "Need --server= [--and-private-key]"
+[[ -n $key          ]] || key="$HOME/.ssh/id_rsa.pub"
+
+username=$(whoami)
+
+cat $key | sshix $server 'cat - >> .ssh/authorized_keys'
+cat $key | sshix $server "cat - > .ssh/id_rsa-${username}.pub && chmod 0400 .ssh/id_rsa-${username}.pub"
+
+
+if [[ -n $and_private_key ]]; then
+  pkey="$(echo $key | sed 's/\.pub$//g')"
+
+  if [[ -f $pkey ]]; then
+    cat $pkey | sshix $server "cat - > .ssh/id_rsa-${username} && chmod 0400 .ssh/id_rsa-${username}"
+  else
+    echo "$pkey does not exist"
+  fi
+fi
+

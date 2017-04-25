@@ -1,0 +1,23 @@
+#!/bin/bash -e
+
+eval "$(cli-shezargs $@)"
+
+[[ $# -gt 0  ]] && color="$1"
+[[ $# -gt 1  ]] && stack="$2"
+[[ -n $stack ]] && stack="$stack"
+[[ -n $color ]] && color="$color"
+
+[[ -n $color  ]] && fqdn="${fqdn}${color}-"
+[[ -n $stack  ]] && fqdn="${fqdn}${stack}"
+
+if [[ $stack == pub ]]; then
+  fqdn="${fqdn}.mobilewebprint.net"
+else
+  fqdn="${fqdn}.mobiledevprint.net"
+fi
+
+sshx "scotty@${fqdn}" "rm -f ~/tmp/nginx/certs/hq.mobilewebprint.net*"
+scpx ~/.ssh/keys/chained/hq.mobilewebprint.net/* "scotty@${fqdn}:~/tmp/nginx/certs/"
+sshx "scotty@${fqdn}" "sudo nginx -t && sudo nginx -s reload || sudo nginx"
+
+
