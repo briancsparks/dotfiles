@@ -1,12 +1,12 @@
 #!/bin/bash
 
 cd ~/dev
-for d in `find . -type d -maxdepth 1`; do
+for d in `find . -maxdepth 1 -type d`; do
   echo "$d ------------------------------------------------------"
 
   cd $d
   [[ -d .git ]] && git pull --ff-only
-  cd ..
+  cd ~/dev
 
 done
 
