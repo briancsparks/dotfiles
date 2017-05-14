@@ -1,0 +1,16 @@
+#!/bin/bash -e
+
+tarball_url="$1"
+
+eval "$(cli-shezargs __f $$ $0 $@)"
+
+[[ -n $tarball_url ]] || die "Usage: $0 tarball_url"
+
+cd $TMP_DIR
+rm *
+curl -L -O $tarball_url
+aws s3 cp `ls | head -1` s3://mobilewebprint-deploy/buildout/packages/
+
+cli_shezargs_cleanup
+
+
