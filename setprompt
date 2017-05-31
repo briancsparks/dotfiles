@@ -54,7 +54,7 @@ GPROXY="__gproxy | tail -1"
 
 test -f $HOME/mario_env && source $HOME/mario_env
 [[ "$MARIO_STACK_NAME" =~ "pub" ]]  && export PROMPT_WARNING="this-is-a-prod-server-"
-[[ $MARIO_SERVICE == admin ]]       && export PROMPT_WARNING="admin--------"
+[[ $MARIO_SERVICE == admin ]]       && export PROMPT_WARNING="${NAMESPACE}-admin--------"
 
 SMILEY="${WHITE}:)${NORMAL}"
 FROWNY="${REDBOLD}:(${NORMAL}"
@@ -83,11 +83,11 @@ fi
 if [[ $MARIO_SERVICE == admin ]]; then
   #PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${WHITEBG}${BLUE}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
   #PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${WHITE}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE}${YELLOW} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
-  PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${NAMESPACE}:${WHITE}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE}${YELLOW} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
+  PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${WHITE}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE}${YELLOW} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
 elif [[ -n $SERVERASSIST_STACK && -n $SERVERASSIST_COLOR && -n $SERVERASSIST_SERVICE ]]; then
-  PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${NAMESPACE}:${YELLOW}${SERVERASSIST_COLOR}-${SERVERASSIST_STACK}-${SERVERASSIST_SERVICE} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
+  PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${YELLOW}${SERVERASSIST_COLOR}-${SERVERASSIST_STACK}-${SERVERASSIST_SERVICE} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
 elif [[ -n $MARIO_STACK && -n $MARIO_COLOR && -n $MARIO_SERVICE ]]; then
-  PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${NAMESPACE}:${YELLOW}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
+  PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${YELLOW}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
 fi
 
 
