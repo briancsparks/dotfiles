@@ -41,7 +41,7 @@ hash fnn  && alias fn='fnn'
 hash fdd  && alias fd='fdd'
 
 alias vim='vim -p'
-alias tree="tree -I 'node_modules|bower_components|ppds|_tmp'"
+alias tree="tree -I 'node_modules|bower_components|ppds|_tmp|cmake-build'"
 alias wip='git commit -am "WIP"'
 alias refactoring='git commit -am "Refactoring"'
 alias fixed='git commit -am "Fixed"'
