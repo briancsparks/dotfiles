@@ -3,6 +3,9 @@
 test -f ${HOME}/dotfiles/helpers        && source ${HOME}/dotfiles/helpers
 test -f ${HOME}/dev/dotfiles/helpers    && source ${HOME}/dev/dotfiles/helpers
 
+test -f $HOME/.hushlogin && hush_script="1"
+[[ $1 == --hush- ]] && unset hush_script
+
 verbose "---------- proxy-setup start; starting with |$NETWORK_TYPE|"
 
 if [ -z $NETWORK_TYPE ]; then
@@ -11,15 +14,16 @@ if [ -z $NETWORK_TYPE ]; then
   fi
 fi
 
+# Do we also have wifi?
 if [[ $NETWORK_TYPE == net15 ]]; then
-  (ifconfig | egrep 'inet (addr:)?10\.' > /dev/null) && export NETWORK_WITH_WIFI="net10"
+  (ifconfig | egrep -q 'inet (addr:)?10\.') && export NETWORK_WITH_WIFI="net10"
 fi
 
 verbose "proxy-setup NETWORK_TYPE: |$NETWORK_TYPE|, NETWORK_WITH_WIFI: |$NETWORK_WITH_WIFI|"
 
-if [[ $NETWORK_TYPE == "net15" && -z $NETWORK_WITH_WIFI ]]; then
+if [[ $NETWORK_TYPE == net15 && -z $NETWORK_WITH_WIFI ]]; then
 
-  test -f $HOME/.hushlogin || echo 'Assuming net15, and using proxy'
+  [[ -n $hush_script ]] || echo 'Assuming net15, and using proxy'
 
   export the_proxy_server_host=proxy.austin.hp.com
   #export the_proxy_server_host=proxy.houston.hp.com
@@ -40,11 +44,6 @@ if [[ $NETWORK_TYPE == "net15" && -z $NETWORK_WITH_WIFI ]]; then
   export ALL_PROXY="socks://${the_proxy_server}/"
 
   export EC2_JVM_ARGS="-Dhttps.proxyHost=${the_proxy_server_host} -Dhttps.proxyPort=${the_proxy_server_port}"
-
-  #export HTTP_PROXY="http://proxy.atlanta.hp.com:8080"
-  #export http_proxy="$HTTP_PROXY"
-  #export HTTPS_PROXY="https://proxy.atlanta.hp.com:8080"
-  #export https_proxy="$HTTPS_PROXY"
 
   export no_proxy=localhost,127.0.0.0/8,15.80.0.0/16,192.168.0.0/16
   export NO_PROXY=localhost,127.0.0.0/8,15.80.0.0/16,192.168.0.0/16
@@ -70,16 +69,16 @@ if [[ $NETWORK_TYPE == "net15" && -z $NETWORK_WITH_WIFI ]]; then
 
 else
 
-  if [[ $NETWORK_TYPE == "net15" && -n $NETWORK_WITH_WIFI ]]; then
-    test -f $HOME/.hushlogin || echo 'Assuming net15 with wifi, NOT using proxy'
+  if [[ $NETWORK_TYPE == net15 && -n $NETWORK_WITH_WIFI ]]; then
+    [[ -n $hush_script ]] || echo 'Assuming net15 with wifi, NOT using proxy'
     export no_proxy=localhost,127.0.0.0/8,10.0.0.0/8
     export NO_PROXY=localhost,127.0.0.0/8,10.0.0.0/8
-  elif [[ $NETWORK_TYPE == "net10" ]]; then
-    test -f $HOME/.hushlogin || echo 'Assuming cloud net, NOT using proxy'
+  elif [[ $NETWORK_TYPE == net10 ]]; then
+    [[ -n $hush_script ]] || echo 'Assuming cloud net, NOT using proxy'
     export no_proxy=localhost,127.0.0.0/8,10.0.0.0/8
     export NO_PROXY=localhost,127.0.0.0/8,10.0.0.0/8
   else
-    test -f $HOME/.hushlogin || echo 'Assuming home net, NOT using proxy'
+    [[ -n $hush_script ]] || echo 'Assuming home net, NOT using proxy'
     export no_proxy=localhost,127.0.0.0/8,192.168.0.0/16
     export NO_PROXY=localhost,127.0.0.0/8,192.168.0.0/16
   fi
