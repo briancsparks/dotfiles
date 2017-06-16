@@ -11,6 +11,7 @@ verbose "---------- proxy-setup start; starting with |$NETWORK_TYPE|"
 if [ -z $NETWORK_TYPE ]; then
   if ifconfig | egrep -q 'inet (addr:)?1[56]\.' ; then export NETWORK_TYPE="net15"
   elif ifconfig | egrep -q 'inet (addr:)?192\.' ; then export NETWORK_TYPE="home"
+  elif ifconfig | egrep -q 'inet (addr:)?10\.' ; then export NETWORK_TYPE="net10"
   fi
 fi
 
