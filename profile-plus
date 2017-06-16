@@ -26,8 +26,5 @@ export JSAWS_AWS_ACCT_EXTRA_CREDS="pub:244406501905/mario-mobilewebprint,panini:
 
 [[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
 
-test -f ${HOME}/dotfiles/proxy-setup        && source ${HOME}/dotfiles/proxy-setup
-test -f ${HOME}/dev/dotfiles/proxy-setup    && source ${HOME}/dev/dotfiles/proxy-setup
-
 verbose "---------- profile-plus end"
 
