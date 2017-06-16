@@ -7,7 +7,7 @@ verbose "---------- profile-plus start"
 
 test -d /tmp && sudo chmod 777 /tmp
 
-export JSAWS_AWS_ACCT_EXTRA_CREDS="pub:244406501905/mario-mobilewebprint,panini:311778409164/mario-mobilewebprint"
+export JSAWS_AWS_ACCT_EXTRA_CREDS="pub:244406501905/mario-mobilewebprint,panini:311778409164/mario-mobilewebprint,dev"
 
 #if cut -d: -f1 /etc/passwd | egrep '^mongodb$'; then
 #  sudo chown mongodb:mongodb /data
