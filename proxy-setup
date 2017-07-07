@@ -46,9 +46,6 @@ if [[ $NETWORK_TYPE == net15 && -z $NETWORK_WITH_WIFI ]]; then
 
   export EC2_JVM_ARGS="-Dhttps.proxyHost=${the_proxy_server_host} -Dhttps.proxyPort=${the_proxy_server_port}"
 
-  export no_proxy=localhost,127.0.0.0/8,15.80.0.0/16,192.168.0.0/16
-  export NO_PROXY=localhost,127.0.0.0/8,15.80.0.0/16,192.168.0.0/16
-
   if hash git > /dev/null; then
     git config --global http.proxy "${http_proxy}"
   fi
@@ -72,16 +69,10 @@ else
 
   if [[ $NETWORK_TYPE == net15 && -n $NETWORK_WITH_WIFI ]]; then
     [[ -n $hush_script ]] || echo 'Assuming net15 with wifi, NOT using proxy'
-    export no_proxy=localhost,127.0.0.0/8,10.0.0.0/8
-    export NO_PROXY=localhost,127.0.0.0/8,10.0.0.0/8
   elif [[ $NETWORK_TYPE == net10 ]]; then
     [[ -n $hush_script ]] || echo 'Assuming cloud net, NOT using proxy'
-    export no_proxy=localhost,127.0.0.0/8,10.0.0.0/8
-    export NO_PROXY=localhost,127.0.0.0/8,10.0.0.0/8
   else
     [[ -n $hush_script ]] || echo 'Assuming home net, NOT using proxy'
-    export no_proxy=localhost,127.0.0.0/8,192.168.0.0/16
-    export NO_PROXY=localhost,127.0.0.0/8,192.168.0.0/16
   fi
 
   if hash git > /dev/null; then
@@ -104,8 +95,8 @@ else
   fi
 fi
 
-export no_proxy=localhost,127.0.0.0/8,15.80.0.0/16,192.168.0.0/16
-export NO_PROXY=localhost,127.0.0.0/8,15.80.0.0/16,192.168.0.0/16
+export no_proxy=localhost,127.0.0.0/8,15.80.0.0/16,192.168.0.0/16,hq.local.mobilewebassist.net,local.mobilewebassist.net
+export NO_PROXY=localhost,127.0.0.0/8,15.80.0.0/16,192.168.0.0/16,hq.local.mobilewebassist.net,local.mobilewebassist.net
 
 # Apparently, this is the right way to do it  -- https://github.com/curl/curl/issues/1015
 export https_proxy="$httpsx_proxy"

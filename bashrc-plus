@@ -35,6 +35,7 @@ modified()
 }
 
 export NODE_PATH="$(npm root -g)"
+export GRADLE_OPTS=-Xmx1024m
 
 alias fn='find . -type f | egrep -i '
 alias fd='find . -type d | egrep -i '
@@ -109,6 +110,11 @@ mgru()
   if git branch -a | egrep --quiet develop$; then
     printf "%s\n   %s\n%s\n" "------------" "develop" "------------"
     git checkout develop && git pull --ff-only
+  fi
+
+  if git branch -a | egrep --quiet '/gen3$'; then
+    printf "%s\n   %s\n%s\n" "------------" "gen3" "------------"
+    git checkout gen3 && git pull --ff-only
   fi
 
 }
