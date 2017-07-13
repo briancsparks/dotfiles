@@ -7,11 +7,19 @@ die () {
   exit 1
 }
 
+namespace="mario"
+namespace_ex="mario3"
+
+if [[ -n $NAMESPACE && $NAMESPACE != mario ]]; then
+  namespace="$NAMESPACE"
+  namespace_ex="$NAMESPACE"
+fi
+
 if [[ $# > 1 ]]; then
-  ra invoke ~/dev/js-aws/lib/ec2/ec2.js current --trimmed --size=1 | underscore 'select' ".hr > .${2} > .${1} .ip" --outfmt=text
+  ra invoke ~/dev/js-aws/lib/ec2/ec2.js current --namespace="${namespace}" --namespace-ex="${namespace_ex}" --trimmed --size=1 | underscore 'select' ".hr > .${2} > .${1} .ip" --outfmt=text
 elif [[ $# > 0 ]]; then
-  ra invoke ~/dev/js-aws/lib/ec2/ec2.js current --trimmed --size=1 | underscore 'select' ".hr > .${1} .ip" --outfmt=text
+  ra invoke ~/dev/js-aws/lib/ec2/ec2.js current --namespace="${namespace}" --namespace-ex="${namespace_ex}" --trimmed --size=1 | underscore 'select' ".hr > .${1} .ip" --outfmt=text
 else
-  ra invoke ~/dev/js-aws/lib/ec2/ec2.js current --trimmed --size=1 | underscore 'select' ".hr .ip" --outfmt=text
+  ra invoke ~/dev/js-aws/lib/ec2/ec2.js current --namespace="${namespace}" --namespace-ex="${namespace_ex}" --trimmed --size=1 | underscore 'select' ".hr .ip" --outfmt=text
 fi
 
