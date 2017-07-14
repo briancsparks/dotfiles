@@ -22,7 +22,8 @@ export JSAWS_AWS_ACCT_EXTRA_CREDS="pub:244406501905/mario-mobilewebprint,panini:
 [ -d "$HOME/dev/dotfiles" ]   && PATH="$PATH:${HOME}/dev/dotfiles/bin"
 
 # Include js-cluster scripts
-[[ -d "$HOME/dev/js-cluster/scripts" ]] && PATH="$PATH:$HOME/dev/js-cluster/scripts"
+[[ -d "$HOME/dev/js-cluster/scripts"   ]] && PATH="$PATH:$HOME/dev/js-cluster/scripts"
+[[ -d "$HOME/dev/serverassist/scripts" ]] && PATH="$PATH:$HOME/dev/serverassist/scripts"
 
 #Mario
 [ -d "$HOME/dev/mario_util/admin" ] && PATH="$PATH:$HOME/dev/mario_util/admin"
