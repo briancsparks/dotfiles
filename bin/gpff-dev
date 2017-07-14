@@ -1,12 +1,15 @@
 #!/bin/bash
 
-cd ~/dev
+if [[ $# > 0 && -d $1 ]]; then
+  cd $1
+else
+  cd ~/dev
+fi
+
 for d in `find . -maxdepth 1 -type d`; do
   echo "$d ------------------------------------------------------"
 
-  cd $d
-  [[ -d .git ]] && git pull --ff-only
-  cd ~/dev
+  (cd $d && [[ -d .git ]] && git pull --ff-only)
 
 done
 
