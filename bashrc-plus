@@ -167,7 +167,13 @@ mnet()    { cd "$HOME/dev/mario-netapp-server/$1" || cd "$HOME/dev/mario_netapp_
 mdev()    { cd "$HOME/dev/mario-develop/$1"       || cd "$HOME/dev/mario_develop/$1"; }
 mario()   { cd "$HOME/dev/mario/$1"               || cd "$HOME/dev/mario/$1"; }
 mprint()  { cd "$HOME/dev/mario-print-server/$1"  || cd "$HOME/dev/mario_print_server/$1"; }
-mclient() { cd "$HOME/dev/mario-client/$1"        || cd "$HOME/dev/mario_client/$1"; }
+
+mclient() {
+  if [[ -d $HOME/dev/MobileApps/Library_AsyncDiscovery ]]; then cd "$HOME/dev/MobileApps/Library_AsyncDiscovery/$1"
+  elif [[ -d $HOME/dev/mario-client ]]; then                    cd "$HOME/dev/mario-client/$1"
+  elif [[ -d $HOME/dev/mario_client ]]; then                    cd "$HOME/dev/mario_client/$1"
+  fi
+}
 
 jsaws()   { cd "$HOME/dev/js-aws/$1"; }
 
