@@ -5,7 +5,9 @@ test -f ${HOME}/dev/dotfiles/helpers    && source ${HOME}/dev/dotfiles/helpers
 
 verbose "---------- profile-plus start"
 
-test -d /tmp && sudo chmod 777 /tmp
+if ! [[ $OS =~ Windows ]]; then
+  test -d /tmp && sudo chmod 777 /tmp
+fi
 
 export JSAWS_AWS_ACCT_EXTRA_CREDS="pub:244406501905/mario-mobilewebprint,panini:311778409164/mario-mobilewebprint,dev"
 

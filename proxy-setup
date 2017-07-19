@@ -9,15 +9,26 @@ test -f ${HOME}/dev/dotfiles/helpers    && source ${HOME}/dev/dotfiles/helpers
 verbose "---------- proxy-setup start; starting with |$NETWORK_TYPE|"
 
 if [ -z $NETWORK_TYPE ]; then
-  if ifconfig | egrep -q 'inet (addr:)?1[56]\.' ; then export NETWORK_TYPE="net15"
-  elif ifconfig | egrep -q 'inet (addr:)?192\.' ; then export NETWORK_TYPE="home"
-  elif ifconfig | egrep -q 'inet (addr:)?10\.' ; then export NETWORK_TYPE="net10"
+  if [[ $OS =~ Windows ]]; then
+    if ipconfig | egrep -q 'IPv4[^:]+: 1[56]\.'; then export NETWORK_TYPE="net15"
+    elif ipconfig | egrep -q 'IPv4[^:]+: 192\.'; then export NETWORK_TYPE="home"
+    elif ipconfig | egrep -q 'IPv4[^:]+: 10\.'; then export NETWORK_TYPE="net10"
+    fi
+  else
+    if ifconfig | egrep -q 'inet (addr:)?1[56]\.' ; then export NETWORK_TYPE="net15"
+    elif ifconfig | egrep -q 'inet (addr:)?192\.' ; then export NETWORK_TYPE="home"
+    elif ifconfig | egrep -q 'inet (addr:)?10\.' ; then export NETWORK_TYPE="net10"
+    fi
   fi
 fi
 
 # Do we also have wifi?
 if [[ $NETWORK_TYPE == net15 ]]; then
-  (ifconfig | egrep -q 'inet (addr:)?10\.') && export NETWORK_WITH_WIFI="net10"
+  if [[ $OS =~ Windows ]]; then
+    (ipconfig | egrep -q 'IPv4[^:]+: 10\.') && export NETWORK_TYPE="net10"
+  else
+    (ifconfig | egrep -q 'inet (addr:)?10\.') && export NETWORK_WITH_WIFI="net10"
+  fi
 fi
 
 verbose "proxy-setup NETWORK_TYPE: |$NETWORK_TYPE|, NETWORK_WITH_WIFI: |$NETWORK_WITH_WIFI|"
@@ -53,16 +64,18 @@ if [[ $NETWORK_TYPE == net15 && -z $NETWORK_WITH_WIFI ]]; then
   # Bower behind a proxy
   test -f ${HOME}/.bowerrc-proxy && cp ${HOME}/.bowerrc-proxy ${HOME}/.bowerrc
 
-  # npm behind a proxy
-  if which npm > /dev/null; then
-    npm config set proxy ${http_proxy}
-    npm config set https-proxy ${httpsx_proxy}
-  fi
+  if ! [[ $OS =~ Windows ]]; then
+    # npm behind a proxy
+    if which npm > /dev/null; then
+      npm config set proxy ${http_proxy}
+      npm config set https-proxy ${httpsx_proxy}
+    fi
 
-  # apm (Atom editor) behind a proxy
-  if which apm > /dev/null; then
-    apm config set proxy ${http_proxy}
-    apm config set https-proxy ${httpsx_proxy}
+    # apm (Atom editor) behind a proxy
+    if which apm > /dev/null; then
+      apm config set proxy ${http_proxy}
+      apm config set https-proxy ${httpsx_proxy}
+    fi
   fi
 
 else
@@ -82,16 +95,18 @@ else
   # Bower not behind a proxy
   rm -f ${HOME}/.bowerrc
 
-  # npm not behind a proxy
-  if which npm > /dev/null; then
-    npm config delete proxy
-    npm config delete https-proxy
-  fi
+  if ! [[ $OS =~ Windows ]]; then
+    # npm not behind a proxy
+    if which npm > /dev/null; then
+      npm config delete proxy
+      npm config delete https-proxy
+    fi
 
-  # apm (Atom editor) not behind a proxy
-  if which apm > /dev/null; then
-    apm config delete proxy
-    apm config delete https-proxy
+    # apm (Atom editor) not behind a proxy
+    if which apm > /dev/null; then
+      apm config delete proxy
+      apm config delete https-proxy
+    fi
   fi
 fi
 
