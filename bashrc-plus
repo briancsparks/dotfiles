@@ -162,11 +162,23 @@ gosrc() {
   cd $2
 }
 
-mutil()   { cd "$HOME/dev/mario-util/$1"          || cd "$HOME/dev/mario_util/$1"; }
+mutil() {
+  dir="$HOME/dev/mario-util"
+  test -d "$dir" || dir="$HOME/dev/mario_util"
+  cd "$dir/$1"
+}
+
+mprint() {
+  dir="$HOME/dev/mario-print-server"
+  test -d "$dir" || dir="$HOME/dev/mario_print_server"
+  cd "$dir/$1"
+}
+
+#mutil()   { cd "$HOME/dev/mario-util/$1"          || cd "$HOME/dev/mario_util/$1"; }
 mnet()    { cd "$HOME/dev/mario-netapp-server/$1" || cd "$HOME/dev/mario_netapp_server/$1"; }
 mdev()    { cd "$HOME/dev/mario-develop/$1"       || cd "$HOME/dev/mario_develop/$1"; }
 mario()   { cd "$HOME/dev/mario/$1"               || cd "$HOME/dev/mario/$1"; }
-mprint()  { cd "$HOME/dev/mario-print-server/$1"  || cd "$HOME/dev/mario_print_server/$1"; }
+#mprint()  { cd "$HOME/dev/mario-print-server/$1"  || cd "$HOME/dev/mario_print_server/$1"; }
 
 mclient() {
   if [[ -d $HOME/dev/MobileApps/Library_AsyncDiscovery ]]; then cd "$HOME/dev/MobileApps/Library_AsyncDiscovery/$1"
