@@ -1,0 +1,38 @@
+#!/bin/bash -e
+
+resize_it() {
+  if [[ -n $2 ]]; then
+    convert $3 -resize $1 "${2}"
+  fi
+}
+
+if [[ $# == 0 ]]; then
+  echo "Usage: android-project-logo color label [location]"
+  exit 0
+fi
+
+color="$1"
+shift
+
+label="$1"
+shift
+
+if [[ -n $1 ]]; then
+  loc="$1"
+fi
+[[ -z $loc ]] && loc="/tmp/logo.png"
+
+echo "|$color| |$label| |$loc|"
+
+
+convert -pointsize 2400 -fill "$color" -background none -flatten -font 'CourierNewB' label:"$label" -trim +repage "$loc"
+
+assets=$(find ./ -type f | egrep ic_launcher\.png$ | egrep -v intermediate)
+
+resize_it 48x48   "$(find . -type f | egrep ic_launcher\.png$ | egrep -v intermediate | egrep mdpi)" "$loc"
+resize_it 72x72   "$(find . -type f | egrep ic_launcher\.png$ | egrep -v intermediate | egrep -- '-hdpi')" "$loc"
+resize_it 96x96   "$(find . -type f | egrep ic_launcher\.png$ | egrep -v intermediate | egrep -- '-xhdpi')" "$loc"
+resize_it 144x144 "$(find . -type f | egrep ic_launcher\.png$ | egrep -v intermediate | egrep -- '-xxhdpi')" "$loc"
+resize_it 192x192 "$(find . -type f | egrep ic_launcher\.png$ | egrep -v intermediate | egrep -- '-xxxhdpi')" "$loc"
+
+

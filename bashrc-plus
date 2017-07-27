@@ -156,8 +156,8 @@ gosrc() {
     cd     "$HOME/dev/$1"
   fi
 
-  test -d "$HOME/dev/dev/$1"          && cd "$HOME/dev/dev/$1"
-  test -d "$HOME/dev/briancsparks/$1" && cd "$HOME/dev/briancsparks/$1"
+  test -d "$HOME/dev/dev/$1"      && cd "$HOME/dev/dev/$1"
+  test -d "$HOME/dev/b/$1"        && cd "$HOME/dev/b/$1"
 
   cd $2
 }
@@ -189,7 +189,7 @@ mclient() {
 
 jsaws()   { cd "$HOME/dev/js-aws/$1"; }
 
-bcs()     { cd "$HOME/dev/briancsparks/$1"; }
+bcs()     { cd "$HOME/dev/b/$1"; }
 
 test -f ${HOME}/dotfiles/setprompt      && . ${HOME}/dotfiles/setprompt
 test -f ${HOME}/dev/dotfiles/setprompt  && . ${HOME}/dev/dotfiles/setprompt
