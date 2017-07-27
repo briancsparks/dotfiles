@@ -5,6 +5,22 @@ test -f ${HOME}/dev/dotfiles/helpers    && source ${HOME}/dev/dotfiles/helpers
 
 verbose "---------- profile-plus start"
 
+link_into_path() {
+  bin_dir="$1"
+  link_as="$2"
+
+  if [[ -d $bin_dir ]]; then
+    if [[ -h $link_as ]]; then
+      ln -s "$bin_dir" "$HOME/local/bin/$link_as"
+    fi
+
+    if ! [[ $PATH =~ local/bin/$link_as ]]; then
+      #echo "add to path"
+      export PATH="$PATH:$HOME/local/bin/$link_as"
+    fi
+  fi
+}
+
 if ! [[ $OS =~ Windows ]]; then
   test -d /tmp && sudo chmod 777 /tmp
 fi
@@ -24,8 +40,18 @@ export JSAWS_AWS_ACCT_EXTRA_CREDS="pub:244406501905/mario-mobilewebprint,panini:
 [ -d "$HOME/dev/dotfiles" ]   && PATH="$PATH:${HOME}/dev/dotfiles/bin"
 
 # Include js-cluster scripts
-[[ -d "$HOME/dev/js-cluster/scripts"   ]] && PATH="$PATH:$HOME/dev/js-cluster/scripts"
-[[ -d "$HOME/dev/serverassist/scripts" ]] && PATH="$PATH:$HOME/dev/serverassist/scripts"
+[[ -d "$HOME/dev/js-cluster/scripts"        ]] && PATH="$PATH:$HOME/dev/js-cluster/scripts"
+[[ -d "$HOME/dev/briancsparks/js-cluster/scripts"    ]] && PATH="$PATH:$HOME/dev/briancsparks/js-cluster/scripts"
+
+[[ -d "$HOME/dev/serverassist/scripts"      ]] && PATH="$PATH:$HOME/dev/serverassist/scripts"
+
+if [[ -d "$HOME/dev/briancsparks/server-assist/server-assist-server/webtier/scripts" ]]; then
+  link_into_path "$HOME/dev/briancsparks/server-assist/server-assist-server/webtier/scripts" "sa-webtier"
+fi
+
+if [[ -d "$HOME/dev/briancsparks/server-assist/serverassist/scripts" ]]; then
+  link_into_path "$HOME/dev/briancsparks/server-assist/serverassist/scripts" "sa-sa"
+fi
 
 #Mario
 [ -d "$HOME/dev/mario_util/admin" ] && PATH="$PATH:$HOME/dev/mario_util/admin"
