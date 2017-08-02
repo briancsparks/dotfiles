@@ -8,9 +8,10 @@ do_clean() {
   cd $DIR
   local mod=$(git status --short | wc -l)
   local new=$(git ls-files -o --exclude-standard | wc -l)
+  local branch=$(git status | egrep -i 'on branch .*$' | cut -d' ' -f3-)
 
   if [[ $new == 0 && $mod == 0 ]]; then
-    echo "------------------------- clean ---- $(hostname) $DIR -----"
+    printf -- "------------------------- clean ---- %s %-14s %s\n"  $(hostname)  $branch  $DIR
     git status | sed -n '/up-to-date/d;/Your branch is/p'
   fi
 
@@ -25,9 +26,10 @@ do_changed() {
   cd $DIR
   local mod=$(git status --short | wc -l)
   local new=$(git ls-files -o --exclude-standard | wc -l)
+  local branch=$(git status | egrep -i 'on branch .*$' | cut -d' ' -f3-)
 
   if [[ $new != 0 || $mod != 0 ]]; then
-    echo "------------------------------------ $(hostname) $DIR -----"
+    printf -- "------------------------------------ %s %-14s %s\n"  $(hostname)  $branch  $DIR
     git status --short
   fi
 
