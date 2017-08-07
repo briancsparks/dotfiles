@@ -48,7 +48,7 @@ GS="__gs | tail -1"
 
 # Get the proxy
 __gproxy() {
-  echo $http_proxy | sed 's/http:\/\///g; s/:[0-9]*//g; s/\/$//g; s/proxy//g; s/hp\.com//g; s/\.//g'
+  echo $http_proxy | sed 's;http://;;g; s/:[0-9]*//g; s:/$::g; s/proxy[^.]*//g; s:hp\.com::g; s:hpicorp\.net::g; s/\.//g'
 }
 
 GPROXY="__gproxy | tail -1"

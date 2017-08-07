@@ -37,9 +37,12 @@ if [[ $NETWORK_TYPE == net15 && -z $NETWORK_WITH_WIFI ]]; then
 
   [[ -n $hush_script ]] || echo 'Assuming net15, and using proxy'
 
-  export the_proxy_server_host=proxy.austin.hp.com
+  #export the_proxy_server_host=proxy.austin.hp.com       # Died Aug 04, 2017
   #export the_proxy_server_host=proxy.houston.hp.com
   #export the_proxy_server_host=proxy.atlanta.hp.com
+
+  export the_proxy_server_host=proxy-txn.austin.hpicorp.net
+  #export the_proxy_server_host=web-proxy.austin.hpicorp.net      # alternate
   export the_proxy_server_port=8080
   export the_proxy_server="${the_proxy_server_host}:${the_proxy_server_port}"
 
