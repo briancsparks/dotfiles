@@ -165,6 +165,8 @@ gosrc() {
 mutil() {
   dir="$HOME/dev/mario-util"
   test -d "$dir" || dir="$HOME/dev/mario_util"
+  test -d "$dir" || dir="$HOME/dev/b/mario-util"
+  test -d "$dir" || dir="$HOME/dev/b/mario_util"
   cd "$dir/$1"
 }
 
