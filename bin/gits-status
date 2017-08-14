@@ -55,6 +55,8 @@ if ! [[ -d $target_dir ]]; then
   target_dir="${HOME}/dev"
 fi
 
+git config --global --list
+
 repositories="$(find $target_dir -type d | egrep '\.git$' | egrep -v 'X/\.git$' | egrep -v '/dev/[^/]+X/')"
 
 # Display changed
