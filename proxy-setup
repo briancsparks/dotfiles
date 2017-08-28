@@ -10,14 +10,14 @@ verbose "---------- proxy-setup start; starting with |$NETWORK_TYPE|"
 
 if [ -z $NETWORK_TYPE ]; then
   if [[ $OS =~ Windows ]]; then
-    if ipconfig | egrep -q 'IPv4[^:]+: 1[56]\.'; then export NETWORK_TYPE="net15"
-    elif ipconfig | egrep -q 'IPv4[^:]+: 192\.'; then export NETWORK_TYPE="home"
-    elif ipconfig | egrep -q 'IPv4[^:]+: 10\.'; then export NETWORK_TYPE="net10"
+    if ipconfig | egrep 'IPv4[^:]+: 1[56]\.'; then export NETWORK_TYPE="net15"
+    elif ipconfig | egrep 'IPv4[^:]+: 192\.'; then export NETWORK_TYPE="home"
+    elif ipconfig | egrep 'IPv4[^:]+: 10\.'; then export NETWORK_TYPE="net10"
     fi
   else
-    if ifconfig | egrep -q 'inet (addr:)?1[56]\.' ; then export NETWORK_TYPE="net15"
-    elif ifconfig | egrep -q 'inet (addr:)?192\.' ; then export NETWORK_TYPE="home"
-    elif ifconfig | egrep -q 'inet (addr:)?10\.' ; then export NETWORK_TYPE="net10"
+    if ifconfig | egrep 'inet (addr:)?1[56]\.' ; then export NETWORK_TYPE="net15"
+    elif ifconfig | egrep 'inet (addr:)?192\.' ; then export NETWORK_TYPE="home"
+    elif ifconfig | egrep 'inet (addr:)?10\.' ; then export NETWORK_TYPE="net10"
     fi
   fi
 fi
@@ -25,9 +25,9 @@ fi
 # Do we also have wifi?
 if [[ $NETWORK_TYPE == net15 ]]; then
   if [[ $OS =~ Windows ]]; then
-    (ipconfig | egrep -q 'IPv4[^:]+: 10\.') && export NETWORK_TYPE="net10"
+    (ipconfig | egrep 'IPv4[^:]+: 10\.') && export NETWORK_TYPE="net10"
   else
-    (ifconfig | egrep -q 'inet (addr:)?10\.') && export NETWORK_WITH_WIFI="net10"
+    (ifconfig | egrep 'inet (addr:)?10\.') && export NETWORK_WITH_WIFI="net10"
   fi
 fi
 
