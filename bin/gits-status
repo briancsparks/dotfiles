@@ -57,7 +57,7 @@ fi
 
 git config --global --list
 
-repositories="$(find $target_dir -type d | egrep '\.git$' | egrep -v 'X/\.git$' | egrep -v '/dev/[^/]+X/')"
+repositories="$(find $target_dir -type d | egrep '\.git$' | egrep -v 'X/\.git$' | egrep -v '/dev/[^/]+X/' | sort)"
 
 # Display changed
 for d in $repositories; do
