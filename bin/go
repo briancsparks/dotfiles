@@ -1,0 +1,23 @@
+#!/bin/bash -e
+
+eval "$(cli-shezargs $@)"
+
+if [[ $1 == "db" ]]; then
+  ip="$SERVERASSIST_DB_IP"
+  [[ -z $ip ]] && ip="$MARIO_DB_IP"
+elif [[ $1 == "mongo" ]]; then
+  ip="$SERVERASSIST_DB_IP"
+  [[ -z $ip ]] && ip="$MARIO_DB_IP"
+
+elif [[ $1 == "redis" ]]; then
+  ip="$SERVERASSIST_UTIL_IP"
+  [[ -z $ip ]] && ip="$MARIO_UTIL_IP"
+
+elif [[ $1 == "util" ]]; then
+  ip="$SERVERASSIST_UTIL_IP"
+  [[ -z $ip ]] && ip="$MARIO_UTIL_IP"
+
+fi
+
+sshix $ip
+
