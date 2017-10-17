@@ -20,19 +20,25 @@ export JSAWS_AWS_ACCTS="pub:244406501905,panini:311778409164,dev:084075158741"
 [ -d "$HOME/bin" ]            && PATH="$HOME/bin:$PATH"
 [ -d "$HOME/local/bin" ]      && PATH="$HOME/local/bin:$PATH"
 
-# Include dotfileses binaries
+# Include dotfileses binaries in PATH
 [ -d "$HOME/dotfiles" ]       && PATH="$PATH:${HOME}/dotfiles/bin"
 [ -d "$HOME/dev/dotfiles" ]   && PATH="$PATH:${HOME}/dev/dotfiles/bin"
 
-# Include js-cluster scripts
+# Include js-cluster scripts in PATH
 [[ -d "$HOME/dev/js-cluster/scripts"        ]] && PATH="$PATH:$HOME/dev/js-cluster/scripts"
 [[ -d "$HOME/dev/b/js-cluster/scripts"      ]] && PATH="$PATH:$HOME/dev/b/js-cluster/scripts"
 
+# Include serverassist scripts in PATH
 [[ -d "$HOME/dev/serverassist/scripts"      ]] && PATH="$PATH:$HOME/dev/serverassist/scripts"
 [[ -d "$HOME/dev/b/serverassist/scripts"    ]] && PATH="$PATH:$HOME/dev/b/serverassist/scripts"
 
+# Include server-assist-server scripts in PATH
 [[ -d "$HOME/dev/server-assist-server/webtier/scripts"      ]] && PATH="$PATH:$HOME/dev/server-assist-server/webtier/scripts"
 [[ -d "$HOME/dev/b/server-assist-server/webtier/scripts"    ]] && PATH="$PATH:$HOME/dev/b/server-assist-server/webtier/scripts"
+
+# Include mario-util scripts in PATH
+[[ -d "$HOME/dev/mario-util/admin/scripts"      ]] && PATH="$PATH:$HOME/dev/mario-util/admin/scripts"
+[[ -d "$HOME/dev/b/mario-util/admin/scripts"    ]] && PATH="$PATH:$HOME/dev/b/mario-util/admin/scripts"
 
 #Mario
 [ -d "$HOME/dev/mario_util/admin" ] && PATH="$PATH:$HOME/dev/mario_util/admin"
