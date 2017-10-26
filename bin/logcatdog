@@ -1,0 +1,71 @@
+#!/bin/bash -e
+
+# To see the most frequent logs:
+#
+# cat logcatoutput.txt | cut -d' ' -f3 | sed '/.\/[a-zA-Z0-9]/!d' | cut -d'/' -f2 | egrep -o '^[a-zA-Z0-9_:]+' | histo | sort -n
+#
+
+eval "$(cli-shezargs)"
+
+adb logcat $@ -v time \
+  CastMediaRouteProvider:S \
+  DeviceScanner:S \
+  Publisher:S \
+  StatusBar.NetworkController:S \
+  PackageManager:S \
+  DownloadManager:S \
+  SecContentProvider2:S \
+  InjectionManager:S \
+  SecContentProvider2:S \
+  ActivityManager:S \
+  BatteryService:S \
+  MotionRecognitionService:S \
+  BatteryMeterView:S \
+  DisplayPowerController:S \
+  AbstractMetricsFactoryImpl:S \
+  AmazonVideo:S \
+  AmazonVideo.profiler:S \
+  ResourcesManager:S \
+  ApplicationPackageManager:S \
+  CrashlyticsCore:S \
+  FirebaseApp:S \
+  Fabric:S \
+  KeyguardUpdateMonitor:S \
+  KeyguardViewMediator:S \
+  lights:S \
+  WaterDropletRenderer_GL:S \
+  TimaService:S \
+  AudioCache:S \
+  Mms:S \
+  audio_hw_primary:S \
+  NetworkStats:S \
+  libpersona:S \
+  StatusBar:S \
+  SensorService:S \
+  Watchdog:S \
+  QSTile:S \
+  NotificationStackScrollLayout:S \
+  AlarmManager:S \
+  PERF:S \
+  PowerManagerService:S \
+  AwesomePlayer:S \
+  LightsService:S \
+  ACDB:S \
+  WaterDroplet_Keyguard:S \
+  SurfaceFlinger:S \
+  audio_route:S \
+  Launcher:S \
+  PanelView:S \
+  InputDispatcher:S \
+  PhoneStatusBar:S \
+  InputReader:S \
+  ComposerPerformance:S \
+  System:S \
+  StatusBar:S \
+  QSTile:S \
+  SettingsProvider:S \
+  ImageView:S \
+  ErrorProcessor:S \
+  MemoryDealer:S \
+  MiniAppUpdateInstall:S
+
