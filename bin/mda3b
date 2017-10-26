@@ -4,5 +4,5 @@ sshx() {
   ssh  -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" "$@"
 }
 
-sshx mariodevadmin3b
+sshx mariodevadmin3b "$@"
 

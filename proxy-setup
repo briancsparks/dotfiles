@@ -37,6 +37,8 @@ if [[ $NETWORK_TYPE == net15 && -z $NETWORK_WITH_WIFI ]]; then
 
   [[ -n $hush_script ]] || echo 'Assuming net15, and using proxy'
 
+  verbose "exporting proxy settings"
+
   #export the_proxy_server_host=proxy.austin.hp.com       # Died Aug 04, 2017
   #export the_proxy_server_host=proxy.houston.hp.com
   #export the_proxy_server_host=proxy.atlanta.hp.com
@@ -61,21 +63,25 @@ if [[ $NETWORK_TYPE == net15 && -z $NETWORK_WITH_WIFI ]]; then
   export EC2_JVM_ARGS="-Dhttps.proxyHost=${the_proxy_server_host} -Dhttps.proxyPort=${the_proxy_server_port}"
 
   if hash git > /dev/null; then
+    verbose "Setting git proxy config"
     git config --global http.proxy "${http_proxy}"
   fi
 
   # Bower behind a proxy
+  verbose "Setting bower proxy config"
   test -f ${HOME}/.bowerrc-proxy && cp ${HOME}/.bowerrc-proxy ${HOME}/.bowerrc
 
   if ! [[ $OS =~ Windows ]]; then
     # npm behind a proxy
     if which npm > /dev/null; then
+      verbose "Setting npm proxy config"
       npm config set proxy ${http_proxy}
       npm config set https-proxy ${httpsx_proxy}
     fi
 
     # apm (Atom editor) behind a proxy
     if which apm > /dev/null; then
+      verbose "Setting apm proxy config"
       apm config set proxy ${http_proxy}
       apm config set https-proxy ${httpsx_proxy}
     fi
