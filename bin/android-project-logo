@@ -1,21 +1,30 @@
 #!/bin/bash -e
 
+eval "$(cli-shezargs)"
+
+die() {
+  echo $@
+  echo "Usage: $(basename $0) label [color] [location]"
+  echo "       royalblue is the default color"
+  echo "       see https://www.imagemagick.org/script/color.php for color names"
+}
+
 resize_it() {
   if [[ -n $2 ]]; then
     convert $3 -resize $1 "${2}"
   fi
 }
 
-if [[ $# == 0 ]]; then
-  echo "Usage: android-project-logo color label [location]"
-  exit 0
-fi
-
-color="$1"
-shift
+[[ $# < 1 ]] && die "Need label"
 
 label="$1"
 shift
+
+if [[ -n $1 ]]; then
+  color="$1"
+  shift
+fi
+[[ -z $color ]] && color="royalblue"
 
 if [[ -n $1 ]]; then
   loc="$1"
