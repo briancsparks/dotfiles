@@ -195,6 +195,9 @@ jsaws()   { cd "$HOME/dev/js-aws/$1"; }
 
 bcs()     { cd "$HOME/dev/b/$1"; }
 
+sa()      { cd "$HOME/dev/serverassist/$1"; }
+serva()   { cd "$HOME/dev/server-assist-server/$1"; }
+
 test -f ${HOME}/dotfiles/setprompt      && . ${HOME}/dotfiles/setprompt
 test -f ${HOME}/dev/dotfiles/setprompt  && . ${HOME}/dev/dotfiles/setprompt
 
