@@ -40,6 +40,8 @@ elif [[ $name == "jenkinsservertester" ]]; then
 else
   echo ""
   echo "Usage: go db, mongo, redis, util, jenkins, jdroid, jst (jenkins server tester)"
+  echo ""
+  exit 0
 
 fi
 
