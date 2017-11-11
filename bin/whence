@@ -1,0 +1,57 @@
+#!/bin/bash -e
+
+whenceit() {
+
+  echo "\"$1\" : "
+  shift
+
+  #echo ""
+  #echo "$1:"
+  shift
+
+  curl="curl"
+  if [[ $1 == sacurl ]]; then
+    curl="sacurl"
+    shift
+  fi
+
+  proto="https"
+  if [[ $1 == "http" ]]; then
+    proto="http"
+    shift
+  fi
+
+  domain=$1
+  shift
+
+  pre=$1
+  shift
+
+  extra=$1
+
+  #echo "${curl}" -s "${proto}://hq.${domain}/${pre}/clientStart${extra}" > /tmp/whence-out.json
+
+  if [[ $curl == curl ]]; then
+    curl -s "${proto}://hq.${domain}/${pre}/clientStart${extra}" > /tmp/whence-out.json
+  else
+    sacurl -s "${proto}://hq.${domain}/${pre}/clientStart${extra}" > /tmp/whence-out.json
+  fi
+  cat /tmp/whence-out.json
+
+  echo ","
+
+}
+
+echo "{"
+whenceit "sap"        "Secure Print production"            "mobilewebprint.net"  "sap/api/v12"
+whenceit "saptest"    "Secure Print production"            "mobilewebprint.net"  "sap/api/v12" "?rsvr=hqqa"
+whenceit "sapstg"     "Secure Print test"                  "mobilewebprint.net"  "sap/api/v12" "?rsvr=stg"
+
+whenceit "sa"         "Server Assist production" "sacurl"  "mobilewebassist.net" "sa"          "?version=1"
+whenceit "sastg"      "Server Assist staging"    "sacurl"  "mobilewebassist.net" "sa"          "?version=1&rsvr=stg"
+
+whenceit "satest"     "Server Assist test"       "sacurl"  "mobilewebassist.net" "sa"          "?version=1&rsvr=hqqa"
+whenceit "satestnext" "Server Assist test next"  "sacurl"  "mobilewebassist.net" "sa"          "?version=1&rsvr=hqqanext"
+
+echo '"the":"end"}'
+
