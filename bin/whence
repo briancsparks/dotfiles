@@ -60,5 +60,8 @@ whenceit "sastg"          "Server Assist staging"    "sacurl"  "mobilewebassist.
 whenceit "satest"         "Server Assist test"       "sacurl"  "mobilewebassist.net" "sa"          "?version=1&rsvr=hqqa"
 whenceit "satestnext"     "Server Assist test next"  "sacurl"  "mobilewebassist.net" "sa"          "?version=1&rsvr=hqqanext"
 
+#whenceit "satestnext"     "Server Assist test next"  "sacurl"  "mobilewebassist.net" "sa"          "?version=1&rsvr=hqqanext" | sed 's/devassist/dexprint/g'
+
+
 echo '"the":"end"}'
 
