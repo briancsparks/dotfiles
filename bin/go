@@ -37,9 +37,12 @@ elif [[ $name == "jenkinsservertester" ]]; then
   ip="$SERVERASSIST_JENKINS_SERVER_TESTER"
   [[ -z $ip ]] && ip="$MARIO_JENKINS_SERVER_TESTER"
 
+elif [[ $name == "dev" ]]; then
+  ip="$DEVELOPMENT_SERVER"
+
 else
   echo ""
-  echo "Usage: go db, mongo, redis, util, jenkins, jdroid, jst (jenkins server tester)"
+  echo "Usage: go db, mongo, redis, util, dev, jenkins, jdroid, jst (jenkins server tester)"
   echo ""
   exit 0
 
