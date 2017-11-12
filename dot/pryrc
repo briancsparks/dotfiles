@@ -1,3 +1,6 @@
+
+# vim: ft=ruby
+
 if defined?(PryDebugger)
 
   Pry.commands.alias_command 'c', 'continue'
