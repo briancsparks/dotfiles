@@ -40,13 +40,13 @@ target_dir="$1"
 
 if ! [[ -d $target_dir ]]; then
   if [[ $# > 0 ]]; then
-    . <(cli-shezargs)
+    eval "$(cli-shezargs $@)"
 
     color="$1"
     stack="$2"
     for ip in `amips $color $stack`; do
       echo $ip
-      sshix $ip 'gits-status' || true
+      sshix $ip 'gits-status' | egrep --line-buffered -v -i yoshi | egrep -v '^push\.default' || true
     done
 
     exit 0
