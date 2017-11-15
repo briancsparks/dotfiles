@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+test -f ${HOME}/dotfiles/helpers        && source ${HOME}/dotfiles/helpers
+test -f ${HOME}/dev/dotfiles/helpers    && source ${HOME}/dev/dotfiles/helpers
+
 RESET="\[\017\]"
 NORMAL="\[\033[0m\]"
 BOLD="\[\033[1m\]"
@@ -71,25 +74,27 @@ then
   #PS1="${RESET}${BLUE}[\t] ${BLUEBOLD}\h\$(__gs | tail -1):\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
   PS1="${RESET}${BLUE}[\t] \`${SELECT}\` ${BLUEBOLD}\h\`${GS}\`[\`${GPROXY}\`]:\w${NORMAL} ${YELLOW}\n\$${NORMAL} "
   #    ^^ host:dir ^^^^^^^^^^^^^^^^^ ^^ smiley ^^^ ^^ $ ^^^^^^^^^^^^^^^^^
+
 elif [ "$USER" = "scotty" ]
 then
-  PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${YELLOW}\h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
+  PS1="${RESET}${YELLOW}[\t] \`${SELECT}\` ${YELLOW}\h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
+
 elif [ "$USER" = "dagwood" ]
 then
-  PS1="${RESET}${BLUE}[\t] ${RED}${SG_PROMPT_PREFIX}-${YELLOW}\u\`${GS}\`:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
+  PS1="${RESET}${YELLOW}[\t] ${RED}${SG_PROMPT_PREFIX}-${YELLOW}\u\`${GS}\`:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
 elif [ "$USER" = "ubuntu" ]
 then
-  PS1="${RESET}${BLUE}[\t] ${RED}${SG_PROMPT_PREFIX}-${YELLOW}\u\`${GS}\`:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
+  PS1="${RESET}${YELLOW}[\t] ${RED}${SG_PROMPT_PREFIX}-${YELLOW}\u\`${GS}\`:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
 fi
 
 if [[ $MARIO_SERVICE == admin ]]; then
-  #PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${WHITEBG}${BLUE}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
-  #PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${WHITE}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE}${YELLOW} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
-  PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${WHITE}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE}${YELLOW} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
+  #PS1="${RESET}${YELLOW}[\t]  \`${SELECT}\` ${WHITEBG}${BLUE}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
+  #PS1="${RESET}${YELLOW}[\t]  \`${SELECT}\` ${WHITE}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE}${YELLOW} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
+  PS1="${RESET}${YELLOW}[\t]  \`${SELECT}\` ${WHITE}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE}${YELLOW} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
 elif [[ -n $SERVERASSIST_STACK && -n $SERVERASSIST_COLOR && -n $SERVERASSIST_SERVICE ]]; then
-  PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${YELLOW}${SERVERASSIST_COLOR}-${SERVERASSIST_STACK}-${SERVERASSIST_SERVICE} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
+  PS1="${RESET}${YELLOW}[\t]  \`${SELECT}\` ${YELLOW}${SERVERASSIST_COLOR}-${SERVERASSIST_STACK}-${SERVERASSIST_SERVICE} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
 elif [[ -n $MARIO_STACK && -n $MARIO_COLOR && -n $MARIO_SERVICE ]]; then
-  PS1="${RESET}${BLUE}[\t]  \`${SELECT}\` ${YELLOW}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
+  PS1="${RESET}${YELLOW}[\t]  \`${SELECT}\` ${YELLOW}${MARIO_COLOR}-${MARIO_STACK}-${MARIO_SERVICE} \h\`${GS}\`:\w${NORMAL}\n\`${WARNING}\`${YELLOW}\$${NORMAL} "
 fi
 
 
