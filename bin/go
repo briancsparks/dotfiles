@@ -40,9 +40,16 @@ elif [[ $name == "jenkinsservertester" ]]; then
 elif [[ $name == "dev" ]]; then
   ip="$DEVELOPMENT_SERVER"
 
+elif [[ $name == mda3b ]]; then
+  ip="$MARIO_ADMIN"
+
+elif [[ $name == board ]]; then
+  ip="$SAGO_BOARD"
+
 else
+
   echo ""
-  echo "Usage: go db, mongo, redis, util, dev, jenkins, jdroid, jst (jenkins server tester)"
+  echo "Usage: go db, mongo, redis, util, dev, jenkins, jdroid, jst (jenkins server tester), board"
   echo ""
   exit 0
 
