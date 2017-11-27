@@ -1,0 +1,9 @@
+#!/bin/bash -e
+
+eval "$(cli-shezargs $@)"
+
+[[ -z "${cur_branch}" ]] && die "Need --cur-branch="
+#[[ -z "${cur_branch}" ]] && cur_branch="master"
+
+git checkout npm && git pull --ff-only && git merge "${cur_branch}" && git push && npm publish && git checkout "${cur_branch}"
+

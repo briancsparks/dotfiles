@@ -55,6 +55,9 @@ if ! [[ -d $target_dir ]]; then
   target_dir="${HOME}/dev"
 fi
 
+# If this is here, its not a server
+[[ -d $target_dir/botball ]] && target_dir="."
+
 git config --global --get 'user.email' | egrep -i yoshi && git config --global --list
 
 repositories="$(find $target_dir -type d | egrep '\.git$' | egrep -v 'X/\.git$' | egrep -v '/dev/[^/]+X/' | sort)"

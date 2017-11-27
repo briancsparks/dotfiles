@@ -22,6 +22,7 @@ eval "$(cli-shezargs $@)"
 [[ -n $un_verbose ]] && codes="$codes NetworkStats:S libpersona:S StatusBar:S SensorService:S Watchdog:S QSTile:S NotificationStackScrollLayout:S AlarmManager:S PERF:S PowerManagerService:S"
 [[ -n $un_verbose ]] && codes="$codes AwesomePlayer:S LightsService:S ACDB:S WaterDroplet_Keyguard:S SurfaceFlinger:S audio_route:S Launcher:S PanelView:S InputDispatcher:S PhoneStatusBar:S"
 [[ -n $un_verbose ]] && codes="$codes InputReader:S ComposerPerformance:S System:S StatusBar:S QSTile:S SettingsProvider:S ImageView:S ErrorProcessor:S MemoryDealer:S MiniAppUpdateInstall:S"
+[[ -n $un_verbose ]] && codes="$codes Sensors:S accuweather:S"
 #[[ -n $un_verbose ]] && final_code=''
 
 

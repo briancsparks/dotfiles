@@ -91,12 +91,21 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" Marks in the left gutter
+let g:syntastic_enable_signs = 1
+
 let g:syntastic_mode_map = { 'mode' : 'active',
+                           \ 'active_filetypes' : [],
                            \ 'passive_filetypes' : ['java', 'cpp', 'objc'] }
 
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ,"trimming empty <", "unescaped &" , "lacks \"action", "is not recognized!", "discarding unexpected"]
-let g:syntaxtic_javascript_checkers=['eslint']
+"let g:syntastic_javascript_checkers=['eslint', 'jshint']
+let g:syntastic_javascript_checkers=['eslint']
 
 " ------------------------------------- rails.vim  --------------------------------------------------
 "
