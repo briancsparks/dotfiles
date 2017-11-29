@@ -4,5 +4,5 @@ eval "$(cli-shezargs $@)"
 
 [[ -d serverassist ]] || die "You must be in the parent of a working group"
 
-find . -type f -maxdepth 2 | egrep package\.json$ | while read f; do d="$(dirname $f)"; echo "|$f| |$d|"; (cd $d && npm update); done
+find . -maxdepth 2 -type f | egrep package\.json$ | while read f; do d="$(dirname $f)"; echo "|$f| |$d|"; (cd $d && npm update); done
 
