@@ -1,0 +1,28 @@
+#!/bin/bash -e
+
+#
+# Finds files that have changed from git's point of view, and pushes
+# those files to the identical dir on the other machine.
+
+eval "$(cli-shezargs $@)"
+
+# ----- Move to the git root -----
+gitroot="$(git rev-parse --show-toplevel)"
+[[ -z $gitroot ]] && die "Must be in a git repo"
+
+cd $gitroot
+
+[[ -z $ip ]] && ip="$other"
+[[ -z $ip ]] && ip="$1"
+[[ -z $ip ]] && die "Need --ip= (can be \$1)"
+
+# ----- Find the changes -----
+git status --short | egrep '^ *M' | while read f; do
+
+  filename="$(echo $f | cut -d' ' -f2)"
+  if [[ -f $filename ]]; then
+    scpix "$filename" "${ip}:$(pwd)/${filename}"
+  fi
+
+done
+
