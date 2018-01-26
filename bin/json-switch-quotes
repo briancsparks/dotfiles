@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+eval "$(cli-shezargs $@)"
+
+echo "$@" | tr "'\"" '"'"'"
+#                    123456
+
+# This is a double-quote inside single quotes (123), followed
+# by a single-quote inside double quotes (456)
+
