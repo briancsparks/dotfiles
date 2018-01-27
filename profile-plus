@@ -25,8 +25,8 @@ export JSAWS_AWS_ACCTS="pub:244406501905,panini:311778409164,dev:084075158741"
 [ -d "$HOME/dev/dotfiles" ]   && PATH="$PATH:${HOME}/dev/dotfiles/bin"
 
 # Include layer67 scripts in PATH
-[[ -d "$HOME/dev/layer67/scripts"      ]] && PATH="$PATH:$HOME/dev/layer67/scripts"
-[[ -d "$HOME/dev/b/layer67/scripts"    ]] && PATH="$PATH:$HOME/dev/b/layer67/scripts"
+[[ -d "$HOME/dev/layer67/admin"      ]] && PATH="$PATH:$HOME/dev/layer67/admin"
+[[ -d "$HOME/dev/b/layer67/admin"    ]] && PATH="$PATH:$HOME/dev/b/layer67/admin"
 
 # Include js-cluster scripts in PATH
 [[ -d "$HOME/dev/js-cluster/scripts"        ]] && PATH="$PATH:$HOME/dev/js-cluster/scripts"
