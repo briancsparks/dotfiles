@@ -36,6 +36,20 @@ do_changed() {
   popd > /dev/null
 }
 
+if [[ $1 == layer67 ]]; then
+  eval "$(cli-shezargs $@)"
+
+  echo "$1" "$2"
+
+  [[ $2 == prod ]] && assumed_acct="pub"
+
+  for ip in `aws-assumed-role "${assumed_acct}" ec2 describe-instances --filters "Name=tag:tech,Values=layer67" | jq -r '.Reservations[].Instances[].PrivateIpAddress'`; do
+    echo $ip
+    sshix $ip 'gits-status' | egrep --line-buffered -v -i yoshi | egrep -v '^push\.default' || true
+  done
+fi
+
+
 target_dir="$1"
 
 if ! [[ -d $target_dir ]]; then
