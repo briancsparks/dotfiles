@@ -1,0 +1,32 @@
+#!/bin/bash -e
+
+eval "$(cli-shezargs $@)"
+
+[[ -z $rsvr ]] && rsvr="$1"
+
+[[ -z $rsvr ]] && die "Must --rsvr="
+[[ -z $USER ]] && die 'Need $USER'
+
+rm -f /tmp/checkmario-out.pcl
+rm -f /tmp/checkmario-clientstart.json
+
+curl -sS "https://hq.mobilewebprint.net/sap/api/v12/clientStart?clientId=${USER}workstation&sessionId=${USER}workstation-123456&rsvr=${rsvr}" > /tmp/checkmario-clientstart.json
+
+upstream="$(cat /tmp/checkmario-clientstart.json | jq -r '.upstream')"
+
+#echo "Using $upstream as upstream..."
+echo -n "$upstream... "
+
+curl -sS "$upstream/pcl/typeofprint-unknown/officejet+pro+8600/https/s3.amazonaws.com/net-mobiledevprint-files/coupons/coupon1.pdf" > /tmp/checkmario-out.pcl
+
+if ! egrep '%-12345X' /tmp/checkmario-out.pcl > /dev/null; then
+  echo 'FAIL! -- vim -b /tmp/checkmario-out.pcl'
+  echo ""
+  ls -l /tmp/checkmario-out.pcl
+  die
+fi
+
+echo "Success!"
+echo ""
+ls -l /tmp/checkmario-out.pcl
+

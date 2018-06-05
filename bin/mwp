@@ -1,0 +1,87 @@
+#!/bin/bash -e
+
+project="sap"
+timestamp="$(node -e 'console.log(Date.now())')"
+
+eval "$(cli-shezargs $@)"
+
+# -------------------------------------------------------------------------------------
+# Get the endpoint of the service that the user wants.
+#
+#   The user can provide --stack= or --fqdn=
+#   Or the env vars MWP_CURR_STACK or MWP_CURR_FQDN can be set
+# -------------------------------------------------------------------------------------
+get_upstream() {
+  [[ -z ${mwp_curr_stack} ]] && mwp_curr_stack="${MWP_CURR_STACK}"
+  [[ -n ${stack}          ]] && mwp_curr_stack="${stack}"
+  [[ -z ${mwp_curr_stack} ]] && mwp_curr_stack="hqpub"
+
+  [[ -z ${mwp_curr_fqdn}  ]] && mwp_curr_fqdn="${MWP_CURR_FQDN}"
+  [[ -n ${fqdn}           ]] && mwp_curr_fqdn="${fqdn}"
+
+  if [[ -z ${mwp_curr_fqdn} ]]; then
+    [[ -z ${mwp_curr_stack} ]] && die "Need --fqdn= or --stack="
+
+    url="https://hq.mobilewebprint.net/${project}/api/v12/clientStart"
+    url="${url}?clientId=${USER}workstation"
+    url="${url}&sessionId=${USER}workstation-${timestamp}"
+    url="${url}&rsvr=${mwp_curr_stack}"
+
+    mwp_curr_fqdn="$(curl -sL "${url}" | jq -r '.upstream')"
+  fi
+
+  echo "${mwp_curr_fqdn}"
+}
+
+model_id() {
+  ip="$1"
+  shift
+
+  echo "$(snmpget -c public -On ${ip} 1.3.6.1.2.1.25.3.2.1.3.1 | egrep -o 'STRING.*$' | cut -d' ' -f2-)"
+}
+
+rip() {
+  asset="$1"
+  shift
+
+  ip="$1"
+  shift
+
+  asset="$(echo $asset | sed 's;://;/;')"
+  upstream="$(get_upstream)"
+  model="$(model_id $ip | tr ' ' '+')"
+
+  model="photosmart+c309a+series"
+
+  echo "Using upstream: ${upstream} for model: |${model}| to get asset: |${asset}|"
+
+  rm -f /tmp/mwp-rip.pcl
+  curl -sL "${upstream}/pcl/typeofprint-unknown/${model}/${asset}" -o /tmp/mwp-rip.pcl
+
+  [[ -f /tmp/mwp-rip.pcl ]] || die "No PCL file downloaded"
+
+  cat /tmp/mwp-rip.pcl | socat -t999 -T999 - "tcp:${ip}:9100"
+}
+
+cmd="$1"
+shift
+
+# -------------------------------------------------------------------------------------
+# Now do the command
+# -------------------------------------------------------------------------------------
+
+case $cmd in
+  rip)
+    rip "$@"
+    ;;
+
+  model)
+    echo "$(model_id $@)"
+    ;;
+
+  upstream)
+    echo "$(get_upstream $@)"
+    ;;
+
+esac
+

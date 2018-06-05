@@ -47,7 +47,8 @@ hash fdd  && alias fd='fdd'
 alias h='history'
 alias hi='history | egrep -i '
 alias vim='vim -p'
-alias tree="tree -I 'node_modules|bower_components|ppds|_tmp|cmake-build'"
+alias nvim='nvim -p'
+alias tree="tree -I 'node_modules|bower_components|ppds|_tmp|cmake-build|doxygen-build'"
 alias wip='git commit -am "WIP"'
 alias refactoring='git commit -am "Refactoring"'
 alias fixed='git commit -am "Fixed"'
@@ -84,6 +85,8 @@ alias scpxi='scp    -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/nu
 
 alias gru="git remote update"
 alias gpff="git pull --ff-only"
+
+alias valgrind-s='valgrind --suppressions=/Users/sparksb/catch2-valgrind-suppressions.supp'
 
 mgru()
 {

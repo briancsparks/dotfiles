@@ -1,5 +1,11 @@
 execute pathogen#infect()
 
+"
+"
+" Use: ':so %' to reload this .vimrc file
+"
+"
+
 :let mapleader = ","
 
 :set nocompatible
@@ -56,9 +62,14 @@ autocmd ColorScheme * highlight ErrorWhitespace ctermbg=red guibg=red
 " Open new tab
 :map <C-t> <esc>:tabe<CR>,t
 
-" Next and previous error (quickfix)
-:map <C-n> :cn<CR>
-:map <C-p> :cp<CR>
+" Switch to syntastic style
+" " Next and previous error (quickfix)
+" :map <C-n> :cn<CR>
+" :map <C-p> :cp<CR>
+
+" Next and previous error (Syntastic Location List)
+:map <C-n> :lnext<CR>
+:map <C-p> :lprevious<CR>
 
 " Open file from the same dir
 :map <Leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
@@ -98,14 +109,28 @@ let g:syntastic_check_on_wq = 0
 
 " Marks in the left gutter
 let g:syntastic_enable_signs = 1
+let g:syntastic_auto_jump = 3
 
 let g:syntastic_mode_map = { 'mode' : 'active',
-                           \ 'active_filetypes' : [],
-                           \ 'passive_filetypes' : ['java', 'cpp', 'objc'] }
+                           \ 'active_filetypes' : ['cpp'],
+                           \ 'passive_filetypes' : ['java', 'objc'] }
 
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ,"trimming empty <", "unescaped &" , "lacks \"action", "is not recognized!", "discarding unexpected"]
 "let g:syntastic_javascript_checkers=['eslint', 'jshint']
 let g:syntastic_javascript_checkers=['eslint']
+
+" C++
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = ' -std=c++14 -stdlib=libc++'
+
+:map <Leader>m :lnext<CR>
+:map <Leader>n :lprevious<CR>
+
+"
+" :Errors
+" :lopen, :lclose
+" :lnext, :lprevious
+"
 
 " ------------------------------------- rails.vim  --------------------------------------------------
 "
@@ -167,4 +192,38 @@ endif
 " ------------------------------------- // to search while in visual mode -------------------------------
 "
 vnoremap // y/<C-R>"<CR>
+
+"
+" ------------------------------------- a better Ctrl-Y -------------------------------
+"
+" From https://www.ibm.com/developerworks/library/l-vim-script-1/index.html
+"
+"Locate and return character "above" current cursor position...
+function! LookUpwards()
+   "Locate current column and preceding line from which to copy...
+   let column_num      = virtcol('.')
+   let target_pattern  = '\%' . column_num . 'v.'
+   let target_line_num = search(target_pattern . '*\S', 'bnW')
+
+   "If target line found, return vertically copied character...
+   if !target_line_num
+      return ""
+   else
+      return matchstr(getline(target_line_num), target_pattern)
+   endif
+endfunction
+
+"Reimplement CTRL-Y within insert mode...
+imap <silent>  <C-Y>  <C-R><C-R>=LookUpwards()<CR>
+
+"
+" ------------------------------------- C++ -------------------------------
+"
+" https://stackoverflow.com/questions/2627886/how-do-i-run-a-c-program-from-vim
+"
+:let $CXXFLAGS='-std=c++11'
+nnoremap <silent> <F10> :!clear;make %< && ./%<<CR>
+
+
+
 
