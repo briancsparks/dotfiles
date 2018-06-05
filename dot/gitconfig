@@ -8,3 +8,7 @@
 [push]
 	default = upstream
 
+[user]
+	email = brian.c.sparks@hp.com
+	name = Brian C Sparks
+
