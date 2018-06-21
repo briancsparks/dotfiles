@@ -90,6 +90,8 @@ alias gpff="git pull --ff-only"
 
 alias valgrind-s='valgrind --suppressions=/Users/sparksb/catch2-valgrind-suppressions.supp'
 
+alias vim-config-files='vim -p $HOME/.profile $HOME/.bashrc $HOME/dotfiles/bashrc-plus $HOME/dotfiles/profile-plus $HOME/.bash_profile'
+
 mgru()
 {
   git remote update
