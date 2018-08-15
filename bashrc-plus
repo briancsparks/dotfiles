@@ -37,6 +37,9 @@ modified()
 export NODE_PATH="$(npm root -g)"
 export GRADLE_OPTS=-Xmx2048m
 
+# gitignore.io
+gi() { curl -sL "https://www.gitignore.io/api/$@" ; }
+
 alias tohome='test -d /mnt/c/Users && cd /mnt/c/Users && test -d sparksb && cd sparksb'
 
 alias fn='find . -type f | egrep -i '

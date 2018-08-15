@@ -28,6 +28,7 @@ if [[ $NETWORK_TYPE == net15 ]]; then
     (ipconfig | egrep 'IPv4[^:]+: 10\.') && export NETWORK_TYPE="net10"
   else
     (ifconfig | egrep 'inet (addr:)?10\.') && export NETWORK_WITH_WIFI="net10"
+    #(ifconfig | egrep 'inet (addr:)?(10|172)\.') && export NETWORK_WITH_WIFI="net10"
   fi
 fi
 
