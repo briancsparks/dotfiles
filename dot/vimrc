@@ -78,6 +78,7 @@ autocmd ColorScheme * highlight ErrorWhitespace ctermbg=red guibg=red
 nmap <silent> ,. :nohlsearch<CR>
 
 :color desert
+" :color delek
 
 " :source ~/zz_packages/vim/runtime/macros/matchit.vim
 
@@ -113,7 +114,7 @@ let g:syntastic_auto_jump = 3
 
 let g:syntastic_mode_map = { 'mode' : 'active',
                            \ 'active_filetypes' : ['cpp'],
-                           \ 'passive_filetypes' : ['java', 'objc'] }
+                           \ 'passive_filetypes' : ['java', 'objc', 'yaml'] }
 
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ,"trimming empty <", "unescaped &" , "lacks \"action", "is not recognized!", "discarding unexpected"]
 "let g:syntastic_javascript_checkers=['eslint', 'jshint']

@@ -208,6 +208,8 @@ bcs()     { cd "$HOME/dev/b/$1"; }
 sa()      { test -d "$HOME/dev/serverassist/$1"         && cd "$HOME/dev/serverassist/$1"         || cd "$HOME/dev/b/serverassist/$1"; }
 serva()   { test -d "$HOME/dev/server-assist-server/$1" && cd "$HOME/dev/server-assist-server/$1" || cd "$HOME/dev/b/server-assist-server/$1"; }
 
+source <(npm completion)
+
 test -f ${HOME}/dotfiles/setprompt      && . ${HOME}/dotfiles/setprompt
 test -f ${HOME}/dev/dotfiles/setprompt  && . ${HOME}/dev/dotfiles/setprompt
 
