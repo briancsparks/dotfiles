@@ -9,6 +9,16 @@ test -f ${HOME}/dev/dotfiles/helpers    && source ${HOME}/dev/dotfiles/helpers
 verbose "---------- proxy-setup start; starting with |$NETWORK_TYPE|"
 
 if [ -z $NETWORK_TYPE ]; then
+  if which node > /dev/null; then
+
+    rm -f "${TMP}/network-type"
+    node ~/dotfiles/determine-network-type.js
+    . <(cat "${TMP}/network-type")
+
+  fi
+fi
+
+if [ -z $NETWORK_TYPE ]; then
   if [[ $OS =~ Windows ]]; then
     if ipconfig | egrep 'IPv4[^:]+: 1[56]\.'; then export NETWORK_TYPE="net15"
     elif ipconfig | egrep 'IPv4[^:]+: 192\.'; then export NETWORK_TYPE="home"
@@ -20,15 +30,16 @@ if [ -z $NETWORK_TYPE ]; then
     elif ifconfig | egrep 'inet (addr:)?10\.' ; then export NETWORK_TYPE="net10"
     fi
   fi
-fi
 
-# Do we also have wifi?
-if [[ $NETWORK_TYPE == net15 ]]; then
-  if [[ $OS =~ Windows ]]; then
-    (ipconfig | egrep 'IPv4[^:]+: 10\.') && export NETWORK_WITH_WIFI_X="net10"
-  else
-    (ifconfig | egrep 'inet (addr:)?10\.') && export NETWORK_WITH_WIFI="net10"
-    #(ifconfig | egrep 'inet (addr:)?(10|172)\.') && export NETWORK_WITH_WIFI="net10"
+  # Do we also have wifi?
+  if [[ $NETWORK_TYPE == net15 ]]; then
+    if [[ $OS =~ Windows ]]; then
+      echo "windows"
+      # (ipconfig | egrep 'IPv4[^:]+: 10\.') && export NETWORK_TYPE="net10"
+    else
+      (ifconfig | egrep 'inet (addr:)?10\.') && export NETWORK_WITH_WIFI="net10"
+      #(ifconfig | egrep 'inet (addr:)?(10|172)\.') && export NETWORK_WITH_WIFI="net10"
+    fi
   fi
 fi
 
