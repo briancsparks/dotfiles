@@ -19,6 +19,8 @@ alias l='ls -CF'
 
 # A real clear-screen
 
+fingerprint() { ssh-keygen -lf $1 -E md5; }
+
 maccls() { osascript -e 'tell application "System Events" to keystroke "k" using command down'; }
 
 if [ "$TERM_PROGRAM" == "Apple_Terminal" ]; then

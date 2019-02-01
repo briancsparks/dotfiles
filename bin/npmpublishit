@@ -2,6 +2,13 @@
 
 eval "$(cli-shezargs $@)"
 
+if ! git branch 2> /dev/null | grep '  npm'; then
+  echo "No npm branch. Create one with:"
+  echo "  git checkout -b npm"
+  echo "  git push -u origin npm"
+  exit 2
+fi
+
 if [[ -z ${cur_branch} ]]; then
   if git branch 2> /dev/null; then
     cur_branch=$(git branch | grep '^\*' | grep -o '[^ ]*$')
