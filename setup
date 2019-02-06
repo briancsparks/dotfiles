@@ -15,7 +15,7 @@ for f in $(ls dot); do
 done
 
 # Development
-npm install -g eslint babel-eslint eslint-plugin-react
+npm install -g eslint babel-eslint eslint-plugin-react || sudo npm install -g eslint babel-eslint eslint-plugin-react
 
 # VIM setup
 mkdir -p ~/.vim/autoload ~/.vim/bundle
