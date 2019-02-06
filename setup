@@ -15,7 +15,8 @@ for f in $(ls dot); do
 done
 
 # Development
-npm install -g eslint babel-eslint eslint-plugin-react underscore-cli || sudo npm install -g eslint babel-eslint eslint-plugin-react underscore-cli
+npm install -g eslint babel-eslint eslint-plugin-react underscore-cli yarn || \
+    sudo npm install -g eslint babel-eslint eslint-plugin-react underscore-cli yarn
 
 # VIM setup
 mkdir -p ~/.vim/autoload ~/.vim/bundle
