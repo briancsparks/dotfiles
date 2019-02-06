@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-[ -z $TMP ] && stat "/tmp" && export TMP="/tmp"
+[ -z $TMP ] && stat "/tmp" > /dev/null && export TMP="/tmp"
 
 test -f ${HOME}/dotfiles/helpers        && source ${HOME}/dotfiles/helpers
 test -f ${HOME}/dev/dotfiles/helpers    && source ${HOME}/dev/dotfiles/helpers
