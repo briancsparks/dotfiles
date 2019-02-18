@@ -1,0 +1,15 @@
+#!/bin/bash -e
+
+eval "$(cli-shezargs $@)"
+
+# grep -i 'copyright[^h]*hp' $1 && exit 0
+grep -i 'copyright' $1 && exit 0
+
+ext="${1##*.}"
+
+test -f "$HOME/dev/copyright.${ext}" || echo "no copyright for ${ext}"
+
+(cat "$HOME/dev/copyright.${ext}" $1) > /tmp/booya/copyrighted
+
+mv /tmp/booya/copyrighted $1
+

@@ -1,5 +1,9 @@
 #!/bin/bash -e
 
+#
+# Pushes id_rsa.pub (and id_rsa, if asked) to a server via ssh
+#
+
 eval "$(cli-shezargs $@)"
 
 [[ -z $server       ]] && die "Need --server= [--and-private-key]"
