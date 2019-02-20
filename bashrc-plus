@@ -105,7 +105,7 @@ alias gpff="git pull --ff-only"
 
 alias valgrind-s='valgrind --suppressions=/Users/sparksb/catch2-valgrind-suppressions.supp'
 
-alias vim-config-files='vim -p $HOME/.profile $HOME/.bashrc $HOME/dotfiles/bashrc-plus $HOME/dotfiles/profile-plus $HOME/.bash_profile'
+alias vim-config-files='vim -p $HOME/.profile $HOME/.bashrc $HOME/dotfiles/bashrc-plus $HOME/dotfiles/profile-plus $HOME/dotfiles/proxy-setup $HOME/.bash_profile'
 alias vim-setup-files='vim -p $HOME/.aws/config $HOME/.aws/credentials $HOME/.ssh/config'
 
 mgru()

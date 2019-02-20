@@ -9,6 +9,7 @@ const ifaceList     = os.networkInterfaces();
 var   ifaceNames    = Object.keys(ifaceList);
 
 ifaceNames = ifaceNames.filter(name => !name.toLowerCase().startsWith('vethernet'));
+ifaceNames = ifaceNames.filter(name => !name.toLowerCase().startsWith('vmware'));
 
 var   ifaces = ifaceNames.reduce((m, name) => {
   ifaceList[name].forEach(iface => {
