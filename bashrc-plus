@@ -42,7 +42,9 @@ export GRADLE_OPTS=-Xmx2048m
 # gitignore.io
 gi() { curl -sL "https://www.gitignore.io/api/$@" ; }
 
+# cd-ish
 alias tohome='test -d /mnt/c/Users && cd /mnt/c/Users && test -d sparksb && cd sparksb'
+alias gohome='test -d /mnt/c/Users && cd /mnt/c/Users && test -d sparksb && cd sparksb'
 
 alias fn='find . -type f | egrep -i '
 alias fd='find . -type d | egrep -i '
@@ -56,6 +58,8 @@ alias hi='history | egrep -i '
 alias vim='vim -p'
 alias nvim='nvim -p'
 alias tree="tree -I 'node_modules|bower_components|ppds|_tmp|cmake-build|doxygen-build'"
+
+# git
 alias wip='git commit -am "WIP"'
 alias refactoring='git commit -am "Refactoring"'
 alias fixed='git commit -am "Fixed"'
@@ -205,10 +209,14 @@ mclient() {
 
 jsaws()   { cd "$HOME/dev/js-aws/$1"; }
 
-bcs()     { cd "$HOME/dev/b/$1"; }
+bcs()     { test -d "$HOME/dev/b" && cd "$HOME/dev/b/$1" || cd "$HOME/dev/bcs/$1" ; }
+goe()     { cd "$HOME/dev/e2ec/$1"; }
 
 sa()      { test -d "$HOME/dev/serverassist/$1"         && cd "$HOME/dev/serverassist/$1"         || cd "$HOME/dev/b/serverassist/$1"; }
 serva()   { test -d "$HOME/dev/server-assist-server/$1" && cd "$HOME/dev/server-assist-server/$1" || cd "$HOME/dev/b/server-assist-server/$1"; }
+
+gora()    { bcs ra-ecosystem; }
+gon()     { goe "netlab/netlab-monorepo" && test -d "netlab" && cd "netlab"; }
 
 if ! [[ $OS =~ Windows ]]; then
   source <(npm completion)
