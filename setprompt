@@ -84,7 +84,7 @@ then
   PS1="${RESET}${YELLOW}[\t] ${RED}${SG_PROMPT_PREFIX}-${YELLOW}\u\`${GS}\`:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
 elif [ "$USER" = "ubuntu" ]
 then
-  PS1="${RESET}${YELLOW}[\t] ${RED}${NAMESPACE}-${YELLOW}\h\`${GS}\`:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
+  PS1="${RESET}${YELLOW}[\t] ${YELLOW}${NAMESPACE}-${YELLOW}\h\`${GS}\`:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
 fi
 
 if [[ $MARIO_SERVICE == admin ]]; then
