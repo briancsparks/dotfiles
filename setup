@@ -18,6 +18,10 @@ done
 npm install -g eslint babel-eslint eslint-plugin-react underscore-cli yarn || \
     sudo npm install -g eslint babel-eslint eslint-plugin-react underscore-cli yarn
 
+# TODO: ensure Ubuntu
+sudo apt-get install -y silversearcher-ag curl socat tree htop jq parallel nmap git mercurial gawk \
+    subversion cscope exuberant-ctags realpath unzip zip graphviz dos2unix
+
 # VIM setup
 mkdir -p ~/.vim/autoload ~/.vim/bundle
 test -f ~/.vim/autoload/pathogen.vim || curl -SLso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
