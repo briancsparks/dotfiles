@@ -220,6 +220,14 @@ gon()     { goe "netlab/netlab-monorepo" && test -d "netlab" && cd "netlab"; }
 
 if ! [[ $OS =~ Windows ]]; then
   source <(npm completion)
+
+  # kubectl
+  if hash kubectl; then
+    source <(kubectl completion bash)
+
+    alias k=kubectl
+    complete -F __start_kubectl k
+  fi
 fi
 
 test -f ${HOME}/dotfiles/setprompt      && . ${HOME}/dotfiles/setprompt
