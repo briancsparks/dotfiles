@@ -218,15 +218,39 @@ serva()   { test -d "$HOME/dev/server-assist-server/$1" && cd "$HOME/dev/server-
 gora()    { bcs ra-ecosystem; }
 gon()     { goe "netlab/netlab-monorepo" && test -d "netlab" && cd "netlab"; }
 
+
 if ! [[ $OS =~ Windows ]]; then
   source <(npm completion)
 
-  # kubectl
+  # ----- kubectl --------------------------------------------
   if hash kubectl; then
     source <(kubectl completion bash)
 
     alias k=kubectl
     complete -F __start_kubectl k
+
+    # Are we configured?
+    if [[ -z $KOPS_CLUSTER_NAME || -z $KOPS_STATE_STORE ]]; then
+      echo ""
+      echo "---"
+
+      if [[ -z $KOPS_CLUSTER_NAME ]]; then
+        echo "KOPS_CLUSTER_NAME not set"
+      fi
+
+      if [[ -z $KOPS_STATE_STORE ]]; then
+        echo "KOPS_STATE_STORE not set"
+      fi
+
+      echo ""
+      echo 'export KOPS_CLUSTER_NAME="${KOPS_MWP_CLUSTER_NAME}"'
+      echo 'export KOPS_STATE_STORE="${KOPS_MWP_STATE_STORE}"'
+      echo ""
+      echo 'export KOPS_CLUSTER_NAME="${KOPS_MWA_CLUSTER_NAME}"'
+      echo 'export KOPS_STATE_STORE="${KOPS_MWA_STATE_STORE}"'
+      echo ""
+    fi
+
   fi
 fi
 
@@ -237,3 +261,4 @@ verbose "---------- bashrc-plus end"
 
 true
 
+# vim: ft=sh:
