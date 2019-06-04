@@ -51,5 +51,7 @@ export JSAWS_AWS_ACCTS="pub:244406501905,panini:311778409164,dev:084075158741"
 
 [[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
 
+export PATH="$HOME/.krew/bin:$PATH"
+
 verbose "---------- profile-plus end"
 
