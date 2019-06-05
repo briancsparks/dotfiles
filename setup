@@ -42,5 +42,14 @@ if [[ -d ~/.vim/bundle/vim-javascript/indent ]]; then
   rm -f ~/.vim/bundle/vim-jsx/after/indent/jsx.vim
 fi
 
+# Linuxbrew, fzf / ntl
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+
+# TODO: once we can install and use brew in one fell swoop, do this:
+#$(brew --prefix)/opt/fzf/install
+
+
 cd
+
+# vim: ft=bash:
 

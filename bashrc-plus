@@ -257,6 +257,9 @@ if ! [[ $OS =~ Windows ]]; then
   fi
 fi
 
+# fzf completion
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 test -f ${HOME}/dotfiles/setprompt      && . ${HOME}/dotfiles/setprompt
 test -f ${HOME}/dev/dotfiles/setprompt  && . ${HOME}/dev/dotfiles/setprompt
 

@@ -51,7 +51,13 @@ export JSAWS_AWS_ACCTS="pub:244406501905,panini:311778409164,dev:084075158741"
 
 [[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
 
+# krew is a k8s utility to install kubectl add-ons
 export PATH="$HOME/.krew/bin:$PATH"
+
+# Linuxbrew
+test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+
 
 verbose "---------- profile-plus end"
 
