@@ -229,8 +229,8 @@ if ! [[ $OS =~ Windows ]]; then
     alias k=kubectl
     complete -F __start_kubectl k
 
-    export KOPS_CLUSTER_NAME="${KOPS_MWP_CLUSTER_NAME}"
-    export KOPS_STATE_STORE="${KOPS_MWP_STATE_STORE}"
+    # export KOPS_CLUSTER_NAME="${KOPS_MWP_CLUSTER_NAME}"
+    # export KOPS_STATE_STORE="${KOPS_MWP_STATE_STORE}"
 
     # Are we configured?
     if [[ -z $KOPS_CLUSTER_NAME || -z $KOPS_STATE_STORE ]]; then
