@@ -1,0 +1,7 @@
+#!/bin/bash -e
+
+curl -L https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | jq -r '.tag_name')/kops-linux-amd64 > kops
+chmod +x kops
+sudo mv kops /usr/local/bin
+
+
