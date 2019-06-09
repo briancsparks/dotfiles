@@ -4,4 +4,11 @@ curl -L https://github.com/kubernetes/kops/releases/download/$(curl -s https://a
 chmod +x kops
 sudo mv kops /usr/local/bin
 
+echo ""
+echo "Now, set the env, and import a project. For example:"
+echo 'export KOPS_CLUSTER_NAME="amin.mobiledevassist.net"'
+echo 'export KOPS_STATE_STORE="s3://serverassist-net-state-store"'
+echo ""
+echo "Then:"
+echo "kops export kubecfg"
 

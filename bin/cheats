@@ -1,0 +1,20 @@
+#!/bin/bash -e
+
+cat << EOF
+
+kops create cluster --zones=us-east-1c,us-east-1a,us-east-1e --vpc=vpc-0cc636d3f577e025e --subnets=subnet-0cf72356e8c947ecc,subnet-08cf478122ef4e100,subnet-02dfb13339ac1b00b
+kops create secret sshpublickey admin -i ~/.ssh/id_rsa.pub
+kops edit cluster
+kops update cluster --yes
+kops validate cluster
+
+kops delete cluster
+
+kops edit ig nodes
+kops edit ig master-us-east-1c
+
+kops rolling-update cluster
+kops rolling-update cluster --yes
+
+EOF
+
