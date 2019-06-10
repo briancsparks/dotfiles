@@ -233,29 +233,31 @@ if ! [[ $OS =~ Windows ]]; then
     # export KOPS_STATE_STORE="${KOPS_MWP_STATE_STORE}"
 
     # Are we configured?
-    if [[ -z $KOPS_CLUSTER_NAME || -z $KOPS_STATE_STORE ]]; then
-      echo ""
-      echo "---"
+    #if [[ -z $KOPS_CLUSTER_NAME || -z $KOPS_STATE_STORE ]]; then
+    #  echo ""
+    #  echo "---"
 
-      if [[ -z $KOPS_CLUSTER_NAME ]]; then
-        echo "KOPS_CLUSTER_NAME not set"
-      fi
+    #  if [[ -z $KOPS_CLUSTER_NAME ]]; then
+    #    echo "KOPS_CLUSTER_NAME not set"
+    #  fi
 
-      if [[ -z $KOPS_STATE_STORE ]]; then
-        echo "KOPS_STATE_STORE not set"
-      fi
+    #  if [[ -z $KOPS_STATE_STORE ]]; then
+    #    echo "KOPS_STATE_STORE not set"
+    #  fi
 
-      echo ""
-      echo 'export KOPS_CLUSTER_NAME="${KOPS_MWP_CLUSTER_NAME}"'
-      echo 'export KOPS_STATE_STORE="${KOPS_MWP_STATE_STORE}"'
-      echo ""
-      echo 'export KOPS_CLUSTER_NAME="${KOPS_MWA_CLUSTER_NAME}"'
-      echo 'export KOPS_STATE_STORE="${KOPS_MWA_STATE_STORE}"'
-      echo ""
-    fi
+    #  echo ""
+    #  echo 'export KOPS_CLUSTER_NAME="${KOPS_MWP_CLUSTER_NAME}"'
+    #  echo 'export KOPS_STATE_STORE="${KOPS_MWP_STATE_STORE}"'
+    #  echo ""
+    #  echo 'export KOPS_CLUSTER_NAME="${KOPS_MWA_CLUSTER_NAME}"'
+    #  echo 'export KOPS_STATE_STORE="${KOPS_MWA_STATE_STORE}"'
+    #  echo ""
+    #fi
 
-      echo 'export KOPS_CLUSTER_NAME="amin.mobiledevassist.net"'
-      echo 'export KOPS_STATE_STORE="s3://serverassist-net-state-store"'
+    echo 'export KOPS_STATE_STORE="s3://serverassist-net-state-store"'
+    echo 'export KOPS_CLUSTER_NAME="amin.mobiledevassist.net"'
+    echo 'export KOPS_STATE_STORE="s3://mtest1-mobiledevprint-net-state-store"'
+    echo 'export KOPS_CLUSTER_NAME="mtest1.mobiledevprint.net"'
   fi
 fi
 
