@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-eval "$(cli-shezargs $@)"
+#eval "$(cli-shezargs $@)"
 
 echo "$@" | tr "'\"" '"'"'"
 #                    123456
