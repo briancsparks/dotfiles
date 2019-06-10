@@ -254,6 +254,8 @@ if ! [[ $OS =~ Windows ]]; then
       echo ""
     fi
 
+      echo 'export KOPS_CLUSTER_NAME="amin.mobiledevassist.net"'
+      echo 'export KOPS_STATE_STORE="s3://serverassist-net-state-store"'
   fi
 fi
 
