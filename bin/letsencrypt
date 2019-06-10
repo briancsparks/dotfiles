@@ -19,8 +19,8 @@ emails="$3"
 [ -z "$emails" ] && die "Usage: $(basename $0) auth_domain domains emails"
 
 certbot certonly --non-interactive --manual \
-  --manual-auth-hook "${scripts_dir}/certbot-route53-auto-hook.sh UPSERT ${auth_domain}" \
-  --manual-cleanup-hook "${scripts_dir}/certbot-route53-auto-hook.sh DELETE ${auth_domain}" \
+  --manual-auth-hook "${scripts_dir}/certbot-route53-auth-hook.sh UPSERT ${auth_domain}" \
+  --manual-cleanup-hook "${scripts_dir}/certbot-route53-auth-hook.sh DELETE ${auth_domain}" \
   --preferred-challenge dns \
   --config-dir "$out_dir" \
   --work-dir "$out_dir" \
