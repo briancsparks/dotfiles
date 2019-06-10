@@ -258,6 +258,11 @@ if ! [[ $OS =~ Windows ]]; then
     echo 'export KOPS_CLUSTER_NAME="amin.mobiledevassist.net"'
     echo 'export KOPS_STATE_STORE="s3://mtest1-mobiledevprint-net-state-store"'
     echo 'export KOPS_CLUSTER_NAME="mtest1.mobiledevprint.net"'
+    echo ""
+    echo "KOPS_STATE_STORE=$KOPS_STATE_STORE"
+    echo "KOPS_CLUSTER_NAME=$KOPS_CLUSTER_NAME"
+    echo ""
+    kubectl config get-contexts
   fi
 fi
 
