@@ -16,5 +16,12 @@ kops edit ig master-us-east-1c
 kops rolling-update cluster
 kops rolling-update cluster --yes
 
+
+kubectl config use-context mtest1.mobiledevprint.net
+kubectl config use-context amin.mobiledevassist.net
+
+kubectl logs -f --all-containers -l app=rip
+kubectl exec -i --tty nginx-5dc5c59f75-d5nl7 -- /bin/sh
+
 EOF
 
