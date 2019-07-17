@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# TODO: This should be a non-bash file, and not set any bash-specific options
+
 [ -z $TMP ] && stat "/tmp" > /dev/null && export TMP="/tmp"
 
 test -f ${HOME}/dotfiles/helpers        && source ${HOME}/dotfiles/helpers
@@ -10,6 +12,9 @@ verbose "---------- profile-plus start"
 if ! [[ $OS =~ Windows ]]; then
   test -d /tmp && sudo chmod 777 /tmp
 fi
+
+export EDITOR="vim"
+export VISUAL="vim"
 
 export JSAWS_AWS_ACCT_EXTRA_CREDS="pub:244406501905/mario-mobilewebprint,panini:311778409164/mario-mobilewebprint,dev"
 export JSAWS_AWS_ACCTS="pub:244406501905,panini:311778409164,dev:084075158741"

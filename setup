@@ -1,16 +1,20 @@
 #!/bin/bash
 
+# TODO: remove bash-isms (***)
+
 pathogen()
 {
   git_user="$1"
   module="$2"
 
+  # (***)
   if ! [[ -d ~/.vim/bundle/${module} ]]; then
     (cd ~/.vim/bundle && git clone --depth=1 https://github.com/${git_user}/${module}.git)
   fi
 }
 
 for f in $(ls dot); do
+  # (***)
   test -f ../.${f} || ln -s "dotfiles/dot/$f" "../.$f"
 done
 
@@ -24,7 +28,12 @@ sudo apt-get install -y silversearcher-ag curl socat tree htop jq parallel nmap 
 
 # VIM setup
 mkdir -p ~/.vim/autoload ~/.vim/bundle
+
+# (***)
 test -f ~/.vim/autoload/pathogen.vim || curl -SLso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+
+
+
 
 pathogen vim-ctrlspace vim-ctrlspace
 pathogen scrooloose syntastic
@@ -37,11 +46,13 @@ pathogen jneen ragel.vim
 pathogen chr4 nginx.vim
 
 # vim-javascript and vim-jsx do horrible indentation
+# (***)
 if [[ -d ~/.vim/bundle/vim-javascript/indent ]]; then
   rm -rf ~/.vim/bundle/vim-javascript/indent
   rm -f ~/.vim/bundle/vim-jsx/after/indent/jsx.vim
 fi
 
+# TODO: only for Linux
 # Linuxbrew, fzf / ntl
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
 

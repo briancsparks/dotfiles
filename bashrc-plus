@@ -3,7 +3,13 @@
 test -f ${HOME}/dotfiles/helpers        && source ${HOME}/dotfiles/helpers
 test -f ${HOME}/dev/dotfiles/helpers    && source ${HOME}/dev/dotfiles/helpers
 
-verbose "---------- bashrc-plus start"
+verbose "---------- bashrc-plus start; (PS1: |$PS1|)"
+
+# Exit for non-interactive shells
+[ -z "$PS1" ] && return
+
+catprg="cat"
+hash vimcat && catprg="vimcat"
 
 test -f ${HOME}/dotfiles/proxy-setup        && source ${HOME}/dotfiles/proxy-setup
 test -f ${HOME}/dev/dotfiles/proxy-setup    && source ${HOME}/dev/dotfiles/proxy-setup
@@ -271,6 +277,8 @@ fi
 
 test -f ${HOME}/dotfiles/setprompt      && . ${HOME}/dotfiles/setprompt
 test -f ${HOME}/dev/dotfiles/setprompt  && . ${HOME}/dev/dotfiles/setprompt
+
+test -f $HOME/dotfiles/messages/login.sh && $catprg $HOME/dotfiles/messages/login.sh
 
 verbose "---------- bashrc-plus end"
 
