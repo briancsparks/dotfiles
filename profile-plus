@@ -18,6 +18,7 @@ export VISUAL="vim"
 
 export JSAWS_AWS_ACCT_EXTRA_CREDS="pub:244406501905/mario-mobilewebprint,panini:311778409164/mario-mobilewebprint,dev"
 export JSAWS_AWS_ACCTS="pub:244406501905,panini:311778409164,dev:084075158741"
+export REF_ID="884AB755-720C-4B64-BAB5-23C279AEBB65"
 
 #if cut -d: -f1 /etc/passwd | egrep '^mongodb$'; then
 #  sudo chown mongodb:mongodb /data
