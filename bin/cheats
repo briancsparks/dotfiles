@@ -37,7 +37,7 @@ if [[ $# == 0 && -n $command ]]; then
 fi
 
 # --- Show all the categories
-for f in `ls cheats-scripts`; do
+for f in `ls "${script_dir}/cheats-scripts"`; do
   show_category "$f"
 done
 exit 0
