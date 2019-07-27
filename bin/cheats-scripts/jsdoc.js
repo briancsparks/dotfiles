@@ -9,6 +9,10 @@
  * @param {number}        [code=113]          - For an optional Number (with default)
  * @param {string|number} id                  - Optional as String or Number
  *
+ * @param {Object}        employee            - The employee who is responsible for the project.
+ * @param {string}        employee.name       - The name of the employee.
+ * @param {string}        employee.department - The employee's department.
+ *
  * @returns {Object}                          - The result object
  *
  */
