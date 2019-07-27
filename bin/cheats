@@ -1,39 +1,48 @@
 #!/bin/bash -e
 
-cat << EOF
+# What is the cat command
+CAT="cat"
+hash vimcat 2> /dev/null && CAT="vimcat"
 
-#exit 0
+show_category() {
+  command="$1"
 
-# ========== Agents ==========
-(mkdir -p ~/dev && cd ~/dev && git clone git@github.azc.ext.hp.com:WirelessEasy/netlab.git && cd netlab/packages/netlab-server/scripts && ./install-agents)
+  echo "============================== ${command} =============================="
+  # cat "${script_dir}/cheats-scripts/${command}" | egrep -v '^exit' | egrep -v 'vim:\sft=' > "${TMP}/cheatsfile"
+  cat "${script_dir}/cheats-scripts/${command}" | egrep -v '^exit' > "${TMP}/cheatsfile"
+  $CAT "${TMP}/cheatsfile"
+  rm   "${TMP}/cheatsfile"
+}
 
-# ========== k8s ==========
-See also: https://github.com/briancsparks/ra-ecosystem/tree/master/packages/quick-net/docs/k8s-notes.md
+script_dir="$(dirname $0)"
 
-# ---------- kops ----------
-kops create cluster --zones="us-east-1c,us-east-1a,us-east-1e" --vpc="vpc-0cc636d3f577e025e" --subnets="subnet-0cf72356e8c947ecc,subnet-08cf478122ef4e100,subnet-02dfb13339ac1b00b"
-kops create secret sshpublickey "admin" -i ~/.ssh/id_rsa.pub
-kops edit cluster
-kops update cluster --yes
-kops validate cluster
+command="$1"
+[[ -n $command ]] && shift
 
-kops delete cluster
+# --- List categories
+if [[ $command == "ls" ]]; then
+  ls "${script_dir}/cheats-scripts"
+  exit 0
+fi
 
-kops edit ig "nodes"
-kops edit ig "master-us-east-1c"
+# --- Show a single category
+if [[ $# == 0 && -n $command ]]; then
+  if [[ -f "${script_dir}/cheats-scripts/${command}" ]]; then
+    show_category "${command}"
+  else
+    echo -n "Cannot find $command, try: "
+    "${script_dir}/cheats" "ls"
+  fi
+  exit 0
+fi
 
-kops update cluster
-kops update cluster --yes
+# --- Show all the categories
+for f in `ls cheats-scripts`; do
+  show_category "$f"
+done
+exit 0
 
-kops rolling-update cluster
-kops rolling-update cluster --yes
-
-# ---------- kubectl (k) ----------
-kubectl config use-context "mtest1.mobiledevprint.net"
-kubectl config use-context "amin.mobiledevassist.net"
-
-kubectl logs -f --all-containers -l app="rip"
-kubectl exec -i --tty "nginx-5dc5c59f75-d5nl7" -- /bin/sh
-
-EOF
+echo "Don't know what to do."
+echo ""
+echo "Usage: cheats [ls | name]"
 
