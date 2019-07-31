@@ -5,6 +5,7 @@ exit 0
 
 # ========== k8s ==========
 See also: https://github.com/briancsparks/ra-ecosystem/tree/master/packages/quick-net/docs/k8s-notes.md
+Cheat sheet: https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 
 # ---------- kops ----------
 kops create cluster --zones="us-east-1c,us-east-1a,us-east-1e" --vpc="vpc-123abc" --subnets="subnet-123abc,subnet-123abd,subnet-123abe"
