@@ -24,6 +24,12 @@ export REF_ID="884AB755-720C-4B64-BAB5-23C279AEBB65"
 #  sudo chown mongodb:mongodb /data
 #fi
 
+# What is the bcs dev-dir?
+BCS_DEV_DIR="$HOME/dev/bcs"
+[ -d "$HOME/dev/b" ] && BCS_DEV_DIR="$HOME/dev/b"
+
+
+
 # set PATH so it includes user's private bin if it exists
 [ -d "$HOME/bin" ]            && PATH="$HOME/bin:$PATH"
 [ -d "$HOME/local/bin" ]      && PATH="$HOME/local/bin:$PATH"
@@ -34,7 +40,7 @@ export REF_ID="884AB755-720C-4B64-BAB5-23C279AEBB65"
 
 # Include bridge47 scripts in PATH
 [[ -d "$HOME/dev/bridge47/admin"      ]] && PATH="$PATH:$HOME/dev/bridge47/admin"
-[[ -d "$HOME/dev/b/bridge47/admin"    ]] && PATH="$PATH:$HOME/dev/b/bridge47/admin"
+[[ -d "$BCS_DEV_DIR/bridge47/admin"    ]] && PATH="$PATH:$BCS_DEV_DIR/bridge47/admin"
 
 # Include js-cluster scripts in PATH
 [[ -d "$HOME/dev/js-cluster/scripts"        ]] && PATH="$PATH:$HOME/dev/js-cluster/scripts"
@@ -51,6 +57,15 @@ export REF_ID="884AB755-720C-4B64-BAB5-23C279AEBB65"
 # Include mario-util scripts in PATH
 [[ -d "$HOME/dev/mario-util/admin/scripts"      ]] && PATH="$PATH:$HOME/dev/mario-util/admin/scripts"
 [[ -d "$HOME/dev/b/mario-util/admin/scripts"    ]] && PATH="$PATH:$HOME/dev/b/mario-util/admin/scripts"
+
+# Netlab
+[[ -d "$HOME/dev/e2ec/netlab/netlab-monorepo/packages/netlab-server" ]] && PATH="$PATH:$HOME/dev/e2ec/netlab/netlab-monorepo/packages/netlab-server/scripts"
+
+# quicknet
+if [ -d "$BCS_DEV_DIR/ra-ecosystem/packages/quick-net" ]; then
+  PATH="$PATH:$BCS_DEV_DIR/ra-ecosystem/packages/quick-net/bin"
+  #PATH="$PATH:$BCS_DEV_DIR/ra-ecosystem/packages/quick-net/scripts"
+fi
 
 #Mario
 [ -d "$HOME/dev/mario_util/admin" ] && PATH="$PATH:$HOME/dev/mario_util/admin"
