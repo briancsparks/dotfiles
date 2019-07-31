@@ -218,12 +218,13 @@ jsaws()   { cd "$HOME/dev/js-aws/$1"; }
 
 bcs()     { test -d "$HOME/dev/b" && cd "$HOME/dev/b/$1" || cd "$HOME/dev/bcs/$1" ; }
 goe()     { cd "$HOME/dev/e2ec/$1"; }
+gdv()     { cd "$HOME/dev/$1"; }
 
 sa()      { test -d "$HOME/dev/serverassist/$1"         && cd "$HOME/dev/serverassist/$1"         || cd "$HOME/dev/b/serverassist/$1"; }
 serva()   { test -d "$HOME/dev/server-assist-server/$1" && cd "$HOME/dev/server-assist-server/$1" || cd "$HOME/dev/b/server-assist-server/$1"; }
 
-gora()    { bcs ra-ecosystem; }
-goraqn()  { bcs ra-ecosystem/packages/quick-net; }
+gora()    { bcs ra-ecosystem || gdv ra-ecosystem; }
+goraqn()  { bcs ra-ecosystem/packages/quick-net || gdv ra-ecosystem/packages/quick-net; }
 gon()     { goe "netlab/netlab-monorepo" && test -d "netlab" && cd "netlab"; }
 gonn()    { goe "netlab/netlab-monorepo" && test -d "netlab" && cd "netlab"; cd "packages/netlab-server"; }
 
@@ -262,6 +263,10 @@ if ! [[ $OS =~ Windows ]]; then
     #  echo 'export KOPS_STATE_STORE="${KOPS_MWA_STATE_STORE}"'
     #  echo ""
     #fi
+
+    export KOPS_STATE_STORE=s3://serverassist-net-state-store
+    export KOPS_CLUSTER_NAME=quack.netlabzero.net
+
 
     echo 'export KOPS_STATE_STORE="s3://serverassist-net-state-store"'
     echo 'export KOPS_CLUSTER_NAME="amin.mobiledevassist.net"'

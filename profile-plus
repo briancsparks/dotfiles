@@ -64,7 +64,12 @@ BCS_DEV_DIR="$HOME/dev/bcs"
 # quicknet
 if [ -d "$BCS_DEV_DIR/ra-ecosystem/packages/quick-net" ]; then
   PATH="$PATH:$BCS_DEV_DIR/ra-ecosystem/packages/quick-net/bin"
-  #PATH="$PATH:$BCS_DEV_DIR/ra-ecosystem/packages/quick-net/scripts"
+  PATH="$PATH:$BCS_DEV_DIR/ra-ecosystem/packages/quick-net/scripts"
+fi
+
+if [ -d "$HOME/dev/ra-ecosystem/packages/quick-net" ]; then
+  PATH="$PATH:$HOME/dev/ra-ecosystem/packages/quick-net/bin"
+  PATH="$PATH:$HOME/dev/ra-ecosystem/packages/quick-net/scripts"
 fi
 
 #Mario
