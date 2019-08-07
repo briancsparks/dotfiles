@@ -1,0 +1,7 @@
+
+aws sts get-caller-identity
+sudo killall -HUP "mDNSResponder"
+sudo discoveryutil "mdnsflushcache"
+
+# vim: ft=sh:
+
