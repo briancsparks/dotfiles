@@ -4,6 +4,7 @@
 CAT="cat"
 hash vimcat 2> /dev/null && CAT="vimcat"
 
+# ----- Helpers -----
 show_category() {
   command="$1"
 
@@ -19,13 +20,15 @@ script_dir="$(dirname $0)"
 command="$1"
 [[ -n $command ]] && shift
 
-# --- List categories
+# ----------------------------------------------------------------------
+# ----- List categories -----
 if [[ $command == "ls" ]]; then
   ls "${script_dir}/cheats-scripts"
   exit 0
 fi
 
-# --- Show a single category
+# ----------------------------------------------------------------------
+# ----- Show a single category -----
 if [[ $# == 0 && -n $command ]]; then
   if [[ -f "${script_dir}/cheats-scripts/${command}" ]]; then
     show_category "${command}"
@@ -36,8 +39,12 @@ if [[ $# == 0 && -n $command ]]; then
   exit 0
 fi
 
-# --- Show all the categories
-for f in `ls "${script_dir}/cheats-scripts"`; do
+# ----------------------------------------------------------------------
+# ----- Show all the categories -----
+
+# ls -tr is -t == sort by date modified; -r == reverse
+# So, show the snippets files - newest modified first
+for f in `ls -tr "${script_dir}/cheats-scripts"`; do
   show_category "$f"
 done
 exit 0
