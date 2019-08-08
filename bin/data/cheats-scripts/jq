@@ -1,0 +1,7 @@
+
+# ---------- editing element ----------
+kops get cluster | jq '.spec.xkubeDNS.provider = "CoreDNS"'
+kops get ig nodes -o json | jq '.spec.maxSize=3 | .spec.minSize=3 | .spec.machineType="t3a.medium"'
+
+# vim: ft=sh:
+

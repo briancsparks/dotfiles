@@ -1,0 +1,58 @@
+
+# ---------- instance types ----------
+# https://aws.amazon.com/ec2/pricing/on-demand/
+# https://aws.amazon.com/ec2/instance-types/
+
+#             vCPU   100m  500m    ECU                      Memory          Inst Stor         Linux Cost
+# a1.medium      1                 N/A                      2     GiB     EBS Only          $0.0255
+# a1.large       2                 N/A           2          4     GiB     EBS Only          $0.051
+# a1.xlarge      4                 N/A           6          8     GiB     EBS Only          $0.102
+# t3.nano        2                 Variable                 0.5   GiB   EBS Only          $0.0052
+# t3.micro       2                 Variable                 1     GiB     EBS Only          $0.0104
+# t3.small       2                 Variable                 2     GiB     EBS Only          $0.0208
+# t3.medium      2                 Variable      2          4     GiB     EBS Only          $0.0416
+# t3.large       2                 Variable      6          8     GiB     EBS Only          $0.0832
+# t3.xlarge      4                 Variable      14         16    GiB    EBS Only          $0.1664
+# t3a.nano       2                 Variable                 0.5   GiB   EBS Only          $0.0047
+# t3a.micro      2                 Variable                 1     GiB     EBS Only          $0.0094
+# t3a.small      2                 Variable                 2     GiB     EBS Only          $0.0188
+# t3a.medium     2                 Variable      2          4     GiB     EBS Only          $0.0376
+# t3a.large      2                 Variable      6          8     GiB     EBS Only          $0.0752
+# t3a.xlarge     4                 Variable      14         16    GiB    EBS Only          $0.1504
+# m5.large       2                 8             6          8     GiB     EBS Only          $0.096
+# m5.xlarge      4                 16            14         16    GiB    EBS Only          $0.192
+# m5.12xlarge    48                173           190        192   GiB   EBS Only          $2.304
+# m5.metal       96                345           382        384   GiB   EBS Only          $4.608
+# m5a.large      2                 N/A           6          8     GiB     EBS Only          $0.086
+# m5a.xlarge     4                 N/A           14         16    GiB    EBS Only          $0.172
+# m5ad.large     2                 N/A           6          8     GiB     1 x 75 NVMe SSD   $0.103
+# m5ad.xlarge    4                 N/A           14         16    GiB    1 x 150 NVMe SSD  $0.206
+# m5ad.12xlarge  48                N/A           190        192   GiB   2 x 900 NVMe SSD  $2.472
+# m5d.large      2                 8             6          8     GiB     1 x 75 NVMe SSD   $0.113
+# m5d.xlarge     4                 16            14         16    GiB    1 x 150 NVMe SSD  $0.226
+# m5d.12xlarge   48                173           190        192   GiB   2 x 900 NVMe SSD  $2.712
+# m5d.metal      96                345           382        384   GiB   4 x 900 NVMe SSD  $5.424
+# c5.large       2                 9             2          4     GiB     EBS Only          $0.085
+# c5.xlarge      4                 17            6          8     GiB     EBS Only          $0.17
+# c5.2xlarge     8                 34            14         16    GiB    EBS Only          $0.34
+# c5.4xlarge     16                68            30         32    GiB    EBS Only          $0.68
+# c5.9xlarge     36                141           70         72    GiB    EBS Only          $1.53
+# c5.12xlarge    48                188           94         96    GiB    EBS Only          $2.04
+# c5.18xlarge    72                281           142        144   GiB   EBS Only          $3.06
+# c5.24xlarge    96                375           190        192   GiB   EBS Only          $4.08
+
+# c4.large       2                 8             1.75       3.75  GiB  EBS Only          $0.1
+
+#                    100m  500m
+# t3.micro       2   20    4       Variable                 1     GiB     EBS Only          $0.0104
+# t3.small       2   20    4       Variable                 2     GiB     EBS Only          $0.0208
+# t3a.small      2   20    4       Variable                 2     GiB     EBS Only          $0.0188
+# t3a.medium     2   20    4       Variable      2          4     GiB     EBS Only          $0.0376
+# m5.large       2   20    4       8             6          8     GiB     EBS Only          $0.096
+# m5a.large      2   20    4       N/A           6          8     GiB     EBS Only          $0.086
+# c5.large       2   20    4       9             2          4     GiB     EBS Only          $0.085
+
+
+# vim: ft=sh:
+
+

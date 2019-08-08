@@ -1,4 +1,124 @@
 
+# ---------------------------
+# ---------- Notes ----------
+
+# Kcpu:
+#   one Kcpu == 1 AWS vCPU (first column at AWS instance pricing/types pages)
+#   100m == 0.1 Kcpu
+
+# ---------------------------
+
+
+# -----------------------------------------------------------------------------------------------------------------------
+# ---------- (re)creating cluster ---------
+
+# --- Several ways to create a cluster ---
+# See: https://github.com/kubernetes/kops/blob/master/docs/networking.md
+
+# Maybe the safe way?
+#kops create cluster --node-count 2 --zones us-east-1c --master-zones us-east-1c --dns-zone quack.netlabzero.net --node-size t3.medium --master-size t3.medium --networking kube-router
+kops create cluster --node-count 2 --zones us-east-1c --master-zones us-east-1c --dns-zone quack.netlabzero.net --node-size t3.medium --master-size t3.medium --networking kube-router --vpc="vpc-01afe4d6ebb740f41" --subnets="subnet-09620c2e25e65dc27"
+
+# Then the SSH key for the instances
+kops create secret sshpublickey "admin" -i ~/.ssh/id_rsa.pub
+
+
+
+## Manually edit anything you need
+## Use your own VPC -- may not work right
+#kops create cluster --zones us-east-1c --vpc=vpc-123abc --subnets=subnet-123abc
+#
+#kops edit ig nodes
+#kops edit ig master-us-east-1c
+#kops edit cluster
+#
+## Configure nodes (4*500m; 4Gi === t3a.medium)
+#kops get ig nodes -o json | jq '.spec.maxSize=3 | .spec.minSize=3 | .spec.machineType="t3a.medium"' | kops replace -f -
+#
+## Configure master
+#kops get ig master-us-east-1c -o json | jq '.spec.machineType="t3a.small"' | kops replace -f -
+#
+## Switch to CoreDNS
+#kops get cluster -o json | jq '.spec.kubeDNS.provider = "CoreDNS"' | kops replace -f -
+
+# Update
+kops update cluster --yes
+
+# Validate / watch
+kops validate cluster
+watch kops validate cluster
+
+# When done, add AttachVolume to master IAM Role:
+#   IAM > Roles > master.xyz.domainname.net
+
+# -----------------------------------------
+
+# -----------------------------------------------------------------------------------------------------------------------
+# ---------- General Testing Cluster ----------
+
+# Check DNS
+kubectl exec -it check-cluster-123-abc -- nslookup kubernetes.default
+kubectl exec -it check-cluster-123-abc -- nslookup mongodb
+
+# ---------------------------------------------
+
+
+# -----------------------------------------------------------------------------------------------------------------------
+# ---------- Carefully Rolling Out----------
+
+# Check:
+#   The volume for Mongo is created and unattached
+kubectl get configmaps  # Should have zero configmaps
+
+# Do deployment that does not change
+kubectl apply -f lib/k8s/config/overlays/development/config-map-env.yaml
+kubectl get configmaps  # Should include the new configmap `dev-environment`
+
+# Setup all the other stuff for the cluster
+node scripts/setup-k8s-cluster.js
+kubectl get configmaps  # Should include the new configmap `nginxconfig`
+kubectl get secrets     # Should include the new secret `nginxcert`
+
+# Do without kops and konfig
+kubectl apply -f ./lib/k8s/config/base/datatier/mongodb/services.yaml
+kubectl apply -f ./lib/k8s/config/base/datatier/redis/services.yaml
+kubectl apply -f ./lib/k8s/config/base/apps/check-cluster/services.yaml
+kubectl apply -f ./lib/k8s/config/base/webtier/services.yaml
+
+kubectl apply -f ./lib/k8s/config/base/datatier/mongodb/deployment.yaml
+
+# Pause to let mongo rollout
+kubectl apply -f ./lib/k8s/config/base/datatier/redis/deployment.yaml
+kubectl apply -f ./lib/k8s/config/base/apps/check-cluster/deployment.yaml
+kubectl apply -f ./lib/k8s/config/base/webtier/deployment.yaml
+
+# If needed
+kubectl apply -f ./lib/k8s/config/debug/busybox/busybox.yaml
+kubectl apply -f ./lib/k8s/config/debug/ubuntu/xenial.yaml
+
+## Edit lib/k8s/config/base/kustomization.yaml to only do datatier
+## Edit lib/k8s/config/base/datatier/deployment.yaml to only have mongodb
+#vim lib/k8s/config/base/kustomization.yaml lib/k8s/config/base/datatier/deployment.yaml
+#
+## Update (only mongo gets deployed)
+#kubectl apply -k "lib/k8s/config/overlays/development/" --record
+#kops update cluster --yes && kops rolling-update cluster --yes
+#
+## See the changes
+#kubectl get deployments -o json | jq '.items[].status'
+#kubectl describe pods -l app=mongodb
+#
+## Revert only datatier, only mongodb
+#vim lib/k8s/config/base/kustomization.yaml lib/k8s/config/base/datatier/deployment.yaml
+#
+#kubectl apply -k "lib/k8s/config/overlays/development/" --record
+#kops update cluster --yes && kops rolling-update cluster --yes
+
+# ---------------------------------------------
+
+
+# -----------------------------------------------------------------------------------------------------------------------
+# ---------- misc ----------
 kubectl apply -k "lib/k8s/config/overlays/development/" --record
 
 cd .\lib\k8s\tiers\apps\check-cluster\
@@ -36,6 +156,16 @@ kubectl api-resources
 kubectl get services
 kubectl get configmap dev-environment
 kubectl get configmap nginxconfig -o json | jq -r '.data["default.conf"'
+
+kubectl -n kube-system get po
+kubectl get services --all-namespaces -o wide
+kubectl get endpoints --all-namespaces -o wide
+
+cls; \
+  ./scripts/build-push ./lib/k8s/tiers/base/ubuntu/Dockerfile && \
+  ./scripts/build-push ./lib/k8s/tiers/webtier/Dockerfile && \
+  ./scripts/build-push ./lib/k8s/tiers/apps/check-cluster/Dockerfile && \
+  ./scripts/build-push ./lib/k8s/tiers/debug/ubuntu/Dockerfile
 
 
 # ???

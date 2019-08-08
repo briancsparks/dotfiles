@@ -8,9 +8,13 @@ hash vimcat 2> /dev/null && CAT="vimcat"
 show_category() {
   command="$1"
 
-  echo "============================== ${command} =============================="
-  # cat "${script_dir}/cheats-scripts/${command}" | egrep -v '^exit' | egrep -v 'vim:\sft=' > "${TMP}/cheatsfile"
-  cat "${script_dir}/cheats-scripts/${command}" | egrep -v '^exit' > "${TMP}/cheatsfile"
+  echo "================================================================================"
+  printf "============================== %-18s ==============================\n" "$command"
+  echo "================================================================================"
+  echo ""
+
+  # cat "${script_dir}/data/cheats-scripts/${command}" | egrep -v '^exit' | egrep -v 'vim:\sft=' > "${TMP}/cheatsfile"
+  cat "${script_dir}/data/cheats-scripts/${command}" | egrep -v '^exit' > "${TMP}/cheatsfile"
   $CAT "${TMP}/cheatsfile"
   rm   "${TMP}/cheatsfile"
 }
@@ -23,14 +27,14 @@ command="$1"
 # ----------------------------------------------------------------------
 # ----- List categories -----
 if [[ $command == "ls" ]]; then
-  ls "${script_dir}/cheats-scripts"
+  ls -tr "${script_dir}/data/cheats-scripts"
   exit 0
 fi
 
 # ----------------------------------------------------------------------
 # ----- Show a single category -----
 if [[ $# == 0 && -n $command ]]; then
-  if [[ -f "${script_dir}/cheats-scripts/${command}" ]]; then
+  if [[ -f "${script_dir}/data/cheats-scripts/${command}" ]]; then
     show_category "${command}"
   else
     echo -n "Cannot find $command, try: "
@@ -42,9 +46,11 @@ fi
 # ----------------------------------------------------------------------
 # ----- Show all the categories -----
 
+# Show the snippets files - newest modified first -- but always show `misc` first
+show_category misc
+
 # ls -tr is -t == sort by date modified; -r == reverse
-# So, show the snippets files - newest modified first
-for f in `ls -tr "${script_dir}/cheats-scripts"`; do
+for f in `ls -tr "${script_dir}/data/cheats-scripts" | egrep -iv misc`; do
   show_category "$f"
 done
 exit 0
