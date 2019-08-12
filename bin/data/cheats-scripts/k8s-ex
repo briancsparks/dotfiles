@@ -161,11 +161,9 @@ kubectl -n kube-system get po
 kubectl get services --all-namespaces -o wide
 kubectl get endpoints --all-namespaces -o wide
 
-cls; \
-  ./scripts/build-push ./lib/k8s/tiers/base/ubuntu/Dockerfile && \
-  ./scripts/build-push ./lib/k8s/tiers/webtier/Dockerfile && \
-  ./scripts/build-push ./lib/k8s/tiers/apps/check-cluster/Dockerfile && \
-  ./scripts/build-push ./lib/k8s/tiers/debug/ubuntu/Dockerfile
+# To rollout changes to deployment that are not auto-detected by k8s
+kubectl rollout restart deployment/check-cluster
+
 
 
 # ???
