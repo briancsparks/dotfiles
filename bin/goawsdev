@@ -1,0 +1,28 @@
+#!/bin/bash -e
+
+die() {
+  echo "$@"
+  exit 2
+}
+
+sshix() {
+  ssh -A -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" -o "LogLevel=quiet" "$@"
+}
+
+aws --region us-east-1 ec2 describe-instances --filters Name=tag:bcs:development,Values= > /tmp/zz_goawsdev.json
+#aws --region us-east-1 ec2 describe-instances --filters Name=tag:xbcs:development,Values= > /tmp/zz_goawsdev.json
+
+# What is the DNS name?
+name="$(cat /tmp/zz_goawsdev.json | jq -r '.Reservations[].Instances[].PublicDnsName')"
+[[ `echo $name | wc -c` -lt 2 ]] && die "Cannot find instance"
+
+# Is it running?
+state="$(cat /tmp/zz_goawsdev.json | jq -r '.Reservations[].Instances[].State.Name')"
+[[ $state != running ]] && die "Instance is not running (it is $state)"
+
+[[ -z $instance_user ]] && instance_user="$1"
+[[ -z $instance_user ]] && instance_user="$(cat /tmp/zz_goawsdev.json | jq -r '.Reservations[].Instances[] .Tags[]|select(.Key=="username")|.Value')"
+
+
+sshix "${instance_user}@${name}"
+
