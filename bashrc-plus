@@ -228,6 +228,7 @@ goraqn()  { bcs ra-ecosystem/packages/quick-net || gdv ra-ecosystem/packages/qui
 gon()     { goe "netlab/netlab-monorepo" && test -d "netlab" && cd "netlab"; }
 gonn()    { goe "netlab/netlab-monorepo" && test -d "netlab" && cd "netlab"; cd "packages/netlab-server"; }
 
+showpath() { echo $PATH | tr ':' '\n'; }
 
 if ! [[ $OS =~ Windows ]]; then
   source <(npm completion)
