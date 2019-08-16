@@ -216,7 +216,7 @@ mclient() {
 
 jsaws()   { cd "$HOME/dev/js-aws/$1"; }
 
-bcs()     { test -d "$HOME/dev/b" && cd "$HOME/dev/b/$1" || cd "$HOME/dev/bcs/$1" ; }
+bcs()     { (test -d "$HOME/dev/b" && cd "$HOME/dev/b/$1") || (test -d "$HOME/dev/bcs/$1" && cd "$HOME/dev/bcs/$1") ; }
 goe()     { cd "$HOME/dev/e2ec/$1"; }
 gdv()     { cd "$HOME/dev/$1"; }
 
