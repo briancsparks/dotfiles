@@ -1,4 +1,4 @@
 #!/bin/bash -e
 
-cat $1 | underscore print --color
+cat $1 | jq '.'
 
