@@ -9,8 +9,15 @@ sshix() {
   ssh -A -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" -o "LogLevel=quiet" "$@"
 }
 
-aws --region us-east-1 ec2 describe-instances --filters Name=tag:bcs:development,Values= > /tmp/zz_goawsdev.json
-#aws --region us-east-1 ec2 describe-instances --filters Name=tag:xbcs:development,Values= > /tmp/zz_goawsdev.json
+#aws --region us-east-1 ec2 describe-instances --filters Name=tag:bcs:development,Values= > /tmp/zz_goawsdev.json
+zz_goawsdevjson="$(redis-cli GET 'bcs:awsdevinstance')"
+
+if [[ -z $zz_goawsdevjson ]]; then
+  zz_goawsdevjson="$(aws --region us-east-1 ec2 describe-instances --filters Name=tag:bcs:development,Values=)"
+  redis-cli SET 'bcs:awsdevinstance' "$zz_goawsdevjson" > /dev/null
+  redis-cli EXPIRE 'bcs:awsdevinstance' 3600 > /dev/null
+fi
+echo $zz_goawsdevjson > /tmp/zz_goawsdev.json
 
 # What is the DNS name?
 name="$(cat /tmp/zz_goawsdev.json | jq -r '.Reservations[].Instances[].PublicDnsName')"
