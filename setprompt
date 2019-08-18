@@ -8,11 +8,15 @@ NORMAL="\[\033[0m\]"
 BOLD="\[\033[1m\]"
 RED="\[\033[31m\]"
 REDBOLD="\[\033[31;1m\]"
+REDBG="\[\033[41m\]"
 GREEN="\[\033[32m\]"
 GREENBOLD="\[\033[32;1m\]"
+GREENBG="\[\033[42m\]"
 YELLOW="\[\033[33m\]"
+YELLOWBG="\[\033[43m\]"
 BLUE="\[\033[34m\]"
 BLUEBOLD="\[\033[35;1m\]"
+BLUEBG="\[\033[44m\]"
 WHITE="\[\033[37m\]"
 WHITEBOLD="\[\033[37;1m\]"
 WHITEBG="\[\033[47m\]"
@@ -62,7 +66,7 @@ test -f $HOME/mario_env && source $HOME/mario_env
 [[ $MARIO_SERVICE == admin ]]       && export PROMPT_WARNING="${NAMESPACE}-admin--------"
 
 SMILEY="${WHITE}:)${NORMAL}"
-FROWNY="${REDBOLD}:(${NORMAL}"
+FROWNY="${WHITE}${REDBG}:(${NORMAL}"
 SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
 #WARNING="test -n ${PROMPT_WARNING} && echo \"${WHITEBG}${REDBOLD}${PROMPT_WARNING}${NORMAL} \""
 WARNING="test -n ${PROMPT_WARNING} && echo \"${REDBOLD}${PROMPT_WARNING}${NORMAL} \""
@@ -84,7 +88,7 @@ then
   PS1="${RESET}${YELLOW}[\t] ${RED}${SG_PROMPT_PREFIX}-${YELLOW}\u\`${GS}\`:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
 elif [ "$USER" = "ubuntu" ]
 then
-  PS1="${RESET}${YELLOW}[\t] ${YELLOW}${NAMESPACE}-${YELLOW}\h\`${GS}\`:\w${NORMAL} \`${SELECT}\` ${YELLOW}\n\$${NORMAL} "
+  PS1="${RESET}${YELLOW}[\t] \`${SELECT}\` ${YELLOW}${NAMESPACE}-${YELLOW}\h\`${GS}\`:\w${NORMAL} ${YELLOW}\n\$${NORMAL} "
 fi
 
 if [[ $MARIO_SERVICE == admin ]]; then
