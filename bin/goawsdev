@@ -66,7 +66,7 @@ name="$(redis-cli GET 'bcs:awsdevinstance' | jq -r '.Reservations[].Instances[].
 [[ -z $instance_user ]] && instance_user="$(redis-cli GET 'bcs:awsdevinstance' | jq -r '.Reservations[].Instances[] .Tags[]|select(.Key=="username")|.Value')"
 
 
-if ! sshix -o "ConnectTimeout $connect_timeout" "${instance_user}@${name}"; then
+if ! sshix -o "ConnectTimeout $connect_timeout" "${instance_user}@${name}" "$@"; then
   status="$?"
   old_state="$state"
   state="$(set_cache | jq -r '.Reservations[].Instances[].State.Name')"
