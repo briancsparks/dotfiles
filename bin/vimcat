@@ -62,8 +62,8 @@
         # MSYS2 is a little tricky, we're gonna stick to the user's private temp
         # the -m mode switch to mkdir doesn't work
         tmp_dir=$(cygpath --unix "${temp}")
-        mkdir_options=""
       fi
+      mkdir_options=""
     ;;
   esac
 

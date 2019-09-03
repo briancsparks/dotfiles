@@ -21,8 +21,6 @@ clear_cache() {
   redis-cli DEL 'bcs:awsdevinstance' > /dev/null
 }
 
-#set -x
-
 connect_timeout=3
 
 zz_goawsdevjson="$(redis-cli GET 'bcs:awsdevinstance')"
