@@ -1,0 +1,83 @@
+#!/usr/bin/env node
+
+const redis   = require('redis').createClient();
+
+//const rkey="sg:insertmanyfromredis:indexer:dexes";
+const rkey=process.argv[2];
+var   numOutstanding = 0;
+function emit(data) {
+  numOutstanding += 1;
+  redis.rpush(rkey, JSON.stringify(data), (err, receipt) => {
+    numOutstanding -= 1;
+    console.log(err, receipt);
+  });
+}
+function closeEmit() {
+  if (numOutstanding > 0) {
+    return setTimeout(closeEmit, 10);
+  }
+  redis.quit();
+}
+//    return one();
+//    function one() {
+//      return redis.lpop(rkey, (err, data) => {
+//        console.log(rkey, err, data);
+//
+//        closeEmit();
+//        client.close();
+//      });
+//    }
+
+const MongoClient = require('mongodb').MongoClient;
+
+// Connection URL
+const url = 'mongodb://localhost:27017';
+
+// Database Name
+const dbName = 'sg-insertmanyfromredis';
+
+// Create a new MongoClient
+//const client = new MongoClient();
+
+// Use connect method to connect to the Server
+MongoClient.connect(url, {useNewUrlParser:true}, function(err, client) {
+  console.log("Connected successfully to server");
+
+  const db = client.db(dbName);
+//  const insertDocuments = function(db, callback) {
+    // Get the documents collection
+    const collection = db.collection('documents');
+
+    return one();
+    function one() {
+      console.log(rkey);
+      return redis.lpop(rkey, (err, data) => {
+        console.log(rkey, err, data);
+        if (data === null) {
+          closeEmit();
+          client.close();
+          return;
+        }
+
+        return collection.insertMany([JSON.parse(data)], (err, result) => {
+          console.log(`insertmany`, err, result);
+          setTimeout(one, 1);
+        });
+      });
+    }
+
+
+//    // Insert some documents
+//    collection.insertMany([
+//      {a : 1}, {a : 2}, {a : 3}
+//    ], function(err, result) {
+//      console.log("Inserted 3 documents into the collection");
+//      callback(result);
+//    });
+//  };
+//
+//  client.close();
+});
+
+
+

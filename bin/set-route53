@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+scripts_dir="$(dirname $0)"
+node "${scripts_dir}/set-route53-helper.js" UPSERT $1 $2 $3
+
+# zone_id="$(aws route53 list-hosted-zones-by-name --dns-name "${2}." | jq -r '.HostedZones[].Id' | head -1)"
+
+# aws route53 change-resource-record-sets --hosted-zone-id $zone_id --change-batch
+
+
+#     {"Changes":[{"Action":"UPSERT","ResourceRecordSet":{"Name":"${1}.${2}.","ResourceRecords":[{"Value":"$3"}],"TTL":30,"Type": "TXT"}}]}
+
+
