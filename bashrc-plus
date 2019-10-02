@@ -223,10 +223,10 @@ gdv()     { cd "$HOME/dev/$1"; }
 sa()      { test -d "$HOME/dev/serverassist/$1"         && cd "$HOME/dev/serverassist/$1"         || cd "$HOME/dev/b/serverassist/$1"; }
 serva()   { test -d "$HOME/dev/server-assist-server/$1" && cd "$HOME/dev/server-assist-server/$1" || cd "$HOME/dev/b/server-assist-server/$1"; }
 
-gora()    { bcs ra-ecosystem || gdv ra-ecosystem; }
-goraqn()  { bcs ra-ecosystem/packages/quick-net || gdv ra-ecosystem/packages/quick-net; }
-gon()     { goe "netlab/netlab-monorepo" && test -d "netlab" && cd "netlab"; }
-gonn()    { goe "netlab/netlab-monorepo" && test -d "netlab" && cd "netlab"; cd "packages/netlab-server"; }
+gora()    { cd "$(bcs-godev bcs ra-ecosystem)"; }
+goraqn()  { cd "$(bcs-godev bcs ra-ecosystem/packages/quick-net)"; }
+gon()     { cd "$(bcs-godev e2e netlab/netlab-monorepo)"; }
+gonn()    { cd "$(bcs-godev e2e netlab/netlab-monorepo/netlab/packages/netlab-server)"; }
 
 showpath() { echo $PATH | tr ':' '\n'; }
 
@@ -303,7 +303,7 @@ fi
 test -f ${HOME}/dotfiles/setprompt      && . ${HOME}/dotfiles/setprompt
 test -f ${HOME}/dev/dotfiles/setprompt  && . ${HOME}/dev/dotfiles/setprompt
 
-test -f $HOME/dotfiles/messages/login.sh && $catprg $HOME/dotfiles/messages/login.sh
+#test -f $HOME/dotfiles/messages/login.sh && $catprg $HOME/dotfiles/messages/login.sh
 
 verbose "---------- bashrc-plus end"
 
