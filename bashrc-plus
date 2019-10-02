@@ -15,7 +15,7 @@ test -f ${HOME}/dotfiles/proxy-setup        && source ${HOME}/dotfiles/proxy-set
 test -f ${HOME}/dev/dotfiles/proxy-setup    && source ${HOME}/dev/dotfiles/proxy-setup
 
 # some more ls aliases
-alias ll='ls -alF'
+alias ll='ls -alFrt'
 alias la='ls -A'
 alias l='ls -CF'
 

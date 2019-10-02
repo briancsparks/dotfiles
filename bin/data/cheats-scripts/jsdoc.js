@@ -23,5 +23,5 @@
  *
  */
 
-# vim: ft=javascript:
+// vim: ft=javascript:
 

@@ -1,5 +1,9 @@
 #!/bin/bash -e
 
+# const [x,y, action, subdomain, domain, ip] = process.argv;
+#
+# set-route53 subdomain domain.name IP
+
 scripts_dir="$(dirname $0)"
 node "${scripts_dir}/set-route53-helper.js" UPSERT $1 $2 $3
 

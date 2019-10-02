@@ -34,5 +34,5 @@
  * @returns  {Object}            - The value read from the JSON file.
  */
 
-# vim: ft=javascript:
+// vim: ft=javascript:
 
