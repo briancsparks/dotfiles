@@ -8,8 +8,9 @@ var   result        = '';
 const ifaceList     = os.networkInterfaces();
 var   ifaceNames    = Object.keys(ifaceList);
 
-ifaceNames = ifaceNames.filter(name => !name.toLowerCase().startsWith('vethernet'));
+ifaceNames = ifaceNames.filter(name => ! (name.toLowerCase().startsWith('vethernet') && !name.toLowerCase().match(/primary virtual switch/i)));
 ifaceNames = ifaceNames.filter(name => !name.toLowerCase().startsWith('vmware'));
+ifaceNames = ifaceNames.filter(name => !name.toLowerCase().startsWith('virtualbox'));
 
 var   ifaces = ifaceNames.reduce((m, name) => {
   ifaceList[name].forEach(iface => {
@@ -44,7 +45,7 @@ if (haveNet15) {
   });
 }
 
-//console.log(result);
+// console.log(result, path.join(os.tmpdir(), 'network-type'));
 
 fs.writeFileSync(path.join(os.tmpdir(), 'network-type'), result);
 
