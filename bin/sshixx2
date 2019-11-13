@@ -1,0 +1,8 @@
+#!/bin/bash -e
+
+login1="$1"
+login2="$2"
+cmd="$3"
+
+# echo sshixx $login1 "sshixx $login2 '$cmd'"
+sshixx $login1 "sshixx $login2 '$cmd'"

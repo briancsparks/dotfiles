@@ -1,0 +1,16 @@
+#!/bin/bash -e
+
+role="$1"
+cmd="$2"
+
+echo -n "Getting bastion... "
+login1="ubuntu@$(instance-by-role qn:roles bastion PublicIpAddress)"
+echo "$login1"
+
+echo -n "Getting ${role}... "
+login2="ubuntu@$(instance-by-role qn:roles ${role} PrivateIpAddress)"
+echo "$login2"
+
+echo ""
+# echo sshixx2 $login1 $login2 "$cmd"
+sshixx2 $login1 $login2 "$cmd"
