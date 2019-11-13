@@ -56,11 +56,61 @@ autocmd ColorScheme * highlight ErrorWhitespace ctermbg=red guibg=red
 "
 
 " Next / Previous tab
-:map <F7> :tabp<CR>
-:map <F8> :tabn<CR>
+:noremap <F7> :tabp<CR>
+:noremap <F8> :tabn<CR>
 
 " Open new tab
-:map <C-t> <esc>:tabe<CR>,t
+:noremap <C-t> <esc>:tabe<CR>,t
+
+" Open file from the same dir
+:noremap <Leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
+
+" Clear search
+:nnoremap <silent> ,. :nohlsearch<CR>
+
+" Edit / Source .vimrc
+:nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+:nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" Use jk as <ESC>
+:inoremap jk <esc>
+
+
+"
+" ------------------------------------- // to search while in visual mode -------------------------------
+"
+:vnoremap // y/<C-R>"<CR>
+
+"
+" ------------------------------------- C++ -------------------------------
+"
+" https://stackoverflow.com/questions/2627886/how-do-i-run-a-c-program-from-vim
+"
+:let $CXXFLAGS='-std=c++11'
+:nnoremap <silent> <F10> :!clear;make %< && ./%<<CR>
+
+" ---------------------------------------------------------------------------
+
+
+"" -------------------------------------- abbreviations -------------------------------------
+":inoreabbrev @g briancsparks@gmail.com
+":inoreabbrev @h brian.c.sparks@hp.com
+":inoreabbrev ccopy Copyright (C), HP, Inc. all rights reserved
+
+
+
+" ---------------------------------------------------------------------------
+
+:color desert
+" :color delek
+
+
+
+
+" :source ~/zz_packages/vim/runtime/macros/matchit.vim
+
+let g:ackprg="/usr/local/bin/ack -H --nocolor --column"
+" Lets see if we like these
 
 " Switch to syntastic style
 " " Next and previous error (quickfix)
@@ -71,19 +121,11 @@ autocmd ColorScheme * highlight ErrorWhitespace ctermbg=red guibg=red
 :map <C-n> :lnext<CR>
 :map <C-p> :lprevious<CR>
 
-" Open file from the same dir
-:map <Leader>e :e <C-R>=expand("%:p:h") . '/'<CR>
-
-" Clear search
-nmap <silent> ,. :nohlsearch<CR>
-
-:color desert
-" :color delek
-
-" :source ~/zz_packages/vim/runtime/macros/matchit.vim
-
-let g:ackprg="/usr/local/bin/ack -H --nocolor --column"
-" Lets see if we like these
+"
+" ------------------------------------- vimwiki  --------------------------------------------------
+"
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
 
 "
 " ------------------------------------- vim-javascript  --------------------------------------------------
@@ -190,11 +232,6 @@ endif
 
 
 "
-" ------------------------------------- // to search while in visual mode -------------------------------
-"
-vnoremap // y/<C-R>"<CR>
-
-"
 " ------------------------------------- a better Ctrl-Y -------------------------------
 "
 " From https://www.ibm.com/developerworks/library/l-vim-script-1/index.html
@@ -217,14 +254,20 @@ endfunction
 "Reimplement CTRL-Y within insert mode...
 imap <silent>  <C-Y>  <C-R><C-R>=LookUpwards()<CR>
 
-"
-" ------------------------------------- C++ -------------------------------
-"
-" https://stackoverflow.com/questions/2627886/how-do-i-run-a-c-program-from-vim
-"
-:let $CXXFLAGS='-std=c++11'
-nnoremap <silent> <F10> :!clear;make %< && ./%<<CR>
 
-
-
+" Do not have to use :set paste ever again!
+if &term =~ "xterm.*"
+    let &t_ti = &t_ti . "\e[?2004h"
+    let &t_te = "\e[?2004l" . &t_te
+    function! XTermPasteBegin(ret)
+        set pastetoggle=<Esc>[201~
+        set paste
+        return a:ret
+    endfunction
+    map <expr> <Esc>[200~ XTermPasteBegin("i")
+    imap <expr> <Esc>[200~ XTermPasteBegin("")
+    vmap <expr> <Esc>[200~ XTermPasteBegin("c")
+    cmap <Esc>[200~ <nop>
+    cmap <Esc>[201~ <nop>
+endif
 
