@@ -24,6 +24,7 @@
 --ignore-dir=script
 --ignore-dir=system
 --ignore-dir=.idea
+--ignore=node_modules
 
 --ruby
 --css

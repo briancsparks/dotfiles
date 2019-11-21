@@ -1,0 +1,36 @@
+#!/bin/bash -e
+
+sshix() { ssh -A -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" -o "LogLevel=quiet" "$@"; }
+
+
+QN_ROLE="$1"
+ATTRIBUTE="$2"
+
+
+[[ -n $QN_ROLE ]]       || QN_ROLE="bastion"
+[[ -n $ATTRIBUTE ]]     || ATTRIBUTE="PublicIpAddress"
+
+APP_FILE="$HOME/dev/bcs/jsaws-cli/app.js"
+[[ -n $XHOME ]]         && APP_FILE="$XHOME/dev/bcs/jsaws-cli/app.js"
+
+# Get the bastion instance
+echo "Looking up bastion instance (${QN_ROLE})..." 1>&2
+BASTION_IP="$(node "${APP_FILE}" EC2 describeInstances | jq '.Instances[] | select(.tag_qn_roles__bastion) | select(.State.Code == 16)' | jq -r '.PublicIpAddress')"
+echo $BASTION_IP
+
+if [[ $QN_ROLE == bastion ]]; then
+  sshix ubuntu@${BASTION_IP}
+  exit 0
+fi
+
+# Have to route into anything else
+echo "Looking up ${QN_ROLE} instance..." 1>&2
+INST_PRIVATE_IP="$(node "${APP_FILE}" EC2 describeInstances | jq ".Instances[] | select(.tag_qn_roles__${QN_ROLE}) | select(.State.Code == 16)" | jq -r '.PrivateIpAddress')"
+echo $INST_PRIVATE_IP
+
+# TODO: Have to setup forwarding
+# sshix ubuntu@${BASTION_IP}
+
+echo "Currently, you can ony `qnsshto bastion`. I have not figured out how to have one ssh instance up and running in the bg"
+echo "with port forwarding, and then fire up a second one for the terminal connection"
+

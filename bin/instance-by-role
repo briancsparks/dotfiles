@@ -3,21 +3,39 @@
 # A lot like:
 # aws ec2 describe-instances --query "Reservations[].Instances[?Tags[?Key == 'qn:roles' && contains(Value, ':bastion:')][] ][].PublicIpAddress" | jq -r '.[]'
 
+# jsaws-cli> node .\app.js EC2 describeInstances | jq -r '.Instances[] | select(.tag_qn_roles__bastion) | select(.State.Code == 80)'
+# aws ec2 start-instances --instance-ids `redis-cli.exe LRANGE instanceids 0 -1`
+
 # TAG_NAME="qn:roles"
 # TAG_SUBVALUE="bastion"
 # ATTRIBUTE="PublicIpAddress"
 
-TAG_NAME="$1"
-TAG_SUBVALUE="$2"
-ATTRIBUTE="$3"
-
-TQUERY="?Key == '${TAG_NAME}' && contains(Value, ':${TAG_SUBVALUE}:')"
-
-if [[ -n "$ATTRIBUTE" ]]; then
-  aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query "Reservations[].Instances[?Tags[${TQUERY}][] ][].${ATTRIBUTE}" | jq -r '.[]'
-else
-  aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query "Reservations[].Instances[?Tags[${TQUERY}][] ][]"
-  # Pipe to, for example:  | jq -r '.[].InstanceId'
+if [[ $# == 0 ]]; then
+  # echo "instance-by-role tag-name (qn:roles) tag-role (bastion) aws-attribute (PublicIpAddress)"
+  echo "instance-by-role tag-role (bastion) [aws-attribute (PublicIpAddress)]"
 fi
+
+# TAG_NAME="$1"
+TAG_SUBVALUE="$1"
+ATTRIBUTE="$2"
+
+[[ -n $TAG_SUBVALUE ]] || TAG_SUBVALUE="bastion"
+[[ -n $ATTRIBUTE ]]    || ATTRIBUTE="PublicIpAddress"
+
+if which redis-cli > /dev/null; then
+  if [[ `redis-cli TYPE jsaws:EC2:describeInstances` != none ]]; then
+    redis-cli GET jsaws:EC2:describeInstances | jq -r ".Instances[] | select(.tag_qn_roles__${TAG_SUBVALUE}) | select(.State.Code != 80)" | jq -r ".${ATTRIBUTE}"
+  fi
+fi
+exit 0
+
+# TQUERY="?Key == '${TAG_NAME}' && contains(Value, ':${TAG_SUBVALUE}:')"
+
+# if [[ -n "$ATTRIBUTE" ]]; then
+#   aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query "Reservations[].Instances[?Tags[${TQUERY}][] ][].${ATTRIBUTE}" | jq -r '.[]'
+# else
+#   aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query "Reservations[].Instances[?Tags[${TQUERY}][] ][]"
+#   # Pipe to, for example:  | jq -r '.[].InstanceId'
+# fi
 
 

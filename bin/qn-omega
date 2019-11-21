@@ -1,0 +1,48 @@
+#!/bin/bash -e
+
+#
+# foo | bar -xyz | baz --not again    | qn-omega <qn-omega-command>
+#
+#
+# qn-omega-commands:
+#
+#   LPUSH - Any Redis command will do the following for each item:  `redis-cli LPUSH $@ $x`
+#
+#           booya | qn-omega LPUSH InstanceIds
+#
+
+
+# Put zero-param version here
+if [[ $# > 0 ]]; then
+
+  exit 0
+fi
+
+# -----------------------------------------------------------------------------------------------------------------------------
+redis_shovel() {
+  REDIS_COMMAND="$1"
+
+  cat - | while read x; do
+
+    echo redis-cli $REDIS_COMMAND  "$1" "$x"
+    redis-cli $REDIS_COMMAND "$1" "$x"
+  done
+}
+
+# First arg is command
+COMMAND="$1"
+shift
+
+# ${COMMAND,,} is toLowerCase() for bash
+if [[ ${COMMAND,,} == lpush ]]; then
+  redis_shovel $COMMAND "$@"
+  # cat - | while read x; do
+
+  #   # echo redis-cli $COMMAND  "$1" "$x"
+  #   redis-cli $COMMAND "$1" "$x"
+  # done
+
+  exit 0
+fi
+
+redis_shovel $COMMAND
