@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+if [[ $# == 0 ]]; then
+
+  redis-cli KEYS '*'
+else
+  redis-cli KEYS "$@"
+fi
+
+

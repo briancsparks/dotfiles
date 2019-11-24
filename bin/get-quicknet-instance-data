@@ -1,0 +1,46 @@
+#!/bin/bash -e
+
+# Cache all instance data to redis and /tmp
+
+# Being called with one param (key) is to check the cache
+# Being called with two params (key, value), is to set the cache value
+
+
+KEY="$1"
+shift
+
+if [[ $# == 0 ]]; then
+
+  # # Its safe to echo
+  # echo "Key: $KEY"
+
+  # echo "Num keys: $#"
+
+  # If the data is at the file, success
+  if test -f /tmp/quicknet-instance-data; then
+    echo "Found in /tmp" 1>&2
+    exit 0
+  fi
+
+  # If it is in redis, success, but copy to a file
+  if [[ `redis-cli EXISTS "quicknet-cachedata-${KEY}"` == 1 ]]; then
+    redis-cli GET "quicknet-cachedata-${KEY}" > "/tmp/quicknet-cachedata-${KEY}"
+    echo "Found in redis, put in /tmp" 1>&2
+    exit 0
+  fi
+
+  # No such luck
+  echo "Not found" 1>&2
+  exit 1
+fi
+
+VALUE="$1"
+shift
+
+echo "Setting" 1>&2
+
+# They are setting the value
+redis-cli SET "quicknet-cachedata-${KEY}" "$VALUE"
+redis-cli EXPIRE "quicknet-cachedata-${KEY}" 720
+
+echo "$VALUE" > "/tmp/quicknet-cachedata-${KEY}"

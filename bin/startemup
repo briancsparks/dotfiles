@@ -1,0 +1,16 @@
+#!/bin/bash -e
+
+scripts_dir="$(dirname $0)"
+
+# Start up any instance that is stopped and doesn't have a dontstart tag
+
+if ! ${scripts_dir}/get-quicknet-instance-data "instances"; then
+  ${scripts_dir}/get-quicknet-instance-data "instances" "`aws ec2 describe-instances`"
+fi
+
+
+cat "/tmp/quicknet-cachedata-instances" | \
+    jq '.Reservations[].Instances[] | select(.State.Code != 16) | select(.Tags[].Key != "dontstart")' | \
+    jq -r '.InstanceId' | \
+        xargs aws ec2 start-instances --instance-ids
+
