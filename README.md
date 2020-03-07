@@ -4,6 +4,12 @@ My dotfiles
 
 ## Notes
 
+The best way to get scripts_dir:
+
+```bash
+scripts_dir="$(dirname "$(readlink -f "$0")")"
+```
+
 - [ ] See Paul Irish's dotfiles (https://github.com/paulirish/dotfiles)
   - [ ] .aliases (https://github.com/paulirish/dotfiles/blob/master/.aliases)
   - [ ] .functions (https://github.com/paulirish/dotfiles/blob/master/.functions)
