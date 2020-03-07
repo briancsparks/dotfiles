@@ -1,14 +1,23 @@
 # dotfiles
 My dotfiles
 
-
-## Notes
+## scripts_dir
 
 The best way to get scripts_dir:
 
 ```bash
 scripts_dir="$(dirname "$(readlink -f "$0")")"
 ```
+
+On Mac, install `coreutils`, and `alias readlink=greadlink`
+
+```bash
+brew install coreutils
+
+greadlink -f file.txt
+```
+
+## Notes
 
 - [ ] See Paul Irish's dotfiles (https://github.com/paulirish/dotfiles)
   - [ ] .aliases (https://github.com/paulirish/dotfiles/blob/master/.aliases)
