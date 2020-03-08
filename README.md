@@ -6,7 +6,7 @@ My dotfiles
 The best way to get scripts_dir:
 
 ```bash
-scripts_dir="$(dirname "$(readlink -f "$0")")"
+script_dir="$(dirname "$(readlink -f "$0")")"
 ```
 
 On Mac, install `coreutils`, and `alias readlink=greadlink`
