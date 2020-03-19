@@ -101,8 +101,9 @@ autocmd ColorScheme * highlight ErrorWhitespace ctermbg=red guibg=red
 
 " ---------------------------------------------------------------------------
 
-:color desert
+" :color desert
 " :color delek
+:color torte
 
 
 
@@ -270,4 +271,11 @@ if &term =~ "xterm.*"
     cmap <Esc>[200~ <nop>
     cmap <Esc>[201~ <nop>
 endif
+
+
+
+
+nmap <unique> <F9> <Plug>ColorstepPrev
+nmap <unique> <S-F9> <Plug>ColorstepNext
+nmap <unique> <M-F9> <Plug>ColorstepReload
 
