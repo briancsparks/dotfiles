@@ -1,36 +1,80 @@
 #!/bin/bash -e
 
-do_clean() {
+do_clean_branch() {
   pushd . > /dev/null
 
   DIR="$1"
 
   cd $DIR
-  local mod=$(git status --short | wc -l)
-  local new=$(git ls-files -o --exclude-standard | wc -l)
+  local mod=$(git status --short | wc -l | tr -d ' ')
+  local new=$(git ls-files -o --exclude-standard | wc -l | tr -d ' ')
   local branch=$(git status | egrep -i 'on branch .*$' | cut -d' ' -f3-)
 
-  if [[ $new == 0 && $mod == 0 ]]; then
-    printf -- "------------------------- clean ---- %s %-14s %s\n"  $(hostname)  $branch  $DIR
-    git status | sed -n '/up-to-date/d;/Your branch is/p'
+  if [[ -n $branch ]]; then
+    if [[ $new == 0 && $mod == 0 ]]; then
+      printf -- "------------------------- clean ---- %s %-14s %s\n"  $(hostname)  $branch  $DIR
+      git status | sed -n '/up-to-date/d;/up to date/d;/Your branch is/p'
+    fi
   fi
 
   popd > /dev/null
 }
 
-do_changed() {
+do_changed_branch() {
   pushd . > /dev/null
 
   DIR="$1"
 
   cd $DIR
-  local mod=$(git status --short | wc -l)
-  local new=$(git ls-files -o --exclude-standard | wc -l)
+  local mod=$(git status --short | wc -l | tr -d ' ')
+  local new=$(git ls-files -o --exclude-standard | wc -l | tr -d ' ')
   local branch=$(git status | egrep -i 'on branch .*$' | cut -d' ' -f3-)
 
-  if [[ $new != 0 || $mod != 0 ]]; then
-    printf -- "------------------------------------ %s %-14s %s\n"  $(hostname)  $branch  $DIR
-    git status --short
+  if [[ -n $branch ]]; then
+    if [[ $new != 0 || $mod != 0 ]]; then
+      printf -- "------------------------------------ %s %-14s %s\n"  $(hostname)  $branch  $DIR
+      git status --short
+    fi
+  fi
+
+  popd > /dev/null
+}
+
+do_clean_no_branch() {
+  pushd . > /dev/null
+
+  DIR="$1"
+
+  cd $DIR
+  local mod=$(git status --short | wc -l | tr -d ' ')
+  local new=$(git ls-files -o --exclude-standard | wc -l | tr -d ' ')
+  local branch=$(git status | egrep -i 'on branch .*$' | cut -d' ' -f3-)
+
+  if [[ -z $branch ]]; then
+    if [[ $new == 0 && $mod == 0 ]]; then
+      printf -- "------------------------- clean ---- %s %-14s %s\n"  $(hostname)  $branch  $DIR
+      git status | sed -n '/up-to-date/d;/up to date/d;/Your branch is/p'
+    fi
+  fi
+
+  popd > /dev/null
+}
+
+do_changed_no_branch() {
+  pushd . > /dev/null
+
+  DIR="$1"
+
+  cd $DIR
+  local mod=$(git status --short | wc -l | tr -d ' ')
+  local new=$(git ls-files -o --exclude-standard | wc -l | tr -d ' ')
+  local branch=$(git status | egrep -i 'on branch .*$' | cut -d' ' -f3-)
+
+  if [[ -z $branch ]]; then
+    if [[ $new != 0 || $mod != 0 ]]; then
+      printf -- "------------------------------------ %s %-14s %s\n"  $(hostname)  $branch  $DIR
+      git status --short
+    fi
   fi
 
   popd > /dev/null
@@ -76,21 +120,45 @@ git config --global --get 'user.email' | egrep -i yoshi && git config --global -
 
 repositories="$(find $target_dir -type d | egrep '\.git$' | egrep -v 'X/\.git$' | egrep -v '/dev/[^/]+X/' | sort)"
 
-# Display changed
+
+
+
+
+# Display changed that are not on a branch
+echo "===== no branch ====="
 for d in $repositories; do
   dir="$(dirname $(dirname $d/..))"
 
-  do_changed $dir
+  do_changed_no_branch $dir
 done
 
 # Display clean dirs
 for d in $repositories; do
   dir="$(dirname $(dirname $d/..))"
 
-  do_clean $dir
+  do_clean_no_branch $dir
 done
 
-do_changed "$HOME/dotfiles"
-do_clean "$HOME/dotfiles"
+do_changed_no_branch "$HOME/dotfiles"
+do_clean_no_branch "$HOME/dotfiles"
+
+# Display changed that are on a branch
+echo "===== on a branch ====="
+
+for d in $repositories; do
+  dir="$(dirname $(dirname $d/..))"
+
+  do_changed_branch $dir
+done
+
+# Display clean dirs
+for d in $repositories; do
+  dir="$(dirname $(dirname $d/..))"
+
+  do_clean_branch $dir
+done
+
+do_changed_branch "$HOME/dotfiles"
+do_clean_branch "$HOME/dotfiles"
 
 
