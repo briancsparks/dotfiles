@@ -6,7 +6,7 @@ die() {
 }
 
 scripts_dir="$(dirname $0)"
-out_dir="$HOME/certs"
+out_dir="$HOME/letsencrypt-certs"
 
 auth_domain="$1"
 domains="$2"
@@ -20,9 +20,9 @@ certbot certonly --non-interactive --manual \
   --manual-auth-hook "${scripts_dir}/certbot-route53-auth-hook.sh UPSERT ${auth_domain}" \
   --manual-cleanup-hook "${scripts_dir}/certbot-route53-auth-hook.sh DELETE ${auth_domain}" \
   --preferred-challenge dns \
-  --config-dir "$out_dir" \
-  --work-dir "$out_dir" \
-  --logs-dir "$out_dir" \
+  --config-dir "${out_dir}/config/" \
+  --work-dir   "${out_dir}/work/" \
+  --logs-dir   "${out_dir}/logs/" \
   --agree-tos \
   --manual-public-ip-logging-ok \
   --domains ${domains} \

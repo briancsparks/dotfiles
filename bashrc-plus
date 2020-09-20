@@ -52,6 +52,8 @@ gi() { curl -sL "https://www.gitignore.io/api/$@" ; }
 alias tohome='test -d /mnt/c/Users && cd /mnt/c/Users && test -d sparksb && cd sparksb'
 alias gohome='test -d /mnt/c/Users && cd /mnt/c/Users && test -d sparksb && cd sparksb'
 
+mcd() { mkdir -p $@ && cd $@; }
+
 alias fn='find . -type f | egrep -i '
 alias fd='find . -type d | egrep -i '
 
@@ -64,12 +66,14 @@ alias hi='history | egrep -i '
 alias vim='vim -p'
 alias nvim='nvim -p'
 alias tree="tree -I 'node_modules|bower_components|ppds|_tmp|cmake-build|doxygen-build'"
+alias treesm="tree -I 'node_modules|bower_components|ppds|_tmp|cmake-build|doxygen-build|build'"
 
 # git
 alias wip='git commit -am "WIP"'
 alias refactoring='git commit -am "Refactoring"'
 alias fixed='git commit -am "Fixed"'
 alias gpff='git pull --ff-only'
+alias cdr0dns='aws route53 list-resource-record-sets --hosted-zone-id /hostedzone/ZGFBEAK36D73U'
 
 alias _run='underscore run '
 alias _extract='underscore extract '
@@ -92,12 +96,15 @@ alias _all='underscore all '
 alias _template='underscore template '
 alias _print='underscore print --color '
 
+# Use ssh "${SSHOPTS[@]}" user@host
+export SSHOPTS=(-A -o 'StrictHostKeyChecking no' -o 'UserKnownHostsFile=/dev/null' -o 'LogLevel=quiet')
+
 alias ssh='ssh   -A'
 alias sshx='ssh  -A -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
-alias sshix='ssh -A -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" -o "LogLevel=quiet"'
+#alias sshix='ssh -A -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" -o "LogLevel=quiet"'
 alias sshxi='ssh -A -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" -o "LogLevel=quiet"'
 alias scpx='scp     -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null"'
-alias scpix='scp    -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" -o "LogLevel=quiet"'
+#alias scpix='scp    -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" -o "LogLevel=quiet"'
 alias scpxi='scp    -o "StrictHostKeyChecking no" -o "UserKnownHostsFile=/dev/null" -o "LogLevel=quiet"'
 
 alias gru="git remote update"

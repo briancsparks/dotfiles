@@ -11,8 +11,8 @@ die() {
 
 resize_it() {
   if [[ -n $2 ]]; then
-    echo convert $3 -resize $1 "${2}"
-    convert $3 -resize $1 "${2}"
+    echo convert $3 -resize $1 -unsharp '1.5x1+0.7+0.02' "${2}"
+    convert $3 -resize $1 -unsharp '1.5x1+0.7+0.02' "${2}"
   else
     echo "skipping " convert $3 -resize $1 "${2}"
   fi
@@ -34,7 +34,7 @@ if [[ -n $1 ]]; then
 fi
 [[ -z $loc ]] && loc="/tmp/logo.png"
 
-if ! find . -maxdepth 1 -type f | egrep ic_launcher\.png$ | egrep -v intermediate | egrep mdpi; then
+if ! find . -maxdepth 2 -type f | egrep ic_launcher\.png$ | egrep -v intermediate | egrep mdpi; then
   echo "Must be in the 'res' directory:"
   find . -type d | egrep -i '/res/mipmap-mdpi$' | egrep -v -i '/build/' | sort | uniq | xargs -n 1 dirname
   echo ""
@@ -45,7 +45,7 @@ fi
 echo "|$color| |$label| |$loc|"
 
 
-convert -pointsize 2400 -fill "$color" -background none -flatten -font 'CourierNewB' label:"$label" -trim +repage "$loc"
+convert -pointsize 2400 -fill "$color" -background none -flatten -font 'CourierNew' label:"$label" -trim +repage "$loc"
 
 #assets=$(find ./ -type f | egrep ic_launcher\.png$ | egrep -v intermediate)
 
@@ -54,6 +54,12 @@ resize_it 72x72   "$(find . -maxdepth 2 -type f | egrep ic_launcher\.png$ | egre
 resize_it 96x96   "$(find . -maxdepth 2 -type f | egrep ic_launcher\.png$ | egrep -v intermediate | egrep -- '-xhdpi')" "$loc"
 resize_it 144x144 "$(find . -maxdepth 2 -type f | egrep ic_launcher\.png$ | egrep -v intermediate | egrep -- '-xxhdpi')" "$loc"
 resize_it 192x192 "$(find . -maxdepth 2 -type f | egrep ic_launcher\.png$ | egrep -v intermediate | egrep -- '-xxxhdpi')" "$loc"
+
+resize_it 48x48   "$(find . -maxdepth 2 -type f | egrep ic_launcher\.round\.png$ | egrep -v intermediate | egrep mdpi)" "$loc"
+resize_it 72x72   "$(find . -maxdepth 2 -type f | egrep ic_launcher\.round\.png$ | egrep -v intermediate | egrep -- '-hdpi')" "$loc"
+resize_it 96x96   "$(find . -maxdepth 2 -type f | egrep ic_launcher\.round\.png$ | egrep -v intermediate | egrep -- '-xhdpi')" "$loc"
+resize_it 144x144 "$(find . -maxdepth 2 -type f | egrep ic_launcher\.round\.png$ | egrep -v intermediate | egrep -- '-xxhdpi')" "$loc"
+resize_it 192x192 "$(find . -maxdepth 2 -type f | egrep ic_launcher\.round\.png$ | egrep -v intermediate | egrep -- '-xxxhdpi')" "$loc"
 
 echo "huge original at: $loc"
 

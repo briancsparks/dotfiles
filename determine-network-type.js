@@ -47,5 +47,6 @@ if (haveNet15) {
 
 // console.log(result, path.join(os.tmpdir(), 'network-type'));
 
-fs.writeFileSync(path.join(os.tmpdir(), 'network-type'), result);
+//fs.writeFileSync(path.join(os.tmpdir(), 'network-type'), result);
+fs.writeFileSync(path.join(process.env.TMP, 'network-type'), result);
 
