@@ -1,7 +1,8 @@
 #!/bin/bash -e
 
-if [[ $# == 0 ]]; then
+# use -h redis to pick host
 
+if [[ $# == 0 ]]; then
   redis-cli KEYS '*'
 else
   redis-cli KEYS "$@"
