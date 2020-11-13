@@ -1,0 +1,26 @@
+#!/bin/bash -e
+
+readlink_f() { which greadlink > /dev/null && greadlink -f $1 || readlink -f $1; }
+script_dir="$( cd "$(dirname "$( readlink_f "${BASH_SOURCE[0]}" )" )" && pwd )"
+
+errcho() { echo "$@" 1>&2; }
+die() { errcho "$@"; exit 1; }
+
+#if [[ $# > 1 ]]; then
+#  FONT="$1"
+#  shift
+#fi
+
+FONT="$LETTERS_FONT"
+[[ -z $FONT ]] && FONT="Big Money-nw"
+
+(
+  echo "--------------------------------------------------------------------------------------------------------------------"
+  echo ""
+  figlet -f "${FONT}" "$@"
+  echo ""
+  echo "--------------------------------------------------------------------------------------------------------------------"
+) | sed 's:^:  // :' | clipboard
+
+clipboard | cat -
+
