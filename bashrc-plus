@@ -68,6 +68,9 @@ alias nvim='nvim -p'
 alias tree="tree -I 'node_modules|bower_components|ppds|_tmp|cmake-build|doxygen-build'"
 alias treesm="tree -I 'node_modules|bower_components|ppds|_tmp|cmake-build|doxygen-build|build'"
 
+alias duhs='for d in `ls`; do test -d $d && (cd $d; pwd; du -h | tail -1); sleep 0.2; done'
+alias dus='for d in `ls`; do test -d $d && (cd $d; pwd; du | tail -1); sleep 0.2; done'
+
 # git
 alias wip='git commit -am "WIP"'
 alias refactoring='git commit -am "Refactoring"'
