@@ -236,6 +236,7 @@ gon()     { cd "$(bcs-godev e2e netlab/netlab-monorepo)"; }
 gonn()    { cd "$(bcs-godev e2e netlab/netlab-monorepo/netlab/packages/netlab-server)"; }
 
 showpath() { echo $PATH | tr ':' '\n'; }
+showenv() { env | sort; }
 
 function highlight() {
   declare -A fg_color_map

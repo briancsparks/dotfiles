@@ -21,7 +21,7 @@ fi
 
 echo "#!/bin/bash -e" >> "$@"
 echo "" >> "$@"
-echo 'readlink_f() { which greadlink > /dev/null && greadlink -f $1 || readlink -f $1; }' >> "$@"
+echo 'readlink_f() { which greadlink > /dev/null 2> /dev/null && greadlink -f $1 || readlink -f $1; }' >> "$@"
 echo 'script_dir="$( cd "$(dirname "$( readlink_f "${BASH_SOURCE[0]}" )" )" && pwd )"' >> "$@"
 echo "" >> "$@"
 echo 'errcho() { echo "$@" 1>&2; }' >> "$@"
