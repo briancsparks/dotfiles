@@ -1,4 +1,8 @@
 #!/bin/bash -e
 
-cat $1 | strip-json-comments | jq -C '.'
+FILE="$1"
+[[ -z $FILE ]] && FILE="package.json"
+[[ $FILE == package ]] && FILE="package.json"
+
+cat $FILE | strip-json-comments | jq -C '.'
 

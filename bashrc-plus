@@ -224,6 +224,10 @@ mclient() {
   fi
 }
 
+export MAIN_WORK_DIR="$HOME/dev/MobileApps/smartio-work"
+
+cdw()     { cd "$MAIN_WORK_DIR"; }
+cdw2()    { cd "$MAIN_WORK_DIR2"; }
 jsaws()   { cd "$HOME/dev/js-aws/$1"; }
 
 bcs()     { test -d "$HOME/dev/b" && cd "$HOME/dev/b/$1" ; test -d "$HOME/dev/bcs" && cd "$HOME/dev/bcs/$1" ; }
