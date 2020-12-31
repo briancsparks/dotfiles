@@ -22,15 +22,18 @@ done
 npm install -g eslint babel-eslint eslint-plugin-react underscore-cli yarn || \
     sudo npm install -g eslint babel-eslint eslint-plugin-react underscore-cli yarn
 
-# TODO: ensure Ubuntu
-sudo apt-get install -y silversearcher-ag curl socat tree htop jq parallel nmap git mercurial gawk \
-    subversion cscope exuberant-ctags realpath unzip zip graphviz dos2unix
+if which apt-get > /dev/null; then
+  sudo apt-get install -y silversearcher-ag curl socat tree htop jq parallel nmap git mercurial gawk \
+      subversion cscope exuberant-ctags realpath unzip zip graphviz dos2unix
+else
+  echo "Install silversearcher-ag curl socat tree htop jq parallel nmap git mercurial gawk subversion cscope exuberant-ctags realpath unzip zip graphviz dos2unix"
+fi
 
 # VIM setup
 mkdir -p ~/.vim/autoload ~/.vim/bundle
 
 # (***)
-test -f ~/.vim/autoload/pathogen.vim || curl -SLso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+test -f ~/.vim/autoload/pathogen.vim || curl -SLso ~/.vim/autoload/pathogen.vim https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 
 
 
@@ -55,8 +58,8 @@ fi
 
 # TODO: only for Linux
 # Linuxbrew, fzf / ntl
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-
+#sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+#
 # TODO: once we can install and use brew in one fell swoop, do this:
 #$(brew --prefix)/opt/fzf/install
 

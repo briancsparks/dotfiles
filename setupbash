@@ -4,7 +4,11 @@ test -f ../.profile         && cp ../.profile       ../profile-before-dotfiles-s
 test -f ../.bashrc          && cp ../.bashrc        ../bashrc-before-dotfiles-setup
 test -f ../.bash_profile    && cp ../.bash_profile  ../bash_profile-before-dotfiles-setup
 
-cp .profile ../
-cp .bashrc ../
-cp .bash_profile ../
+#cp .profile ../
+#cp .bashrc ../
+#cp .bash_profile ../
+
+echo 'test -f "${HOME}/dotfiles/.profile"        && source "${HOME}/dotfiles/.profile"'          >> ${HOME}/.profile
+echo 'test -f "${HOME}/dotfiles/.bashrc"         && source "${HOME}/dotfiles/.bashrc"'           >> ${HOME}/.bashrc
+echo 'test -f "${HOME}/dotfiles/.bash_profile"   && source "${HOME}/dotfiles/.bash_profile"'     >> ${HOME}/.bash_profile
 

@@ -14,6 +14,10 @@ hash vimcat && catprg="vimcat"
 test -f ${HOME}/dotfiles/proxy-setup        && source ${HOME}/dotfiles/proxy-setup
 test -f ${HOME}/dev/dotfiles/proxy-setup    && source ${HOME}/dev/dotfiles/proxy-setup
 
+# Include dotfileses binaries in PATH
+[ -d "$HOME/dotfiles" ]       && PATH="$PATH:${HOME}/dotfiles/bin"
+[ -d "$HOME/dev/dotfiles" ]   && PATH="$PATH:${HOME}/dev/dotfiles/bin"
+
 # some more ls aliases
 alias ll='ls -alFrt'
 alias la='ls -A'

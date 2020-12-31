@@ -12,7 +12,7 @@ if [ -z $NETWORK_TYPE ]; then
   if which node > /dev/null; then
 
     rm -f "${TMP}/network-type"
-    node ${HOME}/dotfiles/determine-network-type.js
+    node dotfiles/determine-network-type.js
     . <(cat "${TMP}/network-type")
 
   fi

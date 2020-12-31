@@ -34,9 +34,9 @@ BCS_DEV_DIR="$HOME/dev/bcs"
 [ -d "$HOME/bin" ]            && PATH="$HOME/bin:$PATH"
 [ -d "$HOME/local/bin" ]      && PATH="$HOME/local/bin:$PATH"
 
-# Include dotfileses binaries in PATH
-[ -d "$HOME/dotfiles" ]       && PATH="$PATH:${HOME}/dotfiles/bin"
-[ -d "$HOME/dev/dotfiles" ]   && PATH="$PATH:${HOME}/dev/dotfiles/bin"
+## Include dotfileses binaries in PATH
+#[ -d "$HOME/dotfiles" ]       && PATH="$PATH:${HOME}/dotfiles/bin"
+#[ -d "$HOME/dev/dotfiles" ]   && PATH="$PATH:${HOME}/dev/dotfiles/bin"
 
 # Include bridge47 scripts in PATH
 [[ -d "$HOME/dev/bridge47/admin"      ]] && PATH="$PATH:$HOME/dev/bridge47/admin"
