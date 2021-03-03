@@ -79,6 +79,8 @@ alias dus='for d in `ls`; do test -d $d && (cd $d; pwd; du | tail -1); sleep 0.2
 alias wip='git commit -am "WIP"'
 alias refactoring='git commit -am "Refactoring"'
 alias fixed='git commit -am "Fixed"'
+alias bump='git commit -am "bump version"'
+
 alias gpff='git pull --ff-only'
 alias cdr0dns='aws route53 list-resource-record-sets --hosted-zone-id /hostedzone/ZGFBEAK36D73U'
 
