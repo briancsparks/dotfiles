@@ -5,14 +5,27 @@ eval "$(cli-shezargs $@)"
 die() {
   echo $@
   echo ""
-  echo "Usage: $(basename $0) label [color] [location]"
+  echo "Usage: $(basename $0) label [font [color [location]]]"
+  echo ""
+  echo "  --bold"
+  echo "  --italic"
+  echo "  --wait          Pause after generating huge original."
+  echo ""
+  echo "       i.e. android-project-logo '***' Courier-New royalblue /tmp/android-project-logo/logo.png"
+  echo "       i.e. android-project-logo '***' Courier-New royalblue c:\\cygwin64\\tmp\\android-project-logo\\"
+  echo ""
   echo "       royalblue is the default color"
-  echo "       see https://www.imagemagick.org/script/color.php for color names"
+  echo "         see https://www.imagemagick.org/script/color.php for color names"
+  echo ""
+  echo "       Courier-New is the default font"
+  echo "         Arial is also good"
+  echo "         c:\\Windows\\fonts\\ARIALN.TTF for Window's Arial-Narrow"
+  echo "         use 'convert -list font' (or ...type for old versions)"
   echo ""
   echo '   Will generate icons for an android project (mdpi - xxxhdpi) and put them in'
   echo '   the right folder, if invoked from the 'res' directory.'
   echo ""
-  echo '   1. Generate "/tmp/logo.png" from $1'
+  echo '   1. Generate "/tmp/android-project-logo/logo.png" from $1'
   echo '   2. Resize and copy into various icon dirs (probably)'
   echo ""
 
@@ -36,6 +49,13 @@ resize_it() {
 label="$1"
 shift
 
+# ----------------------------------- font
+if [[ -n $1 ]]; then
+  font="$1"
+  shift
+fi
+[[ -z $font ]] && font="Courier-New"
+
 # ----------------------------------- color
 if [[ -n $1 ]]; then
   color="$1"
@@ -46,25 +66,22 @@ fi
 # ----------------------------------- loc
 if [[ -n $1 ]]; then
   loc="$1"
+  shift
 fi
-[[ -z $loc ]] && loc="/tmp/logo.png"
+[[ -z $loc ]] && loc="/tmp/android-project-logo/logo.png"
 
-# ----------------------------------- font
-if [[ -n $1 ]]; then
-  font="$1"
-fi
-[[ -z $font ]] && font="Courier-New"
-
+# ----------------------------------- bold
 if [[ $bold == 1 ]]; then
   font="${font}-Bold"
 fi
 
+# ----------------------------------- italic
 if [[ $italic == 1 ]]; then
   font="${font}-Italic"
 fi
 
 # ----------------------------------- go
-if ! find . -maxdepth 2 -type f | egrep ic_launcher\.png$ | egrep -v intermediate | egrep mdpi; then
+if ! find . -maxdepth 2 -type f | egrep 'ic_launcher\.(png|webp)$' | egrep -v intermediate | egrep mdpi; then
   echo "Must be in the 'res' directory:"
   #find . -maxdepth 3 -type d | egrep -i '/res/mipmap-mdpi$' | egrep -v -i '/build/' | sort | uniq | xargs -n 1 dirname
   echo ""
@@ -72,25 +89,31 @@ if ! find . -maxdepth 2 -type f | egrep ic_launcher\.png$ | egrep -v intermediat
   echo ""
 fi
 
-echo "|$color| |$label| |$loc| |$font|"
+echo "color: |$color|, label: |$label|, loc: |$loc|, font: |$font|"
 
 
 #convert -pointsize 2400 -fill "$color" -background none -flatten -font 'CourierNew' label:"$label" -trim +repage "$loc"
 convert -pointsize 2400 -fill "$color" -background none -flatten -font "$font" label:"$label" -trim +repage "$loc"
 
+if [[ $wait == 1 ]]; then
+  echo ""
+  echo "Original at: $loc"
+  read -p "Press any key to continue..."
+fi
+
 #assets=$(find ./ -type f | egrep ic_launcher\.png$ | egrep -v intermediate)
 
-resize_it 48x48   "$(find . -maxdepth 2 -type f | egrep ic_launcher\.png$ | egrep -v intermediate | egrep mdpi)" "$loc"
-resize_it 72x72   "$(find . -maxdepth 2 -type f | egrep ic_launcher\.png$ | egrep -v intermediate | egrep -- '-hdpi')" "$loc"
-resize_it 96x96   "$(find . -maxdepth 2 -type f | egrep ic_launcher\.png$ | egrep -v intermediate | egrep -- '-xhdpi')" "$loc"
-resize_it 144x144 "$(find . -maxdepth 2 -type f | egrep ic_launcher\.png$ | egrep -v intermediate | egrep -- '-xxhdpi')" "$loc"
-resize_it 192x192 "$(find . -maxdepth 2 -type f | egrep ic_launcher\.png$ | egrep -v intermediate | egrep -- '-xxxhdpi')" "$loc"
+resize_it 48x48   "$(find . -maxdepth 2 -type f | egrep 'ic_launcher\.(png|webp)$' | egrep -v intermediate | egrep mdpi)" "$loc"
+resize_it 72x72   "$(find . -maxdepth 2 -type f | egrep 'ic_launcher\.(png|webp)$' | egrep -v intermediate | egrep -- '-hdpi')" "$loc"
+resize_it 96x96   "$(find . -maxdepth 2 -type f | egrep 'ic_launcher\.(png|webp)$' | egrep -v intermediate | egrep -- '-xhdpi')" "$loc"
+resize_it 144x144 "$(find . -maxdepth 2 -type f | egrep 'ic_launcher\.(png|webp)$' | egrep -v intermediate | egrep -- '-xxhdpi')" "$loc"
+resize_it 192x192 "$(find . -maxdepth 2 -type f | egrep 'ic_launcher\.(png|webp)$' | egrep -v intermediate | egrep -- '-xxxhdpi')" "$loc"
 
-resize_it 48x48   "$(find . -maxdepth 2 -type f | egrep ic_launcher\.round\.png$ | egrep -v intermediate | egrep mdpi)" "$loc"
-resize_it 72x72   "$(find . -maxdepth 2 -type f | egrep ic_launcher\.round\.png$ | egrep -v intermediate | egrep -- '-hdpi')" "$loc"
-resize_it 96x96   "$(find . -maxdepth 2 -type f | egrep ic_launcher\.round\.png$ | egrep -v intermediate | egrep -- '-xhdpi')" "$loc"
-resize_it 144x144 "$(find . -maxdepth 2 -type f | egrep ic_launcher\.round\.png$ | egrep -v intermediate | egrep -- '-xxhdpi')" "$loc"
-resize_it 192x192 "$(find . -maxdepth 2 -type f | egrep ic_launcher\.round\.png$ | egrep -v intermediate | egrep -- '-xxxhdpi')" "$loc"
+resize_it 48x48   "$(find . -maxdepth 2 -type f | egrep 'ic_launcher_round\.(png|webp)$' | egrep -v intermediate | egrep mdpi)" "$loc"
+resize_it 72x72   "$(find . -maxdepth 2 -type f | egrep 'ic_launcher_round\.(png|webp)$' | egrep -v intermediate | egrep -- '-hdpi')" "$loc"
+resize_it 96x96   "$(find . -maxdepth 2 -type f | egrep 'ic_launcher_round\.(png|webp)$' | egrep -v intermediate | egrep -- '-xhdpi')" "$loc"
+resize_it 144x144 "$(find . -maxdepth 2 -type f | egrep 'ic_launcher_round\.(png|webp)$' | egrep -v intermediate | egrep -- '-xxhdpi')" "$loc"
+resize_it 192x192 "$(find . -maxdepth 2 -type f | egrep 'ic_launcher_round\.(png|webp)$' | egrep -v intermediate | egrep -- '-xxxhdpi')" "$loc"
 
 echo "huge original at: $loc"
 

@@ -58,8 +58,11 @@ alias gohome='test -d /mnt/c/Users && cd /mnt/c/Users && test -d sparksb && cd s
 
 mcd() { mkdir -p $@ && cd $@; }
 
-alias fn='find . -type f | egrep -i '
-alias fd='find . -type d | egrep -i '
+alias fn_='find . -type f | egrep -i '
+alias fd_='find . -type d | egrep -i '
+
+alias fn='find . -type f | egrep -v intermediate | egrep -i '
+alias fd='find . -type d | egrep -v intermediate | egrep -i '
 
 # We can do better?
 hash fnn  && alias fn='fnn'
@@ -324,7 +327,7 @@ fi
 test -f ${HOME}/dotfiles/setprompt      && . ${HOME}/dotfiles/setprompt
 test -f ${HOME}/dev/dotfiles/setprompt  && . ${HOME}/dev/dotfiles/setprompt
 
-#test -f $HOME/dotfiles/messages/login.sh && $catprg $HOME/dotfiles/messages/login.sh
+test -f $HOME/dotfiles/messages/login.sh && $catprg $HOME/dotfiles/messages/login.sh
 
 verbose "---------- bashrc-plus end"
 

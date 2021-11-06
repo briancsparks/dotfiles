@@ -8,135 +8,136 @@ test -f ${HOME}/dev/dotfiles/helpers    && source ${HOME}/dev/dotfiles/helpers
 
 verbose "---------- proxy-setup start; starting with |$NETWORK_TYPE|"
 
-if [ -z $NETWORK_TYPE ]; then
-  if which node > /dev/null; then
 
-    rm -f "${TMP}/network-type"
-    node dotfiles/determine-network-type.js
-    . <(cat "${TMP}/network-type")
-
-  fi
-fi
-
-if [ -z $NETWORK_TYPE ]; then
-  if [[ $OS =~ Windows ]]; then
-    if ipconfig | egrep 'IPv4[^:]+: 1[56]\.'; then export NETWORK_TYPE="net15"
-    elif ipconfig | egrep 'IPv4[^:]+: 192\.'; then export NETWORK_TYPE="home"
-    elif ipconfig | egrep 'IPv4[^:]+: 10\.'; then export NETWORK_TYPE="net10"
-    fi
-  else
-    if ifconfig | egrep 'inet (addr:)?1[56]\.' ; then export NETWORK_TYPE="net15"
-    elif ifconfig | egrep 'inet (addr:)?192\.' ; then export NETWORK_TYPE="home"
-    elif ifconfig | egrep 'inet (addr:)?10\.' ; then export NETWORK_TYPE="net10"
-    fi
-  fi
-
-  # Do we also have wifi?
-  if [[ $NETWORK_TYPE == net15 ]]; then
-    if [[ $OS =~ Windows ]]; then
-      echo "windows"
-      # (ipconfig | egrep 'IPv4[^:]+: 10\.') && export NETWORK_TYPE="net10"
-    else
-      (ifconfig | egrep 'inet (addr:)?10\.') && export NETWORK_WITH_WIFI="net10"
-      #(ifconfig | egrep 'inet (addr:)?(10|172)\.') && export NETWORK_WITH_WIFI="net10"
-    fi
-  fi
-fi
-
-verbose "proxy-setup NETWORK_TYPE: |$NETWORK_TYPE|, NETWORK_WITH_WIFI: |$NETWORK_WITH_WIFI|"
-
-if [[ $NETWORK_TYPE == net15 && -z $NETWORK_WITH_WIFI ]]; then
-
-  [[ -n $hush_script ]] || echo 'Assuming net15, and using proxy'
-
-  verbose "exporting proxy settings"
-
-  #export the_proxy_server_host=proxy.austin.hp.com       # Died Aug 04, 2017
-  #export the_proxy_server_host=proxy.houston.hp.com
-  #export the_proxy_server_host=proxy.atlanta.hp.com
-
-  export the_proxy_server_host=proxy-txn.austin.hpicorp.net
-  #export the_proxy_server_host=web-proxy.austin.hpicorp.net      # alternate
-  export the_proxy_server_port=8080
-  export the_proxy_server="${the_proxy_server_host}:${the_proxy_server_port}"
-
-  export http_proxy="http://${the_proxy_server}/"
-  export HTTP_PROXY="http://${the_proxy_server}/"
-
-  export https_proxy="https://${the_proxy_server}/"
-  export httpsx_proxy="http://${the_proxy_server}/"
-  export HTTPS_PROXY="https://${the_proxy_server}/"
-  export HTTPSX_PROXY="http://${the_proxy_server}/"
-
-  export socks_proxy="socks://${the_proxy_server}/"
-  export all_proxy="socks://${the_proxy_server}/"
-  export ALL_PROXY="socks://${the_proxy_server}/"
-
-  export EC2_JVM_ARGS="-Dhttps.proxyHost=${the_proxy_server_host} -Dhttps.proxyPort=${the_proxy_server_port}"
-
-  if hash git > /dev/null; then
-    verbose "Setting git proxy config"
-    git config --global http.proxy "${http_proxy}"
-  fi
-
-  # Bower behind a proxy
-  verbose "Setting bower proxy config"
-  test -f ${HOME}/.bowerrc-proxy && cp ${HOME}/.bowerrc-proxy ${HOME}/.bowerrc
-
-  if ! [[ $OS =~ Windows ]]; then
-    # npm behind a proxy
-    if which npm > /dev/null; then
-      verbose "Setting npm proxy config"
-      npm config set proxy ${http_proxy}
-      npm config set https-proxy ${httpsx_proxy}
-    fi
-
-    # apm (Atom editor) behind a proxy
-    if which apm > /dev/null; then
-      verbose "Setting apm proxy config"
-      apm config set proxy ${http_proxy}
-      apm config set https-proxy ${httpsx_proxy}
-    fi
-  fi
-
-else
-
-  if [[ $NETWORK_TYPE == net15 && -n $NETWORK_WITH_WIFI ]]; then
-    [[ -n $hush_script ]] || echo 'Assuming net15 with wifi, NOT using proxy'
-  elif [[ $NETWORK_TYPE == net10 ]]; then
-    [[ -n $hush_script ]] || echo 'Assuming cloud net, NOT using proxy'
-  else
-    [[ -n $hush_script ]] || echo 'Assuming home net, NOT using proxy'
-  fi
-
-  if hash git > /dev/null; then
-    git config --global --unset http.proxy
-  fi
-
-  # Bower not behind a proxy
-  rm -f ${HOME}/.bowerrc
-
-  if ! [[ $OS =~ Windows ]]; then
-    # npm not behind a proxy
-    if which npm > /dev/null; then
-      npm config delete proxy
-      npm config delete https-proxy
-    fi
-
-    # apm (Atom editor) not behind a proxy
-    if which apm > /dev/null; then
-      apm config delete proxy
-      apm config delete https-proxy
-    fi
-  fi
-fi
-
-export no_proxy=localhost,127.0.0.0/8,15.80.0.0/16,192.168.0.0/16,hq.local.mobilewebassist.net,local.mobilewebassist.net
-export NO_PROXY=localhost,127.0.0.0/8,15.80.0.0/16,192.168.0.0/16,hq.local.mobilewebassist.net,local.mobilewebassist.net
-
-# Apparently, this is the right way to do it  -- https://github.com/curl/curl/issues/1015
-export https_proxy="$httpsx_proxy"
-export HTTPS_PROXY="$HTTPSX_PROXY"
+#if [ -z $NETWORK_TYPE ]; then
+#  if which node > /dev/null; then
+#
+#    rm -f "${TMP}/network-type"
+#    node dotfiles/determine-network-type.js
+#    . <(cat "${TMP}/network-type")
+#
+#  fi
+#fi
+#
+#if [ -z $NETWORK_TYPE ]; then
+#  if [[ $OS =~ Windows ]]; then
+#    if ipconfig | egrep 'IPv4[^:]+: 1[56]\.'; then export NETWORK_TYPE="net15"
+#    elif ipconfig | egrep 'IPv4[^:]+: 192\.'; then export NETWORK_TYPE="home"
+#    elif ipconfig | egrep 'IPv4[^:]+: 10\.'; then export NETWORK_TYPE="net10"
+#    fi
+#  else
+#    if ifconfig | egrep 'inet (addr:)?1[56]\.' ; then export NETWORK_TYPE="net15"
+#    elif ifconfig | egrep 'inet (addr:)?192\.' ; then export NETWORK_TYPE="home"
+#    elif ifconfig | egrep 'inet (addr:)?10\.' ; then export NETWORK_TYPE="net10"
+#    fi
+#  fi
+#
+#  # Do we also have wifi?
+#  if [[ $NETWORK_TYPE == net15 ]]; then
+#    if [[ $OS =~ Windows ]]; then
+#      echo "windows"
+#      # (ipconfig | egrep 'IPv4[^:]+: 10\.') && export NETWORK_TYPE="net10"
+#    else
+#      (ifconfig | egrep 'inet (addr:)?10\.') && export NETWORK_WITH_WIFI="net10"
+#      #(ifconfig | egrep 'inet (addr:)?(10|172)\.') && export NETWORK_WITH_WIFI="net10"
+#    fi
+#  fi
+#fi
+#
+#verbose "proxy-setup NETWORK_TYPE: |$NETWORK_TYPE|, NETWORK_WITH_WIFI: |$NETWORK_WITH_WIFI|"
+#
+#if [[ $NETWORK_TYPE == net15 && -z $NETWORK_WITH_WIFI ]]; then
+#
+#  [[ -n $hush_script ]] || echo 'Assuming net15, and using proxy'
+#
+#  verbose "exporting proxy settings"
+#
+#  #export the_proxy_server_host=proxy.austin.hp.com       # Died Aug 04, 2017
+#  #export the_proxy_server_host=proxy.houston.hp.com
+#  #export the_proxy_server_host=proxy.atlanta.hp.com
+#
+#  export the_proxy_server_host=proxy-txn.austin.hpicorp.net
+#  #export the_proxy_server_host=web-proxy.austin.hpicorp.net      # alternate
+#  export the_proxy_server_port=8080
+#  export the_proxy_server="${the_proxy_server_host}:${the_proxy_server_port}"
+#
+#  export http_proxy="http://${the_proxy_server}/"
+#  export HTTP_PROXY="http://${the_proxy_server}/"
+#
+#  export https_proxy="https://${the_proxy_server}/"
+#  export httpsx_proxy="http://${the_proxy_server}/"
+#  export HTTPS_PROXY="https://${the_proxy_server}/"
+#  export HTTPSX_PROXY="http://${the_proxy_server}/"
+#
+#  export socks_proxy="socks://${the_proxy_server}/"
+#  export all_proxy="socks://${the_proxy_server}/"
+#  export ALL_PROXY="socks://${the_proxy_server}/"
+#
+#  export EC2_JVM_ARGS="-Dhttps.proxyHost=${the_proxy_server_host} -Dhttps.proxyPort=${the_proxy_server_port}"
+#
+#  if hash git > /dev/null; then
+#    verbose "Setting git proxy config"
+#    git config --global http.proxy "${http_proxy}"
+#  fi
+#
+#  # Bower behind a proxy
+#  verbose "Setting bower proxy config"
+#  test -f ${HOME}/.bowerrc-proxy && cp ${HOME}/.bowerrc-proxy ${HOME}/.bowerrc
+#
+#  if ! [[ $OS =~ Windows ]]; then
+#    # npm behind a proxy
+#    if which npm > /dev/null; then
+#      verbose "Setting npm proxy config"
+#      npm config set proxy ${http_proxy}
+#      npm config set https-proxy ${httpsx_proxy}
+#    fi
+#
+#    # apm (Atom editor) behind a proxy
+#    if which apm > /dev/null; then
+#      verbose "Setting apm proxy config"
+#      apm config set proxy ${http_proxy}
+#      apm config set https-proxy ${httpsx_proxy}
+#    fi
+#  fi
+#
+#else
+#
+#  if [[ $NETWORK_TYPE == net15 && -n $NETWORK_WITH_WIFI ]]; then
+#    [[ -n $hush_script ]] || echo 'Assuming net15 with wifi, NOT using proxy'
+#  elif [[ $NETWORK_TYPE == net10 ]]; then
+#    [[ -n $hush_script ]] || echo 'Assuming cloud net, NOT using proxy'
+#  else
+#    [[ -n $hush_script ]] || echo 'Assuming home net, NOT using proxy'
+#  fi
+#
+#  if hash git > /dev/null; then
+#    git config --global --unset http.proxy
+#  fi
+#
+#  # Bower not behind a proxy
+#  rm -f ${HOME}/.bowerrc
+#
+#  if ! [[ $OS =~ Windows ]]; then
+#    # npm not behind a proxy
+#    if which npm > /dev/null; then
+#      npm config delete proxy
+#      npm config delete https-proxy
+#    fi
+#
+#    # apm (Atom editor) not behind a proxy
+#    if which apm > /dev/null; then
+#      apm config delete proxy
+#      apm config delete https-proxy
+#    fi
+#  fi
+#fi
+#
+#export no_proxy=localhost,127.0.0.0/8,15.80.0.0/16,192.168.0.0/16,hq.local.mobilewebassist.net,local.mobilewebassist.net
+#export NO_PROXY=localhost,127.0.0.0/8,15.80.0.0/16,192.168.0.0/16,hq.local.mobilewebassist.net,local.mobilewebassist.net
+#
+## Apparently, this is the right way to do it  -- https://github.com/curl/curl/issues/1015
+#export https_proxy="$httpsx_proxy"
+#export HTTPS_PROXY="$HTTPSX_PROXY"
 
 verbose "---------- proxy-setup end"
 

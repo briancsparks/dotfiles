@@ -11,5 +11,5 @@ if [[ "$@" == node_mod* ]]; then
   exit "$?"
 fi
 
-find $DIR -type d | egrep -v node_module | egrep --color=auto -i "$@"
+find $DIR -type d | egrep -v node_module | egrep -v intermediate | egrep -v generated | egrep --color=auto -i "$@"
 

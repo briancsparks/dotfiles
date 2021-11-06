@@ -80,7 +80,12 @@ fi
 # krew is a k8s utility to install kubectl add-ons
 export PATH="$HOME/.krew/bin:$PATH"
 
-export PATH="$GOPATH/bin:$PATH"
+
+#export GOROOT="${USERPROFILE}\go"
+#export GOPATH="${USERPROFILE}\go"
+#unset GOPATH
+
+#export PATH="$GOROOT/bin:$PATH"
 
 # Linuxbrew
 test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
