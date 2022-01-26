@@ -64,6 +64,10 @@ alias fd_='find . -type d | egrep -i '
 alias fn='find . -type f | egrep -v intermediate | egrep -i '
 alias fd='find . -type d | egrep -v intermediate | egrep -i '
 
+# Put the current-working-dir onto the clipboard
+alias clwd='cygpath --unix `pwd` | clipboard'
+alias ej='vim ~/jump.json'
+
 # We can do better?
 hash fnn  && alias fn='fnn'
 hash fdd  && alias fd='fdd'
@@ -83,6 +87,7 @@ alias wip='git commit -am "WIP"'
 alias refactoring='git commit -am "Refactoring"'
 alias fixed='git commit -am "Fixed"'
 alias bump='git commit -am "bump version"'
+alias gfirst='git commit -am first'
 
 alias gpff='git pull --ff-only'
 alias cdr0dns='aws route53 list-resource-record-sets --hosted-zone-id /hostedzone/ZGFBEAK36D73U'
@@ -124,8 +129,13 @@ alias gpff="git pull --ff-only"
 
 alias valgrind-s='valgrind --suppressions=/Users/sparksb/catch2-valgrind-suppressions.supp'
 
-alias vim-config-files='vim -p $HOME/.profile $HOME/.bashrc $HOME/dotfiles/bashrc-plus $HOME/dotfiles/profile-plus $HOME/dotfiles/proxy-setup $HOME/.bash_profile'
+alias vim-config-files='vim -p $HOME/.profile $HOME/.bashrc $HOME/dotfiles/bashrc-plus $HOME/dotfiles/profile-plus $HOME/dotfiles/proxy-setup $HOME/.bash_profile $HOME/dotfiles/messages/login.sh'
 alias vim-setup-files='vim -p $HOME/.aws/config $HOME/.aws/credentials $HOME/.ssh/config'
+
+#alias gam='git commit -am '
+gam() {
+  git commit -am "$*"
+}
 
 mgru()
 {
@@ -253,6 +263,28 @@ gonn()    { cd "$(bcs-godev e2e netlab/netlab-monorepo/netlab/packages/netlab-se
 
 showpath() { echo $PATH | tr ':' '\n'; }
 showenv() { env | sort; }
+
+j() {
+  if [[ $# < 1 ]]; then
+    echo "Must provide a destination.   Usage: j destination"
+    echo "Add destinations:   vim ~/jump.json"
+    echo "  or clwd && ej"
+    echo ""
+    echo "Destinations:       $(cat ~/jump.json | jq -r 'keys[]' | tr '\n' ' ')"
+    echo ""
+  else
+
+    loc="$(cat "${HOME}/jump.json" | jq -r ".${1}")"
+    #echo "loc: |${loc}|"
+
+    if [[ $loc == null ]]; then
+      echo "Do not know $1; add it to ~/jump.json.  vim ~/jump.json"
+      echo "  or clwd && ej"
+    else
+      cd $loc
+    fi
+  fi
+}
 
 function highlight() {
   declare -A fg_color_map
