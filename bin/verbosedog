@@ -1,7 +1,0 @@
-#!/bin/bash -e
-
-mkdir -p /tmp/verbosedog && cd $_
-pwd
-sleep 3
-adb -d logcat -d -b all -v threadtime -v usec -v year -v UTC -v epoch | tee "dog-$$.log" | tee latest.log
-

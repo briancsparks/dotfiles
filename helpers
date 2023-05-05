@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-verbose() {
-  if [[ -n ${SHELL_VERBOSITY} || -f $HOME/.verbose-login ]]; then
-    echo "---------- " "$@"
-  fi
-}
-
