@@ -1,4 +1,0 @@
-#!/bin/bash -e
-
-cat package.json | underscore print --color
-

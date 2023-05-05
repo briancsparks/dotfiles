@@ -1,9 +1,0 @@
-#!/usr/local/bin/gawk -f
-
-{ h[$0]++; next; }
-
-END {
-  for (x in h) {print h[x]" "x}
-}
-
-

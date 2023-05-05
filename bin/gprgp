@@ -1,4 +1,0 @@
-#!/bin/bash -e
-
-git pull --rebase && git push
-
